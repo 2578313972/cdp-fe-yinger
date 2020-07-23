@@ -1,0 +1,25 @@
+[{
+	"operate_type": ["update", "active"],
+	"stages": [{
+		"id": 223,
+		"stage": "stage1",
+		"enabled": true
+	}, {
+		"id": 224,
+		"stage": "stage2",
+		"enabled": false
+	}],
+	"review_type": "trait"
+}, {
+	"operate_type": ["update", "active"],
+	"stages": [{
+		"id": 225,
+		"stage": "stage1",
+		"enabled": false
+	}, {
+		"id": 226,
+		"stage": "stage2",
+		"enabled": true
+	}],
+	"review_type": "crowd"
+}]

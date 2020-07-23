@@ -1,0 +1,19 @@
+{
+    "source_channel_code": "c1",
+    "source_channel_name": "通用渠道",
+    "target_channel_code": "c2",
+    "target_channel_name": "目标渠道名",
+    "auth_info": [{
+            "source_code": "t1",
+            "source_name": "特性1",
+            "target_code": "t26",
+            "target_name": "文本特性-勿删"
+        },
+        {
+            "source_code": "t2",
+            "source_name": "特性2",
+            "target_code": "t45",
+            "target_name": "宝宝生日"
+        }
+    ]
+}

@@ -1,0 +1,27 @@
+{
+	"items": [{
+		"code": "string1",
+		"res_name": "首次访问门店"
+	}, {
+		"code": "string2",
+		"res_name": "首次购买门店"
+	}, {
+		"code": "string3",
+		"res_name": "历史购买门店"
+	}, {
+		"code": "string4",
+		"res_name": "注册绑定员工"
+	}, {
+		"code": "string5",
+		"res_name": "历史购买品牌"
+	}, {
+		"code": "string6",
+		"res_name": "首次购买品牌"
+	}, {
+		"code": "string7",
+		"res_name": "注册城市"
+	}, {
+		"code": "string8",
+		"res_name": "注册区域"
+	}]
+}

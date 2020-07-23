@@ -1,0 +1,23 @@
+.tree {
+    padding-left: 15px;
+    height: 100%;
+    overflow: auto;
+    .scroll-content {
+        padding-left: 15px;
+    }
+    .ivu-tree {
+        button.ivu-btn {
+            border: none;
+        }
+    }
+    .file-color {
+        color: rgba(23,35,61,0.55);
+    }
+    .color {
+        color: #2D8CF0;
+    }
+    .hide-icon {
+        width: 0;
+        visibility: hidden;
+    }
+}

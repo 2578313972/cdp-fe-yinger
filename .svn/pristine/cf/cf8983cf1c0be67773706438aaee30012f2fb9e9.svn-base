@@ -1,0 +1,30 @@
+{
+    "total": 4,
+    "size": 10,
+    "page": 1,
+    "items": [{
+            "source_channel_code": "c1",
+            "source_channel_name": "通用渠道",
+            "source_channel_type": "APP IOS",
+            "target_channel_code": "c2",
+            "target_channel_name": "目标渠道名",
+            "target_channel_type": "general",
+            "is_id_mapping": true,
+            "trait_auth": 10,
+            "event_auth": 3,
+            "touch_point_auth": 1
+        },
+        {
+            "source_channel_code": "c1",
+            "source_channel_name": "通用渠道",
+            "source_channel_type": "APP IOS",
+            "target_channel_code": "c2",
+            "target_channel_name": "目标渠道名",
+            "target_channel_type": "general",
+            "is_id_mapping": true,
+            "trait_auth": 10,
+            "event_auth": 3,
+            "touch_point_auth": 1
+        }
+    ]
+}

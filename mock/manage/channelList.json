@@ -1,0 +1,82 @@
+{
+	"total": 3,
+	"items": [{
+			"name": "string79979879",
+			"channel_type_code": 0,
+			"channel_type_name": "通用渠道",
+			"channel_id": "CpmKNrwKQ",
+			"event_count": 0,
+			"auth_count": 0
+		},
+		{
+			"name": "ppjkkj",
+			"channel_type_code": 0,
+			"channel_type_name": "通用渠道",
+			"channel_id": "CVqSFprU3",
+			"event_count": 0,
+			"auth_count": 11
+		},
+		{
+			"name": " 1name1",
+			"channel_type_code": 0,
+			"channel_type_name": "通用渠道",
+			"channel_id": "Ch7USTJRs",
+			"event_count": 0,
+			"auth_count": 0
+		},
+		{
+			"name": "这是修改后的名字",
+			"channel_type_code": 3,
+			"channel_type_name": "微信服务号",
+			"channel_id": "CVpvAA49Q",
+			"event_count": 0,
+			"auth_count": 1
+		},
+		{
+			"name": "dsadadsg",
+			"channel_type_code": 0,
+			"channel_type_name": "通用渠道",
+			"channel_id": "C7Kl94ZdD",
+			"event_count": 0,
+			"auth_count": 0
+		},
+		{
+			"name": "stdqdring",
+			"channel_type_code": 0,
+			"channel_type_name": "通用渠道",
+			"channel_id": "CXaDUPdty",
+			"event_count": 0,
+			"auth_count": 9
+		},
+		{
+			"name": "string2",
+			"channel_type_code": 0,
+			"channel_type_name": "通用渠道",
+			"channel_id": "CWcKux1oc",
+			"event_count": 0,
+			"auth_count": 0
+		},
+		{
+			"name": "string",
+			"channel_type_code": 0,
+			"channel_type_name": "通用渠道",
+			"channel_id": "ChpsRFEqE",
+			"event_count": 0,
+			"auth_count": 15
+		},
+		{
+			"name": "摇一摇",
+			"channel_type_code": 22,
+			"channel_id": "CVARwgcMX",
+			"event_count": 0,
+			"auth_count": 1
+		},
+		{
+			"name": "漂流瓶11",
+			"channel_type_code": 11,
+			"channel_id": "C7EJ51BUZ",
+			"event_count": 0,
+			"auth_count": 1
+		}
+	]
+}

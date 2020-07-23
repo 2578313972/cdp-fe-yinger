@@ -1,0 +1,29 @@
+{
+	"total": 1,
+	"items": [{
+		"name": "名称",
+		"res_code": "$totalUsers",
+		"org_id": "talking131",
+		"org_type": 0,
+		"org_hierarchy_id": "o57",
+		"create_time": 1552549138000,
+		"res_name": "全量用户",
+		"ascription_type": "all",
+		"children": [{
+			"org_parent_id": "o57",
+			"name": "新增节点",
+			"res_code": "age",
+			"org_id": "o58",
+			"org_type": 1,
+			"user_trait_values": "[]",
+			"org_hierarchy_id": "o57-o58",
+			"create_time": 1553070593000,
+			"res_name": "姓名",
+			"ascription_type": "trait",
+			"children": []
+		}]
+	}],
+	"size": 10,
+	"page": 1,
+	"max_page": 1000
+}

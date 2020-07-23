@@ -1,0 +1,7 @@
+[{
+    "type": "self",
+    "error_message": "目标所属人有问题"
+},{
+    "type": "group",
+    "error_message": "目标组有问题"
+}]

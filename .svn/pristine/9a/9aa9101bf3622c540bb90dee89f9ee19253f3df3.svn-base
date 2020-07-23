@@ -1,0 +1,31 @@
+/*
+    人群管理和特性管理页的内容部分css
+*/
+
+.crowd-manage-box{
+    display: flex;
+    background: #fff;
+    .crowd-manage-left{
+        width: 256px;
+        border-right: 1px #dddee1 solid;
+        overflow: auto;
+        position: relative;
+        .crowd-manage-left-Tree{
+            height: 100%;
+            padding:10px;
+            padding-right: 2px;
+        }
+    }
+    .crowd-manage-right{
+        flex: 1;
+        overflow: auto;
+        position: relative;
+        .crowd-manage-right-list{
+            padding: 24px;
+            background: #F1F2F4;
+            height: 100%;
+            overflow-x: hidden;
+            overflow-y: auto;
+        }
+    }
+}

@@ -1,0 +1,13 @@
+/**
+ * 二次开发原型接口
+ */
+import axios from '@/utils/axios';
+// calendarLife: () => ({
+//         queryList: params => axios.get('/cdp-web/marketplugin/calendarManagement/queryList', { params })
+// })
+export default {
+    /** 生活日历 */
+    calendarLife: () => ({
+            queryList: params => axios.get('/cdp-web/marketplugin/calendarManagement/queryList', { params })
+    })
+};

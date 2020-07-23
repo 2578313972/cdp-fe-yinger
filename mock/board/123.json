@@ -1,0 +1,21 @@
+[
+    {
+        "label": "性别",
+        "values": [{
+                "name": "男",
+                "value": 51, 
+                "percent": 123
+            },
+            {
+                "name": "女",
+                "value": 45,
+                "percent": 90
+            },
+             {
+                "name": "未知",
+                "value": 5,
+                "percent": 10
+            }
+        ]
+    }
+]

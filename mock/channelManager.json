@@ -1,0 +1,81 @@
+{
+	"name": "马云",
+	"channel_id": "1983679344E44DDE8942D55975A1022B",
+	"channel_name": "百度",
+	"role_id": "ROLE_C_ADMIN",
+	"role_name": "渠道管理员",
+	"role_view": {
+		"menus": [{
+			"name": "概览",
+			"path": "/home",
+			"icon": "md-home"
+		}, {
+			"name": "数据",
+			"path": "",
+			"icon": "md-stats",
+			"children": [{
+				"name": "特性管理",
+				"path": "/feature"
+			}, {
+				"name": "事件管理",
+				"path": "/eventmanage"
+			}, {
+				"name": "画像管理",
+				"path": "/portraitmanage"
+			}]
+		}, {
+			"name": "用户",
+			"path": "",
+			"icon": "md-people",
+			"children": [{
+				"name": "人群管理",
+				"path": "/crowdmanage"
+			}, {
+				"name": "RFM分析",
+				"path": "/rfm"
+			}, {
+				"name": "生命价值分析",
+				"path": "/lifeworth"
+			}, {
+				"name": "用户档案",
+				"path": "/usersarchives"
+			}]
+		}, {
+			"name": "活动",
+			"path": "",
+			"icon": "md-cube",
+			"children": [{
+				"name": "概览列表",
+				"path": ""
+			}, {
+				"name": "新建列表",
+				"path": ""
+			}, {
+				"name": "活动管理",
+				"path": ""
+			}, {
+				"name": "素材管理",
+				"path": ""
+			}, {
+				"name": "触点管理",
+				"path": ""
+			}]
+		}, {
+			"name": "管理",
+			"path": "",
+			"icon": "md-settings",
+			"children": [{
+				"name": "授权",
+				"path": "/channelauthorize"
+			}, {
+				"name": "审核",
+				"path": "/channelaudit"
+			},]
+		}],
+		"buttons": [{
+			"name": "创建人群",
+			"invisible": false,
+			"disabled": false
+		}]
+	}
+}

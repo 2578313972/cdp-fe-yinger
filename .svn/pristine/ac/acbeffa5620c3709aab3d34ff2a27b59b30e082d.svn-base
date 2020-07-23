@@ -1,0 +1,1574 @@
+/***/
+
+/***/
+
+/* WEBPACK VAR INJECTION */
+
+/* WEBPACK VAR INJECTION */
+
+/* harmony import */
+
+/* harmony import */
+
+// fallback:true,
+
+// 每次切换路由回顶部开始查看
+
+/** 获取当前用户的所有信息 */
+
+// 菜单为空时跳转到没有权限错误页
+
+/** 添加新的菜单tab页 */
+
+// 长连接监听权限是否有变化
+
+// 断网重连可以考虑检测网络 https://github.com/hubspot/offline
+
+// let Socket = window.MozWebSocket || window.WebSocket
+
+// 避免ws重复连接
+
+// let lockReconnect = false;
+
+// let websocket_connected_count = 0;
+
+// function wsSession(session_id) {
+
+//     let websocket = null;
+
+//     // 判断当前环境是否支持websocket
+
+//     if (!!Socket) {
+
+//         if (!websocket) {
+
+//             let ws_url = `${config.apiDomain}/socket/user/session/${session_id}`.replace("http", "ws");
+
+//             websocket = new Socket(ws_url);
+
+//         }
+
+//     } else {
+
+//         console.log("not support websocket");
+
+//     }
+
+//     // 连接成功建立的回调方法
+
+//     websocket.onopen = function (e) {
+
+//         // 成功建立连接后，重置心跳检测
+
+//         heartCheck.reset().start();
+
+//         console.log("connected successfully")
+
+//     }
+
+//     // 接受到服务端关闭连接时的回调方法
+
+//     websocket.onclose = function () {
+
+//         console.log("onclose断开连接");
+
+//         reconnect(session_id)
+
+//     }
+
+//     // 连接发生错误
+
+//     websocket.onerror = function () {
+
+//         console.log("onerror连接发生错误")
+
+//         reconnect(session_id)
+
+//     }
+
+//     // 接受到消息的回调方法
+
+//     websocket.onmessage = function (e) {
+
+//         // 如果获取到消息，说明连接是正常的，重置心跳检测
+
+//         heartCheck.reset().start();
+
+//         let message = e.data;
+
+//         if (message) {
+
+//             console.log('session change');
+
+//             iView.Modal.confirm({
+
+//                 title: '权限更新',
+
+//                 okText: '重新载入',
+
+//                 cancelText: '忽略',
+
+//                 content: '您当前的角色权限已发生变更，建议重新载入页面',
+
+//                 onOk: () => {
+
+//                     location.reload();
+
+//                 }
+
+//             });
+
+//             resetSession();
+
+//         }
+
+//     }
+
+//     // 监听窗口事件，当窗口关闭时，主动断开websocket连接，防止连接没断开就关闭窗口，server端报错
+
+//     window.onbeforeunload = function () {
+
+//         websocket.close();
+
+//     }
+
+//     // 连接断开/错误时会继续尝试发起连接（尝试10次）
+
+//     let reconnect = function (session_id) {
+
+//         lockReconnect = true;
+
+//         if (!lockReconnect && ++websocket_connected_count <= 10) {
+
+//             wsSession(session_id)
+
+//             lockReconnect = false;
+
+//         }
+
+//     }
+
+//     // 心跳检测, 每隔一段时间检测连接状态，如果处于连接中，就向server端主动发送消息，来重置server端与客户端的最大连接时间，如果已经断开了，发起重连
+
+//     // 30s发一次心跳，比server端设置的连接时间稍微小一点，在接近断开的情况下以通信的方式去重置连接时间
+
+//     let heartCheck = {
+
+//         timeout: 30000,
+
+//         serverTimeoutObj: null,
+
+//         reset: function () {
+
+//             clearTimeout(this.serverTimeoutObj);
+
+//             return this;
+
+//         },
+
+//         start: function () {
+
+//             this.serverTimeoutObj = setTimeout(function () {
+
+//                 if (websocket.readyState == 1) {
+
+//                     console.log("连接状态，发送消息保持连接");
+
+//                     websocket.send("ping");
+
+//                     // 如果获取到消息，说明连接是正常的，重置心跳检测
+
+//                     heartCheck.reset().start();
+
+//                 } else {
+
+//                     console.log("断开状态，尝试重连");
+
+//                     wsSession(session_id);
+
+//                 }
+
+//             }, this.timeout)
+
+//         }
+
+//     }
+
+// }
+
+// 使用websocket-heartbeat-js优化断网情况重连
+
+// 有权限变更通知时，点击“忽略”主动更新session信息
+
+// 当用户已登录，访问了没有权限的页面，跳转到首页
+
+// 登录过期时，跳转到登录页面不需要next()，防止浏览器有报错
+
+// 加载策略缓存数据
+
+// const len = config.login_info.role_view.menus.length;
+
+// const aaa = {
+
+//     children: [
+
+//         { idx: `${len}-0`, name: '生活日历', path: '/calendarLife' },
+
+//         { idx: `${len}-1`, name: '营销整体概览', path: '/overallOverview' },
+
+//         { idx: `${len}-2`, name: '营销分析管理', path: '/analysisManagement' },
+
+//         { idx: `${len}-3`, name: '营销分析对比管理', path: '/analysisContrastManagement' },
+
+//         { idx: `${len}-4`, name: '营销分析看板', path: '/analysisKanban' }
+
+//     ],
+
+//     icon: 'md-stats',
+
+//     idx: len,
+
+//     name: '营销活动管理',
+
+//     path: ''
+
+// };
+
+// config.login_info.role_view.menus.push(aaa);
+
+/**
+             * 如果当前账号org_hierarchy_id不为空，节点管理员，节点运营专员
+             */
+
+/**
+             *  渠道管理员 节点管理员 节点运营专员
+             * 如果res.org_hierarchy_id为空 并且group_id为空 就是渠道管理员
+             */
+
+// 添加current_router防止beforeEach重连ws
+
+/** 设置菜单栏的数组数据 */
+
+// 添加外部概览iframe，!item.children过滤目录不可点击
+
+// 大于指定iframe个数，设置name为空来做判断处理
+
+/** 重新设置时才会触发 */
+
+// 防止从其他路由切换到 home 概览页菜单卡顿
+
+// 防止人群、特性切换路由-添加tabView参数时，执行两遍（trait => trait?tabView='xxx'）
+
+/* harmony default export */
+
+/***/
+
+/***/
+
+/***/
+
+// style-loader: Adds some css to the DOM by adding a <style> tag
+
+// load the styles
+
+// add the styles to the DOM
+
+/***/
+
+/***/
+
+/***/
+
+/* harmony export (binding) */
+
+/* harmony export (binding) */
+
+/* harmony export (binding) */
+
+/* harmony export (binding) */
+
+/* harmony export (binding) */
+
+/* harmony export (binding) */
+
+/* harmony export (binding) */
+
+/* harmony import */
+
+// 数据
+
+// 删除
+
+// 添加
+
+// 数据
+
+// 数据
+
+// 删除
+
+// 渠道、区域
+
+// 门店
+
+// 添加
+
+// 数据
+
+// 添加对比任务
+
+// 表格数据
+
+// 详情数据
+
+// 表格数据
+
+// 添加
+
+// 表格数据
+
+// 详情数据
+
+/**
+ * 二次开发原型接口
+ */
+
+/** 营销活动管理 */
+
+// 生活日历
+
+/***/
+
+/***/
+
+/***/
+
+/***/
+
+/***/
+
+/***/
+
+/***/
+
+// imports
+
+// module
+
+/***/
+
+/***/
+
+// style-loader: Adds some css to the DOM by adding a <style> tag
+
+// load the styles
+
+// add the styles to the DOM
+
+/***/
+
+/***/
+
+/***/
+
+// EXTERNAL MODULE: ./node_modules/vue/dist/vue.esm.js
+
+/*#__PURE__*/
+
+// EXTERNAL MODULE: ./node_modules/dayjs/dayjs.min.js
+
+/* harmony default export */
+
+// CONCATENATED MODULE: ./src/filter/time-lize.js
+
+/* harmony default export */
+
+// CONCATENATED MODULE: ./src/filter/formatAmount.js
+
+// 数值千分位（整数类型）
+
+// CONCATENATED MODULE: ./src/filter/Index.js
+
+/* harmony default export */
+
+/***/
+
+/***/
+
+// removed by extract-text-webpack-plugin
+
+/***/
+
+/***/
+
+/***/
+
+// imports
+
+// module
+
+/***/
+
+/***/
+
+// imports
+
+// module
+
+/***/
+
+/***/
+
+// imports
+
+// module
+
+/***/
+
+/***/
+
+/***/
+
+/***/
+
+/***/
+
+/***/
+
+/***/
+
+/***/
+
+/***/
+
+/***/
+
+/***/
+
+/***/
+
+/***/
+
+/***/
+
+// imports
+
+// module
+
+/***/
+
+/***/
+
+/* harmony import */
+
+// scope是特性详情get到的当前特性的scope
+
+// scopes是传策略条件单选或多选的特性scope组合
+
+// TODO: 后面兼容人群。
+
+// 传递过来的是一个expression
+
+// 空创建
+
+// 说明选择了 一个需要主参作为表达式的算子。
+
+// 自己比较
+
+// Object比较
+
+// 存在性比较
+
+// operator比较
+
+// params
+
+// 子表达式判断
+
+// script
+
+/* harmony import */
+
+/* harmony default export */
+
+/***/
+
+/***/
+
+// style-loader: Adds some css to the DOM by adding a <style> tag
+
+// load the styles
+
+// add the styles to the DOM
+
+/***/
+
+/***/
+
+/***/
+
+/***/
+
+/***/
+
+/***/
+
+// imports
+
+// module
+
+/***/
+
+/***/
+
+/* harmony import */
+
+// 判断是否显示CEP活动旧组件
+
+// 导航router
+
+/* import() */
+
+// 概览
+
+// 外部概览
+
+/* import() */
+
+// 概览
+
+/* import() */
+
+// 旧CEP活动组件
+
+// 活动
+
+/* import() */
+
+// 活动管理
+
+/* import() */
+
+// 活动/投放管理
+
+/* import() */
+
+// 活动/投放管理/详情
+
+/* import() */
+
+// 新CEP活动组件
+
+// 活动
+
+/* import() */
+
+// 活动管理
+
+/* import() */
+
+// 活动/投放管理
+
+/* import() */
+
+// 活动/投放管理/详情
+
+/* import() */
+
+// 数据/事件管理
+
+/* import() */
+
+// 数据/特性管理
+
+/* import() */
+
+// 数据/特性管理/详情
+
+/* import() */
+
+// 数据/画像管理
+
+/* import() */
+
+// 数据/特性管理
+
+/* import() */
+
+// 数据/特性管理
+
+/* import() */
+
+// 数据/特性管理/详情
+
+/* import() */
+
+/* import() */
+
+// 用户/人群管理
+
+/* import() */
+
+// 用户/人群管理/详情
+
+/* import() */
+
+// 用户/RFM
+
+/* import() */
+
+// 用户/生命价值分析
+
+/* import() */
+
+// 用户/用户档案
+
+/* import() */
+
+// 管理/账户管理
+
+/* import() */
+
+// 管理/租户渠道管理
+
+/* import() */
+
+// 管理/租户授权管理
+
+/* import() */
+
+// 管理/渠道管理员/授权
+
+/* import() */
+
+// 管理/运营专员授权管理
+
+/* import() */
+
+// 管理/审核管理
+
+/* import() */
+
+// 管理/渠道管理员/角色
+
+/* import() */
+
+// 管理/运营组(节点管理员)
+
+/* import() */
+
+// 生活日历
+
+/* import() */
+
+// 营销整体概览
+
+/* import() */
+
+// 营销分析管理
+
+/* import() */
+
+// 营销分析对比管理
+
+/* import() */
+
+// 营销分析看板
+
+/* import() */
+
+// 营销分析看板
+
+/* import() */
+
+// 详情页面
+
+/* import() */
+
+// 营销人群管理
+
+/* import() */
+
+// 人群分析对比管理
+
+/* import() */
+
+// 人群分析看板
+
+/* import() */
+
+/* import() */
+
+/* import() */
+
+// 回访看板
+
+/* import() */
+
+/* import() */
+
+/* import() */
+
+// 数据下载
+
+/* import() */
+
+/* import() */
+
+/* harmony default export */
+
+/***/
+
+/***/
+
+// imports
+
+// module
+
+/***/
+
+/***/
+
+// EXTERNAL MODULE: ./node_modules/babel-runtime/core-js/object/keys.js
+
+/*#__PURE__*/
+
+/*#__PURE__*/
+
+/* harmony default export */
+
+/* script */
+
+/* template */
+
+/* template functional */
+
+/* styles */
+
+// CONCATENATED MODULE: ./src/App.vue
+
+/* moduleIdentifier (server only) */
+
+/* harmony default export */
+
+/***/
+
+/***/
+
+/***/
+
+/***/
+
+/***/
+
+/***/
+
+/***/
+
+/***/
+
+/* WEBPACK VAR INJECTION */
+
+/* harmony import */
+
+/* harmony import */
+
+// 引入js文件
+
+// 活动管理demo数据
+
+// 引入td-component
+
+// 引入css文件
+
+// import 'iview/dist/styles/iview.css';
+
+// 引入iView折叠面板动画组件
+
+// 引入 暂无数据 组件
+
+// 引入所有接口
+
+// 对iView进行部分全局配置
+
+// select: {
+
+//   customArrow: 'i-td i-td-arrow_drop_down_px',
+
+//   arrowSize: 24
+
+// }
+
+// 按需引入element组件
+
+// 活动管理demo数据
+
+// 为防止以前设置的Key现在没有了，引起问题
+
+/* eslint-disable no-new */
+
+/***/
+
+/***/
+
+/***/
+
+/***/
+
+/***/
+
+/***/
+
+// EXTERNAL MODULE: ./node_modules/vue/dist/vue.esm.js
+
+/*#__PURE__*/
+
+// if (!!buttonItem && buttonItem.disabled) {
+
+//     el.disabled = true;
+
+// }else{
+
+//     el.disabled = false;
+
+// }
+
+// 修复value改变，vue中对应的v-model未修改
+
+// EXTERNAL MODULE: ./src/utils/config.js
+
+// CONCATENATED MODULE: ./src/directive/el-title.js
+
+// 超出容器显示省略号，并且添加title
+
+/* harmony default export */
+
+/***/
+
+/***/
+
+/* harmony import */
+
+/* harmony import */
+
+/* harmony default export */
+
+/***/
+
+/***/
+
+/***/
+
+/***/
+
+/***/
+
+// imports
+
+// module
+
+/***/
+
+/***/
+
+/* harmony import */
+
+/* harmony import */
+
+/* harmony default export */
+
+// 树组件拖拽后数据替换
+
+// 比较2个对象是否相同(浅比较)
+
+// 文本框获取焦点时光标在尾部
+
+/***/
+
+/***/
+
+/***/
+
+/***/
+
+/***/
+
+/***/
+
+/***/
+
+/***/
+
+/***/
+
+/***/
+
+/***/
+
+/***/
+
+/***/
+
+/***/
+
+// domain 配置
+
+// 预设iframe个数
+
+// 登录信息
+
+// 系统字典
+
+// 键值状态字典
+
+// 分页入参
+
+// 系统名称正则限制（SMCERS-1336，【名称类放开对特殊符号输入限定】）
+
+// 特性/人群分析-数字/标记、分类、是否、地址
+
+// 末尾不能加斜杠（/）,window.location.origin此属性不支持IE9
+
+/* harmony default export */
+
+/***/
+
+/***/
+
+// imports
+
+// module
+
+/***/
+
+/***/
+
+// style-loader: Adds some css to the DOM by adding a <style> tag
+
+// load the styles
+
+// add the styles to the DOM
+
+/***/
+
+/***/
+
+/***/
+
+/***/
+
+/***/
+
+/***/
+
+/* harmony import */
+
+/* harmony import */
+
+// 设置公共部分，请求头和超时时间
+
+// axios.defaults.timeout = 20000
+
+// 防止第一次登录进到系统时弹出登录失效延迟跳转
+
+// 处理请求错误信息
+
+// 防止多个Message同时弹出
+
+/* harmony default export */
+
+// http request 拦截器
+
+// 增加请求组逻辑
+
+// console.log(config);
+
+// http response 拦截器
+
+// console.log(response);
+
+// 请求被取消时, 程序中断
+
+// session接口请求错误时，不弹出message
+
+// 让ajax携带cookie
+
+/***/
+
+/***/
+
+/***/
+
+/***/
+
+/***/
+
+// style-loader: Adds some css to the DOM by adding a <style> tag
+
+// load the styles
+
+// add the styles to the DOM
+
+/***/
+
+/***/
+
+/***/
+
+// style-loader: Adds some css to the DOM by adding a <style> tag
+
+// load the styles
+
+// add the styles to the DOM
+
+/***/
+
+/***/
+
+/***/
+
+// style-loader: Adds some css to the DOM by adding a <style> tag
+
+// load the styles
+
+// add the styles to the DOM
+
+/***/
+
+/***/
+
+/***/
+
+/***/
+
+/***/
+
+/***/
+
+/***/
+
+/***/
+
+/***/
+
+/* harmony import */
+
+/* harmony default export */
+
+// 模式/报告step中事件列表
+
+// 内容step
+
+// 文本内容默认提示
+
+// 发送至手机列表数据
+
+// 预览默认展示内容
+
+// 预览step
+
+// 投放时间
+
+// 人群
+
+// 所选人群特性
+
+// 人群总数
+
+// 人群类型
+
+// 最后更新时间
+
+// 计划投放人数
+
+// 触点
+
+// 渠道
+
+// 触点
+
+// 短信预计发送
+
+// 模式
+
+// 交互模式
+
+// 发出时间
+
+// 内容
+
+// 报告
+
+// step: 步骤节点数; title: 步骤节点名（前三步骤固定，从第4开始）
+
+// 触达-触达网关下拉列表
+
+// 投放人群预估
+
+// 活动列表
+
+// 活动状态统计信息
+
+// 投放单元列表
+
+// 活动详情
+
+// 投放单元——修改信息
+
+// 非营销 un_marketing
+
+// 活动详情进度条上数值
+
+// 目标数
+
+// 计划数
+
+// 投放单元总览
+
+// 总数
+
+// 未开始
+
+// 进行中
+
+// 暂停
+
+// 结束
+
+// step结果-柱状图数据
+
+// 模式/报告step中事件列表
+
+// 内容step
+
+// 文本内容默认提示
+
+// 发送至手机列表数据
+
+// 预览默认展示内容
+
+// 预览step
+
+// 投放时间
+
+// 人群
+
+// 所选人群特性
+
+// 人群总数
+
+// 人群类型
+
+// 最后更新时间
+
+// 计划投放人数
+
+// 触点
+
+// 渠道
+
+// 触点
+
+// 短信预计发送
+
+// 模式
+
+// 交互模式
+
+// 发出时间
+
+// 内容
+
+// 报告
+
+// step: 步骤节点数; title: 步骤节点名（前三步骤固定，从第4开始）
+
+// step: 步骤节点数; title: 步骤节点名（前三步骤固定，从第4开始）
+
+// step: 步骤节点数; title: 步骤节点名（前三步骤固定，从第4开始）
+
+// step: 步骤节点数; title: 步骤节点名（前三步骤固定，从第4开始）
+
+// 触达-触达网关下拉列表
+
+// 投放人群预估
+
+// 活动列表
+
+// 活动状态统计信息
+
+// 投放单元列表
+
+// 活动详情
+
+// 投放单元——修改信息
+
+// 非营销 un_marketing
+
+// 活动详情进度条上数值
+
+// 目标数
+
+// 计划数
+
+// 投放单元总览
+
+// 总数
+
+// 未开始
+
+// 进行中
+
+// 暂停
+
+// 结束
+
+// step结果-柱状图数据
+
+// 模式/报告step中事件列表
+
+// 内容step
+
+// 文本内容默认提示
+
+// 发送至手机列表数据
+
+// 预览默认展示内容
+
+// 预览step
+
+// 投放时间
+
+// 人群
+
+// 所选人群特性
+
+// 人群总数
+
+// 人群类型
+
+// 最后更新时间
+
+// 计划投放人数
+
+// 触点
+
+// 渠道
+
+// 触点
+
+// 短信预计发送
+
+// 模式
+
+// 交互模式
+
+// 发出时间
+
+// 内容
+
+// 报告
+
+// step: 步骤节点数; title: 步骤节点名（前三步骤固定，从第4开始）
+
+// step: 步骤节点数; title: 步骤节点名（前三步骤固定，从第4开始）
+
+// step: 步骤节点数; title: 步骤节点名（前三步骤固定，从第4开始）
+
+// step: 步骤节点数; title: 步骤节点名（前三步骤固定，从第4开始）
+
+// 触达-触达网关下拉列表
+
+// 投放人群预估
+
+// 活动列表
+
+// 活动状态统计信息
+
+// 投放单元列表
+
+// 活动详情
+
+// 投放单元——修改信息
+
+// 非营销 un_marketing
+
+// 活动详情进度条上数值
+
+// 目标数
+
+// 计划数
+
+// 投放单元总览
+
+// 总数
+
+// 未开始
+
+// 进行中
+
+// 暂停
+
+// 结束
+
+// step结果-柱状图数据
+
+/***/
+
+/***/
+
+// style-loader: Adds some css to the DOM by adding a <style> tag
+
+// load the styles
+
+// add the styles to the DOM
+
+/***/
+
+/***/
+
+/***/
+
+/***/
+
+/***/
+
+/***/
+
+// removed by extract-text-webpack-plugin
+
+/***/
+
+/***/
+
+/***/
+
+// style-loader: Adds some css to the DOM by adding a <style> tag
+
+// load the styles
+
+// add the styles to the DOM
+
+/***/
+
+/***/
+
+/***/
+
+/***/
+
+/***/
+
+/***/
+
+// style-loader: Adds some css to the DOM by adding a <style> tag
+
+// load the styles
+
+// add the styles to the DOM
+
+/***/
+
+/***/
+
+/***/
+
+// CONCATENATED MODULE: ./node_modules/vue-loader/lib/template-compiler?{"id":"data-v-45a6e3f7","hasScoped":true,"transformToRequire":{"video":["src","poster"],"source":"src","img":"src","image":"xlink:href"},"buble":{"transforms":{}}}!./node_modules/vue-loader/lib/selector.js?type=template&index=0!./node_modules/iview-loader??ref--0-1!./src/components/NoData.vue
+
+/* harmony default export */
+
+/* script */
+
+/* template */
+
+/* template functional */
+
+/* styles */
+
+// CONCATENATED MODULE: ./src/components/NoData.vue
+
+/* moduleIdentifier (server only) */
+
+/* harmony default export */
+
+/***/
+
+/***/
+
+/***/
+
+/***/
+
+/***/
+
+// imports
+
+// module
+
+/***/
+
+/***/
+
+/* WEBPACK VAR INJECTION */
+
+/* WEBPACK VAR INJECTION */
+
+/* harmony import */
+
+/*#__PURE__*/
+
+// console.log(cache.data);
+
+/*#__PURE__*/
+
+/*#__PURE__*/
+
+/*#__PURE__*/
+
+// const searchTraitAndCrowds = async ({public_trait, self_trait,group_trait,event_code,group_id,template_type,self_crowd,group_crowd,key_word,data_type,size=-1,data_type}, URI) => {
+
+/*#__PURE__*/
+
+/*#__PURE__*/
+
+// 为了扩展性， 不再指定Key
+
+// const getCrowdsDropList = async({catalog_id,group_id, hierarchy_id, lifecycle_status, visibility, order, q, page, size ,sort}) => {
+
+// const params = {
+
+//     catalog_id,
+
+//     group_id,
+
+//     hierarchy_id,
+
+//     lifecycle_status,
+
+//     visibility,
+
+//     order,
+
+//     q,
+
+//     page,
+
+//     size ,
+
+//     sort
+
+// }
+
+/*#__PURE__*/
+
+/*#__PURE__*/
+
+// const paramModel = {    //参数实例
+
+//     group_id: 1,
+
+//     parent_id :0,
+
+//     type :'trait',
+
+//     visibility: 'public'
+
+// };
+
+// 当params的参数下面的结果时，请求被拉截到getTemplateCatalogs中,在这种情况下的特征是visibility＝“template”且template_type有值
+
+// params = {
+
+//     "visibility": "template",
+
+//     "type": "***",
+
+//     "parent_id": **,
+
+//     "template_type": "***"
+
+// }
+
+/*#__PURE__*/
+
+/*#__PURE__*/
+
+/*#__PURE__*/
+
+/* harmony import */
+
+/* harmony default export */
+
+/***/
+
+/***/
+
+/***/
+
+/***/
+
+/***/
+
+/***/
+
+// EXTERNAL MODULE: ./node_modules/babel-runtime/helpers/extends.js
+
+/*#__PURE__*/
+
+/*#__PURE__*/
+
+/*#__PURE__*/
+
+/*#__PURE__*/
+
+/*#__PURE__*/
+
+/*#__PURE__*/
+
+/*#__PURE__*/
+
+/*#__PURE__*/
+
+/*#__PURE__*/
+
+/*#__PURE__*/
+
+/*#__PURE__*/
+
+/*#__PURE__*/
+
+/*#__PURE__*/
+
+/*#__PURE__*/
+
+/*#__PURE__*/
+
+/*#__PURE__*/
+
+/*#__PURE__*/
+
+// 特性列表
+
+// 特性详情
+
+// 依赖哪些特性
+
+// 被哪些特性依赖
+
+// 修改策略
+
+// 修改基础属性，名字，描述，目录。
+
+// 激活或者冻结
+
+// 删除特性
+
+// 发布
+
+/*#__PURE__*/
+
+/*#__PURE__*/
+
+/*#__PURE__*/
+
+// 当params.node_visibility存在的时候，也就是当前tab为“同节点其他的”，不需要传catalog_id

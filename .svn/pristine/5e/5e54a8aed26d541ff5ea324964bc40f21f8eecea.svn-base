@@ -1,0 +1,58 @@
+// 可以定义全局less变量和样式
+.base-info-box{
+    width: 100%;
+
+    // @all-width:100% - (2 * 100px) - 120px;
+    @all-width:320px;
+
+    .base-info-box-item{
+        vertical-align: middle;
+        line-height: 32px;
+        
+        width: 100%;
+
+        &+.base-info-box-item{
+            margin-top: 12px;
+        }
+        // &:before{
+        &:after{
+            content: '.';
+            clear:both;
+            height: 0;
+            display:block;
+            visibility: hidden;
+        }
+        .base-info-box-label,
+        .base-info-box-label2,
+        .base-info-box-value,
+        .base-info-box-value2{
+            min-height: 1px; // 为了没内容时也能撑起来
+            padding: 0 10px;
+            display: block;
+            float: left;
+        }
+        /* 第一、二列的标题区 */
+        .base-info-box-label{
+            width: 100px;
+        }
+        /* 第三列的标题区 */
+        .base-info-box-label2{
+            width: 120px;
+        }
+        /* 第一列的内容区 */
+        .base-info-box-value{
+            // background-color: red;
+            width: 35%;
+        }
+        /* 普通的后两列表的内容区 */
+        .base-info-box-value2{
+            width: calc(((100% - 35%) - @all-width ) / 2);
+        }
+        /* 描述占一整行的 */
+        .base-info-box-value3{
+            width: calc(100% - 100px);
+            margin-left: 100px;
+            padding: 0 10px;
+        }
+    }
+}

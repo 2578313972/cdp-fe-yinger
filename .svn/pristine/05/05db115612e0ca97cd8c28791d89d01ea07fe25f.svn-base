@@ -1,0 +1,89 @@
+{
+	"name": "管理员",
+	"role_id": "ROLE_T_ADMIN",
+	"role_name": "租户管理员",
+	"role_view": {
+		"menus": [{
+			"name": "概览",
+			"path": "/home",
+			"icon": "md-home"
+		}, {
+			"name": "数据",
+			"path": "",
+			"icon": "md-stats",
+			"children": [{
+				"name": "特性管理",
+				"path": "/feature"
+			}, {
+				"name": "渠道数据",
+				"path": "",
+				"children": [{
+					"name": "画像配置",
+					"path": ""
+				}]
+			}]
+		}, {
+			"name": "用户",
+			"path": "",
+			"icon": "md-people",
+			"children": [{
+				"name": "人群管理",
+				"path": "/crowdmanage"
+			}, {
+				"name": "RFM分析",
+				"path": "/rfm"
+			}, {
+				"name": "生命价值分析",
+				"path": "/lifeworth"
+			}, {
+				"name": "用户档案",
+				"path": "/usersarchives"
+			}]
+		}, {
+			"name": "活动",
+			"path": "",
+			"icon": "md-cube",
+			"children": [{
+				"name": "概览列表",
+				"path": ""
+			}, {
+				"name": "新建列表",
+				"path": ""
+			}, {
+				"name": "活动管理",
+				"path": ""
+			}, {
+				"name": "素材管理",
+				"path": ""
+			}, {
+				"name": "触点管理",
+				"path": ""
+			}]
+		}, {
+			"name": "管理",
+			"path": "",
+			"icon": "md-settings",
+			"children": [{
+				"name": "账号",
+				"path": "/tenantaccount"
+			}, {
+				"name": "渠道",
+				"path": "/tenantchannel"
+			}, {
+				"name": "授权(租户)",
+				"path": "/tenantauthorize"
+			},{
+				"name": "授权(渠道)",
+				"path": "/channelauthorize"
+			},{
+				"name": "授权(运营专员)",
+				"path": "/assisauthorize"
+			}]
+		}],
+		"buttons": [{
+			"name": "创建人群",
+			"invisible": false,
+			"disabled": false
+		}]
+	}
+}

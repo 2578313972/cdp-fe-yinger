@@ -1,0 +1,12 @@
+{
+	"id": 2,
+	"sys_name": "测试1",
+	"auth_values": [{
+		"code": "age",
+		"name": "年龄"
+	}],
+	"auth_res_type": "trait",
+	"channel_id": "channel201812210002",
+	"create_time": 1551164142000,
+	"update_time": 1551164471000
+}

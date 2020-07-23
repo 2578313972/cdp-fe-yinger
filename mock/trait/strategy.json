@@ -1,0 +1,84 @@
+{
+	"id": 100110,
+	"code": "TS201810150008",
+	"display_name": "单独-特性的依赖",
+	"type_code": "Number",
+	"scope": "user",
+	"description": "test trait",
+	"catalog_id": 100001,
+	"is_id": false,
+	"visibility": "group",
+	"group_id": "group3",
+	"owner": "mayun",
+	"strategies": [{
+		"code": "SS201810150009",
+		"condition_logic_type": "and",
+		"conditions": [{
+			"object": {
+				"source": "user",
+				"type": "Number",
+				"value": [
+					"totalAmount"
+				],
+				"is_multiple": false
+			},
+			"operation": {
+				"code": "equal",
+				"name": "等于",
+				"result_type_code": "Void"
+			},
+			"params": [{
+				"source": "user",
+				"type": "Number",
+				"value": [
+					"'TS201810160006'"
+				],
+				"is_multiple": false,
+				"param_type": "NumberInput"
+			}]
+		}],
+		"trigger": {
+			"trigger_type": "trait",
+			"trigger_code": "TS201810170001"
+		},
+		"action": {
+			"object": {
+				"source": "user",
+				"type": "Number",
+				"value": [
+					"TS201810150009"
+				],
+				"is_multiple": false
+			},
+			"operation": {
+				"code": "set",
+				"name": "设为",
+				"result_type_code": "Void"
+			},
+			"params": [{
+				"source": "input",
+				"type": "Number",
+				"value": [
+					"518800"
+				],
+				"is_multiple": false,
+				"param_type": "NumberInput"
+			}]
+		}
+	}],
+	"audit_status": "review_pass",
+	"lifecycle_status": "active",
+	"last_freeze_time": 1539583893000,
+	"user_count": 0,
+	"creator": "mayun",
+	"quoted_by_trait": 0,
+	"quoted_by_crowd": 0,
+	"group_info": {
+		"group_id": "group3",
+		"name": "渠道运营002",
+		"sys_operator_dtos": [],
+		"group_members": []
+	},
+	"tenant_id": "channel201810120001",
+	"channel_code": "channel201810120001"
+}

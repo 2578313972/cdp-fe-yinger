@@ -1,0 +1,13 @@
+[{
+	"code": "t1464",
+	"label": "teshi",
+	"values": [{
+		"name": "存在",
+		"value": 0,
+		"percent": 0
+	}, {
+		"name": "不存在",
+		"value": 10002,
+		"percent": 100
+	}]
+}]

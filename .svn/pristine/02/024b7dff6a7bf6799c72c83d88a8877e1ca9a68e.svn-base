@@ -1,0 +1,53 @@
+[{
+    "code": 0,
+    "icon_type": "fa fa-th-large fa-lg",
+    "name": "通用渠道"
+},
+{
+    "code": 1,
+    "icon_type": "fa fa-podcast fa-lg",
+    "channel_catalog_name": "APP",
+    "name": "iOS APP"
+},
+{
+    "code": 2,
+    "icon_type": "fa fa-podcast fa-lg",
+    "channel_catalog_name": "APP",
+    "name": "Andriod APP"
+},
+{
+    "code": 3,
+    "icon_type": "fa fa-wechat fa-lg",
+    "channel_catalog_name": "微信",
+    "name": "微信服务号"
+},
+{
+    "code": 4,
+    "icon_type": "fa fa-wechat fa-lg",
+    "channel_catalog_name": "微信",
+    "name": "微信订阅号"
+},
+{
+    "code": 5,
+    "icon_type": "fa fa-internet-explorer fa-lg",
+    "channel_catalog_name": "WEB",
+    "name": "WEB"
+},
+{
+    "code": 6,
+    "icon_type": "fa fa-internet-explorer fa-lg",
+    "channel_catalog_name": "WEB",
+    "name": "H5"
+},
+{
+    "code": 7,
+    "icon_type": "fa fa-weibo fa-lg",
+    "name": "微博"
+},
+{
+    "channel_catalog_name": "微信",
+    "code": 8,
+    "icon_type": "fa fa-weibo fa-lg",
+    "name": "微信小程序"
+}
+]

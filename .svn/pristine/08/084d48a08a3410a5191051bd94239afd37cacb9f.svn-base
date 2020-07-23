@@ -1,0 +1,43 @@
+{
+	"items": [{
+		"channel_id": "318209381209",
+		"email": "eeiwuiqeodj@126.com",
+		"employee_id": "slj12k3j1wlsq",
+		"group_id": "321321qw2w1",
+		"mobile": "13532321222",
+		"name": "Leo",
+		"org_id": "321jwqej1",
+		"status": 0,
+		"tenant_id": "jq31323123",
+		"user_id": "321312e12w2",
+		"username": "zhangfan"
+	},{
+		"channel_id": "318209381209",
+		"email": "eeiwuiqeodj@126.com",
+		"employee_id": "slj12k3j1wlsq",
+		"group_id": "321321qw2w1",
+		"mobile": "13532321222",
+		"name": "晓晴",
+		"org_id": "321jwqej1",
+		"status": 0,
+		"tenant_id": "jq31323123",
+		"user_id": "user201811290008",
+		"username": "zhangfan"
+	},{
+		"channel_id": "318209381209",
+		"email": "eeiwuiqeodj@126.com",
+		"employee_id": "slj12k3j1wlsq",
+		"group_id": "321321qw2w1",
+		"mobile": "13532321222",
+		"name": "晓",
+		"org_id": "321jwqej1",
+		"status": 0,
+		"tenant_id": "jq31323123",
+		"user_id": "user20312311290008",
+		"username": "zhangfan"
+	}],
+	"max_page": 1000,
+	"page": 1,
+	"size": 10,
+	"total": 21
+}

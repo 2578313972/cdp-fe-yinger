@@ -1,0 +1,25 @@
+{
+	"total": 2,
+	"items": [{
+			"sys_id": 14,
+			"sys_name": "1212121212",
+			"auth_values": [{
+					"code": "age",
+					"name": "年龄"
+				},
+				{
+					"code": "ageRange",
+					"name": "年龄段"
+				}
+			]
+		},
+		{
+			"sys_id": 13,
+			"sys_name": "1111111111",
+			"auth_values": []
+		}
+	],
+	"size": 10,
+	"page": 1,
+	"max_page": 1000
+}

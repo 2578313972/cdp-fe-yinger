@@ -1,0 +1,76 @@
+{
+	"id": 185,
+	"name": "test_review_1018",
+	"code": "CROWD201810180007",
+	"description": "测试审核-杨士超",
+	"crowd_scale": 0,
+	"channel_id": "channel201810120001",
+	"tenant_id": "talking131",
+	"visibility": "self",
+	"auxiliary_crowds": [{
+		"name": "test_review_1018_新增人群",
+		"description": "测试审核-杨士超",
+		"crowd_scale": 0,
+		"auxiliary_type": "increase"
+	}],
+	"condition_logic_type": "and",
+	"lifecycle_status": "freeze",
+	"calc_status": "submitted",
+	"audit_status": "pending",
+	"catalog_id": 52,
+	"biz_type": "CC",
+	"crowd_ref_count": 0,
+	"campaign_ref_count": 0,
+	"creator": "马云",
+	"owner": "mayun",
+	"last_update_time": 1539862537000,
+	"update_type": {
+		"update_type": "cycle",
+		"sub_update_type": "weekly",
+		"range": "7"
+	},
+	"crowd_conditions": [{
+			"object": {
+				"source": "crowd",
+				"type": "Badge",
+				"value": [
+					"CC201809140001"
+				],
+				"is_multiple": false
+			},
+			"operation": {
+				"code": "not_exists",
+				"name": "包含",
+				"result_type_code": "Bool"
+			},
+			"params": []
+		},
+		{
+			"object": {
+				"source": "crowd",
+				"type": "Badge",
+				"value": [
+					"CC20180913005"
+				],
+				"is_multiple": false
+			},
+			"operation": {
+				"code": "exists",
+				"name": "包含",
+				"result_type_code": "Bool"
+			},
+			"params": []
+		}
+	],
+	"user_info": {
+		"user_id": "A3AAFAF991F44BEB83CADCC2C336245F",
+		"name": "马云",
+		"user_name": "mayun",
+		"email": "yun.ma@tendcloud.com",
+		"mobile": "yun.ma@tendcloud.com"
+	},
+	"group_info": {
+		"sys_operator_dtos": [],
+		"group_members": []
+	}
+}

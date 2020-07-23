@@ -1,0 +1,23 @@
+{
+    "saturation": [
+        {
+            "trait_code": "123",
+            "trait_name": "生肖"
+        }
+    ],
+    "tracking": [
+        {
+            "trait_code": "TS20190000001",
+            "trait_name": "年龄"
+        }, {
+            "trait_code": "TS20190000002",
+            "trait_name": "性别"
+        }, {
+            "trait_code": "TS20190000003",
+            "trait_name": "会员级别"
+        }, {
+            "trait_code": "TS20190000004",
+            "trait_name": "居住地址"
+        }
+    ]
+}

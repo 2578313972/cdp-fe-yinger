@@ -1,0 +1,46 @@
+{
+	"total": 2,
+	"items": [{
+		"group_id": "group201812260001",
+		"name": "渠道运营组（马云为组长晓晴组员-1226）",
+		"leader_id": "user201811290006",
+		"leader_name": "马云",
+		"sys_operator_dtos": [],
+		"group_members": [{
+			"user_id": "user201811290008",
+			"name": "李晓晴"
+        },{
+			"user_id": "user20312311290008",
+			"name": "李晓晴1"
+        }],
+        "create_time": 1545791117000,
+        "updater_name": "修改人",
+        "update_time": 1545791113213
+	}, {
+		"group_id": "group201812250001",
+		"name": "渠道运营组（马云为组长）",
+		"leader_id": "user201811290006",
+		"leader_name": "马云",
+		"sys_operator_dtos": [],
+		"create_time": 1545710792000,
+        "updater_name": "张帆",
+        "update_time": 1545791117321,
+		"group_members": [{
+			"user_id": "user201811290008",
+			"name": "李晓"
+        }]
+	}, {
+		"group_id": "group201812250001",
+		"name": "渠道运营组（马云为组长）",
+		"leader_id": "user201811290006",
+		"leader_name": "马云",
+		"sys_operator_dtos": [],
+		"create_time": 1545710792000,
+        "updater_name": "张帆",
+        "update_time": 1545791117321,
+		"group_members": []
+	}],
+	"size": 10,
+	"page": 1,
+	"max_page": 1000
+}

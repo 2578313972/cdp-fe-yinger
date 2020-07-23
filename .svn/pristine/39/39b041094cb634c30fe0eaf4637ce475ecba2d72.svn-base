@@ -1,0 +1,16 @@
+{
+	"crowd": {
+		"total": 98,
+		"active": 75,
+		"freeze": 23,
+		"active_limitation": 1003,
+		"active_percentage": 10
+	},
+	"trait": {
+		"total": 43290,
+		"active": 100,
+		"freeze": 163,
+		"active_limitation": 1033,
+		"active_percentage": 90
+	}
+}

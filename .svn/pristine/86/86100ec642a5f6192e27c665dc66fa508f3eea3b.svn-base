@@ -1,0 +1,111 @@
+<template>
+  <div ref="win" class="whole-order flex">
+    <Spin style="margin:auto;" v-if="loading" size="large"></Spin>
+    <Row v-else>
+        <p class="padding16-18" style="background:white;font-size:18px;font-weight:600;color:#000">{{title}}</p>
+        <Card>
+            <p slot="title">订单分析-整体订单</p>
+            <Table border :columns="columns1" :data="data1"></Table>
+        </Card>
+        <Col class="padding16-18 flex" span="24">
+            <div id="main1" style="width: 370px;height:370px;"></div>
+            <div id="main2" style="width: 370px;height:370px;"></div>
+        </Col>
+    </Row>
+  </div>
+</template>
+<script>
+    export default {
+        name: 'whole-order',
+        data() {
+            return {
+                columns1: [],
+                data1: [],
+                gaugeWidth: 0
+            };
+        },
+        props: {
+            title: {
+                type: String,
+                required: true
+            },
+            loading: {
+                type: Boolean,
+                default: false
+            }
+        },
+        created() {
+            this.columns1 = [
+                {
+                    title: '对比任务名称',
+                    key: 'name'
+                },
+                {
+                    title: '总销售额',
+                    key: 'salesAmount'
+                },
+                {
+                    title: '平均客单价',
+                    key: 'avgTransactionUnit'
+                },
+                {
+                    title: '平均客单件',
+                    key: 'avgTransactionValue'
+                },
+                {
+                    title: '平均件单价',
+                    key: 'avgUnitValue'
+                },
+                {
+                    title: '联单率',
+                    key: 'jointPurchaseRate'
+                },
+                {
+                    title: '平均折扣率',
+                    key: 'avgDiscountRate'
+                },
+                {
+                    title: '新会员人数',
+                    key: 'newVipCount'
+                },
+                {
+                    title: '新会员转化率',
+                    key: 'newVipCaseRate'
+                },
+                {
+                    title: '新会员占比',
+                    key: 'newVipRate'
+                },
+                {
+                    title: '老会员人数',
+                    key: 'oldVipCount'
+                }
+            ];
+        },
+        mounted() {
+            this.gaugeWidth = this.$refs.win.clientWidth;
+
+            const myChart1 = this.echarts.init(document.getElementById('main1'));
+            const myChart2 = this.echarts.init(document.getElementById('main2'));
+            const option1 = {
+                series: [
+                    {
+                        name: '业务指标',
+                        type: 'gauge',
+                        // radius: '100%', // 仪表盘的百分比
+                        detail: { formatter: '{value}%' },
+                        data: [{ value: 50, name: '退货率' }]
+                    }
+                ]
+            };
+            myChart1.setOption(option1);
+            myChart2.setOption(option1);
+        },
+        methods: {}
+    };
+</script>
+<style lang="less" scoped>
+.whole-order{
+    min-height: 400px;
+}
+</style>

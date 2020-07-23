@@ -1,0 +1,82 @@
+<template>
+  <div class="slide-create-box">
+    <edit-title
+      :loading="saveBtnStatus"
+      :title="title"
+      :disabled="hasChanged"
+      :isShowBtn="btn"
+    ></edit-title>
+
+    <div class="slide-scroll-box dialog-padding20">
+      <div class="page-title bottom-shadow page-title-tab">
+        <Menu class="pl24" mode="horizontal" theme="light" @on-select="menuSelect" :active-name='active_name'>
+          <MenuItem v-for="(item,index) in menu" :key="index" :name="index">{{item}}</MenuItem>
+        </Menu>
+      </div>
+
+      <whole-order
+        :title="menu[active_name]"
+        :loading="loading"
+      />
+
+    </div>
+  </div>
+</template>
+
+<script>
+    import editTitle from '@/components/EditTitle';
+    import WholeOrder from './WholeOrder';
+
+    export default {
+        data() {
+            return {
+                saveBtnStatus: false,
+                loading: false,
+                columns: [],
+                hasChanged: false,
+                btn: false,
+                menu: [],
+                active_name: 0
+            };
+        },
+        props: {
+            title: {
+                type: String,
+                required: true
+            },
+            code: {
+                type: String,
+                required: true
+            }
+        },
+        components: {
+            editTitle,
+            WholeOrder
+        },
+        created() {
+            this.$axios.get('/cdp-webmarketplugin/calendarManagement/detailView?dimension=total&taskIds=at13,at12,at11').then((res) => {
+                console.log(res);
+            });
+
+            this.menu = ['整体订单', '非会员消费订单', '老会员消费订单', '新会员消费订单'];
+        },
+        methods: {
+            menuSelect(name) {
+                this.active_name = name;
+                this.loading = true;
+                setTimeout(() => {
+                    this.loading = false;
+                }, 1000);
+            }
+        }
+    };
+</script>
+
+<style lang="less" scoped>
+.ivu-form-item-content {
+  display: flex;
+}
+.pr20 {
+  padding: 0;
+}
+</style>

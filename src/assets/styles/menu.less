@@ -1,0 +1,113 @@
+/**
+    menuRouter.vue---css
+**/
+@h60: 60px;
+@h80: 80px;
+@h100: 100%;
+.border-top() {
+    border-top: 1px rgba(200, 200, 200, 0.1) solid;
+}
+.border-bottom() {
+    border-bottom: 1px rgba(200, 200, 200, 0.1) solid;
+}
+.main-box {
+    width: @h100;
+    height: @h100;
+    min-height: 300px;
+    display: flex;
+    overflow: hidden;
+    .main-left {
+        border-right: 1px solid #e4e6e8;
+        background: #515a6e;
+        color: #fff;
+        position: relative;
+        z-index: 901;
+        .left-submenu {
+            width: @h100;
+            position: absolute;
+            top: 0;
+            left: 0;
+            overflow: auto;
+        }
+        .left-info {
+            width: @h100;
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            .channel-icon {
+                padding: 0 0px 0 10px;
+            }
+            //用户名字小框部分
+            .user-info-box {
+                position: relative;
+                &.channel-pointer{
+                    cursor: pointer;
+                }
+                height: 40px;
+                line-height: 40px;
+                .user-info-role {
+                    // width: 170px;
+                    padding: 0 45px 0 10px;
+                    white-space: nowrap;
+                    .user-info-box-username{
+                        cursor: pointer;
+                        display: block;
+                        display: block;
+                        max-width: 163px;
+                        overflow: hidden;
+                        text-overflow: ellipsis;
+                        white-space: nowrap;
+                    }
+                    i{
+                        position: absolute;
+                        right: -14px;
+                        top: 50%;
+                        margin-top: -6px;
+                    }
+                }
+                .user-info-bell {
+                    position: absolute;
+                    top: 0px;
+                    right: 0px;
+                    width: 45px;
+                    padding-top: 5px;
+                    line-height: 30px;
+                    text-align: center;
+                }
+            }
+            .channel-name-box{
+                .border-top;
+                .border-bottom;
+                height:30px;
+                .channel-name-cur{
+                    line-height: 30px;
+                    overflow: hidden;
+                    white-space: nowrap;
+                    text-overflow: ellipsis;
+                    cursor: pointer;
+                }
+            }
+            .channel-name {
+                .border-bottom;
+                line-height: 30px;
+                overflow: hidden;
+                white-space: nowrap;
+                text-overflow: ellipsis;
+            }
+
+        }
+    }
+    .main-right {
+        background: #F1F2F4;
+        overflow: auto;
+        flex: 1;
+        position: relative;
+        height: @h100;
+        /* 内容容器最小宽度 */
+        .container-min-width {
+            min-width: 1200px;
+            height: 100%;
+        }
+    }
+}
+

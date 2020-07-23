@@ -1,0 +1,271 @@
+[
+    {
+        "label": "大写字母分布",
+        "values": [
+            {
+                "name": "A",
+                "value": 231,
+                "percent": 2
+            },
+            {
+                "name": "B",
+                "value": 127,
+                "percent": 12
+            },
+            {
+                "name": "C",
+                "value": 105,
+                "percent": 87
+            },
+            {
+                "name": "D",
+                "value": 22,
+                "percent": 10
+            },
+            {
+                "name": "E",
+                "value": 94,
+                "percent": 88
+            },
+            {
+                "name": "F",
+                "value": 1,
+                "percent": 12
+            },
+            {
+                "name": "G",
+                "value": 11,
+                "percent": 76
+            },
+            {
+                "name": "H",
+                "value": 57,
+                "percent": 59
+            },
+            {
+                "name": "I",
+                "value": 52,
+                "percent": 55
+            },
+            {
+                "name": "J",
+                "value": 15,
+                "percent": 47
+            },
+            {
+                "name": "K",
+                "value": 113,
+                "percent": 73
+            },
+            {
+                "name": "L",
+                "value": 139,
+                "percent": 78
+            },
+            {
+                "name": "M",
+                "value": 68,
+                "percent": 6
+            },
+            {
+                "name": "N",
+                "value": 10,
+                "percent": 74
+            },
+            {
+                "name": "O",
+                "value": 48,
+                "percent": 80
+            },
+            {
+                "name": "P",
+                "value": 12,
+                "percent": 17
+            },
+            {
+                "name": "Q",
+                "value": 13,
+                "percent": 28
+            },
+            {
+                "name": "R",
+                "value": 76,
+                "percent": 33
+            },
+            {
+                "name": "S",
+                "value": 141,
+                "percent": 39
+            },
+            {
+                "name": "T",
+                "value": 62,
+                "percent": 60
+            },
+            {
+                "name": "U",
+                "value": 136,
+                "percent": 38
+            },
+            {
+                "name": "V",
+                "value": 90,
+                "percent": 56
+            },
+            {
+                "name": "W",
+                "value": 107,
+                "percent": 81
+            },
+            {
+                "name": "X",
+                "value": 131,
+                "percent": 65
+            },
+            {
+                "name": "Y",
+                "value": 136,
+                "percent": 77
+            },
+            {
+                "name": "Z",
+                "value": 49,
+                "percent": 23
+            }
+        ]
+    },{
+        "label":"小写字母分布",
+        "values": [
+            {
+                "name": "a",
+                "value": 114,
+                "percent": 34
+            },
+            {
+                "name": "b",
+                "value": 122,
+                "percent": 32
+            },
+            {
+                "name": "c",
+                "value": 101,
+                "percent": 90
+            },
+            {
+                "name": "d",
+                "value": 105,
+                "percent": 68
+            },
+            {
+                "name": "e",
+                "value": 127,
+                "percent": 17
+            },
+            {
+                "name": "f",
+                "value": 79,
+                "percent": 10
+            },
+            {
+                "name": "g",
+                "value": 15,
+                "percent": 44
+            },
+            {
+                "name": "h",
+                "value": 8,
+                "percent": 60
+            },
+            {
+                "name": "i",
+                "value": 119,
+                "percent": 25
+            },
+            {
+                "name": "j",
+                "value": 88,
+                "percent": 45
+            },
+            {
+                "name": "k",
+                "value": 135,
+                "percent": 13
+            },
+            {
+                "name": "l",
+                "value": 106,
+                "percent": 26
+            },
+            {
+                "name": "m",
+                "value": 57,
+                "percent": 62
+            },
+            {
+                "name": "n",
+                "value": 95,
+                "percent": 5
+            },
+            {
+                "name": "o",
+                "value": 136,
+                "percent": 39
+            },
+            {
+                "name": "p",
+                "value": 25,
+                "percent": 3
+            },
+            {
+                "name": "q",
+                "value": 123,
+                "percent": 89
+            },
+            {
+                "name": "r",
+                "value": 130,
+                "percent": 73
+            },
+            {
+                "name": "s",
+                "value": 90,
+                "percent": 14
+            },
+            {
+                "name": "t",
+                "value": 94,
+                "percent": 89
+            },
+            {
+                "name": "u",
+                "value": 127,
+                "percent": 42
+            },
+            {
+                "name": "v",
+                "value": 98,
+                "percent": 89
+            },
+            {
+                "name": "w",
+                "value": 114,
+                "percent": 78
+            },
+            {
+                "name": "x",
+                "value": 64,
+                "percent": 60
+            },
+            {
+                "name": "y",
+                "value": 16,
+                "percent": 73
+            },
+            {
+                "name": "z",
+                "value": 29,
+                "percent": 14
+            }
+        ]
+    }
+]

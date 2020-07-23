@@ -1,0 +1,133 @@
+{
+	"total": 0,
+	"items": [{
+			"employee_id": "912新建账号测试专用",
+			"name": "测试",
+			"username": "测试专用",
+			"email": "ceshi@qq.com",
+			"mobile": "15847965236",
+			"user_id": "UQnmwBOkG",
+			"auth_details": {
+				"string": "渠道管理员",
+				"通用渠道": "渠道管理员"
+			},
+			"status": 0
+		},
+		{
+			"employee_id": "dfd",
+			"name": "dfd",
+			"username": "dfd",
+			"email": "dfd@3.com",
+			"mobile": "13467676567",
+			"user_id": "UmTS97hU5",
+			"auth_details": {
+				"百度": "渠道运营专员",
+				"通用渠道": "渠道管理员"
+			},
+			"status": 0
+		},
+		{
+			"employee_id": "232",
+			"name": "232",
+			"username": "232",
+			"email": "ru@er.com",
+			"mobile": "13487898789",
+			"user_id": "UvsPMixTq",
+			"auth_details": {
+				"百度": "渠道运营专员",
+				"通用渠道": "渠道管理员"
+			},
+			"status": 0
+		},
+		{
+			"employee_id": "一二三四五",
+			"name": "一二三四五一二三四五一二三四五一二三四五",
+			"username": "一二三四五一二三四五一二三四五一二三四五",
+			"email": "一二三四五一二三四五一二三四五一二三四五一二三四五一二三四五一二三四五一二三四五一二三@qq.com",
+			"mobile": "15964841245",
+			"user_id": "UOeScbj2t",
+			"auth_details": {
+				"百度": "渠道运营专员",
+				"通用渠道": "渠道管理员"
+			},
+			"status": 0
+		},
+		{
+			"employee_id": "9632145",
+			"name": "疾风",
+			"username": "jianhao",
+			"email": "1234@qq.com",
+			"mobile": "15942154785",
+			"user_id": "Uf4BqKwaB",
+			"auth_details": {
+				"通用渠道": "渠道管理员"
+			},
+			"status": 0
+		},
+		{
+			"employee_id": "dfdf",
+			"name": "dfdf",
+			"username": "dfdf",
+			"email": "dfdf@df.com",
+			"mobile": "13456788909",
+			"user_id": "U2UWSxZhp",
+			"auth_details": {
+				"百度": "渠道运营专员",
+				"通用渠道": "渠道管理员"
+			},
+			"status": 0
+		},
+		{
+			"employee_id": "736572",
+			"name": "新增用户912",
+			"username": "str232@email.com",
+			"email": "str232@email.com",
+			"mobile": "15123421236",
+			"user_id": "UOyFHlrVa",
+			"auth_details": {
+				"string": "渠道管理员",
+				"百度": "渠道运营专员",
+				"通用渠道": "渠道管理员"
+			},
+			"status": 0
+		},
+		{
+			"employee_id": "9987654",
+			"name": "亚索",
+			"username": "风一样的男人",
+			"email": "1548@qq.com",
+			"mobile": "13656154151",
+			"user_id": "UOmtK5qfa",
+			"auth_details": {
+				"百度": "渠道运营专员",
+				"通用渠道": "渠道管理员"
+			},
+			"status": 0
+		},
+		{
+			"employee_id": "abcd-1234",
+			"name": "绝地求生",
+			"username": "二级甲",
+			"email": "cijizhanchang@tendcloud.com",
+			"mobile": "13145214854",
+			"user_id": "UP42P5f4V",
+			"auth_details": {
+				"百度": "渠道运营专员",
+				"ppjkkj": "渠道管理员"
+			},
+			"status": 0
+		},
+		{
+			"employee_id": "水电费费111rqrr",
+			"name": "水电    费   费33",
+			"username": "23水电    费费qewqe",
+			"email": "ccttt@qcccq.com",
+			"mobile": "13099922222",
+			"user_id": "UYOL0jzB4",
+			"auth_details": {
+				"百度": "渠道运营专员"
+			},
+			"status": 0
+		}
+	]
+}

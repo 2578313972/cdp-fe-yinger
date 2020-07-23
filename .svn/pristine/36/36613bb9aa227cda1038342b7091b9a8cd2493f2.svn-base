@@ -1,0 +1,1142 @@
+/**
+*全局css
+**/
+
+ul,
+li {
+    list-style: none;
+}
+
+.h100 {
+    height: 100%;
+}
+
+.w100 {
+    width: 100%;
+}
+
+
+/* margin top bottom left right 10 */
+
+.m10 {
+    margin: 10px;
+}
+
+.mt10 {
+    margin-top: 10px;
+}
+
+.mb10 {
+    margin-bottom: 10px;
+}
+
+.mb16 {
+    margin-bottom: 16px;
+}
+
+.ml10 {
+    margin-left: 10px;
+}
+
+.mr10 {
+    margin-right: 10px;
+}
+
+
+/* margin top bottom left right 20 */
+
+.m20 {
+    margin: 20px;
+}
+
+.mt20 {
+    margin-top: 20px;
+}
+
+.mb20 {
+    margin-bottom: 20px;
+}
+
+.ml20 {
+    margin-left: 20px;
+}
+
+.mr20 {
+    margin-right: 20px;
+}
+
+.mt16 {
+    margin-top: 16px;
+}
+
+.mb16 {
+    margin-bottom: 16px;
+}
+
+.ml16 {
+    margin-left: 16px;
+}
+
+.mr16 {
+    margin-right: 16px;
+}
+
+.mt24 {
+    margin-top: 24px;
+}
+
+.m24 {
+    margin: 24px;
+}
+
+.mb24 {
+    margin-bottom: 24px;
+}
+
+.ml24 {
+    margin-left: 24px;
+}
+
+.mr24 {
+    margin-right: 24px;
+}
+
+.mt25 {
+    margin-top: 25px;
+}
+
+.mb25 {
+    margin-bottom: 25px;
+}
+
+.ml25 {
+    margin-left: 25px;
+}
+
+.mr25 {
+    margin-right: 25px;
+}
+
+
+/* padding top bottom left right 10 */
+
+.p10 {
+    padding: 10px;
+}
+
+.pt10 {
+    padding-top: 10px;
+}
+
+.pb10 {
+    padding-bottom: 10px;
+}
+
+.pl10 {
+    padding-left: 10px;
+}
+
+.pr10 {
+    padding-right: 10px;
+}
+
+
+/* padding top bottom left right 20 */
+
+.p20 {
+    padding: 20px;
+}
+
+.pt20 {
+    padding-top: 20px;
+}
+
+.pb20 {
+    padding-bottom: 20px;
+}
+
+.pl20 {
+    padding-left: 20px;
+}
+
+.pr20 {
+    padding-right: 20px;
+}
+
+
+/* padding top bottom left right 20 */
+
+.p24 {
+    padding: 24px;
+}
+
+.pt24 {
+    padding-top: 24px;
+}
+
+.pb24 {
+    padding-bottom: 24px;
+}
+
+.pl24 {
+    padding-left: 24px;
+}
+
+.pr24 {
+    padding-right: 24px;
+}
+
+
+/* margin top bottom left right 100-300*/
+
+.mt100 {
+    margin-top: 100px
+}
+
+.mt200 {
+    margin-top: 200px
+}
+
+.mt300 {
+    margin-top: 300px
+}
+
+.mb100 {
+    margin-bottom: 100px
+}
+
+.mb200 {
+    margin-bottom: 200px
+}
+
+.mb300 {
+    margin-bottom: 300px
+}
+
+.ml100 {
+    margin-left: 100px
+}
+
+.ml200 {
+    margin-left: 200px
+}
+
+.ml300 {
+    margin-left: 300px
+}
+
+.mr100 {
+    margin-right: 100px
+}
+
+.mr200 {
+    margin-right: 200px
+}
+
+.mr300 {
+    margin-right: 300px
+}
+
+
+/* padding top bottom left right 100-300*/
+
+.pt100 {
+    padding-top: 100px
+}
+
+.pt200 {
+    padding-top: 200px
+}
+
+.pt300 {
+    padding-top: 300px
+}
+
+.pb100 {
+    padding-bottom: 100px
+}
+
+.pb200 {
+    padding-bottom: 200px
+}
+
+.pb300 {
+    padding-bottom: 300px
+}
+
+.pl100 {
+    padding-left: 100px
+}
+
+.pl200 {
+    padding-left: 200px
+}
+
+.pl300 {
+    padding-left: 300px
+}
+
+.pr100 {
+    padding-right: 100px
+}
+
+.pr200 {
+    padding-right: 200px
+}
+
+.pr300 {
+    padding-right: 300px
+}
+
+
+/* 字体大小 */
+
+.f12 {
+    font-size: 12px;
+}
+
+.f14 {
+    font-size: 14px;
+}
+
+.f16 {
+    font-size: 16px;
+}
+
+.f18 {
+    font-size: 18px;
+}
+
+.f20 {
+    font-size: 20px;
+}
+
+.f24 {
+    font-size: 24px;
+}
+
+.f28 {
+    font-size: 28px;
+}
+
+
+/* 字体加粗 */
+
+.fb {
+    font-weight: bold;
+}
+
+
+/* 正常字体 */
+
+.fn {
+    font-style: normal;
+}
+
+.box-flex {
+    display: flex;
+}
+
+.flex1 {
+    flex: 1
+}
+
+.text-hide {
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    display: block;
+}
+
+.inline-block {
+    display: inline-block;
+}
+
+
+/* 全局宽度 */
+
+.width200 {
+    width: 200px;
+}
+
+.width300 {
+    width: 300px;
+}
+
+.width400 {
+    width: 400px;
+}
+
+.width500 {
+    width: 500px;
+}
+
+.width600 {
+    width: 600px;
+}
+
+.width700 {
+    width: 700px;
+}
+
+
+/* 固定内容标题头 */
+
+.overview {
+    height: 100%;
+}
+
+.page-warpper {
+    height: 100%;
+    overflow: hidden;
+}
+
+.page-title {
+    height: 56px;
+    line-height: 56px;
+    background: #FFFFFF;
+    padding-left: 24px;
+    font-size: 16px;
+    color: #17233D;
+    position: relative;
+    z-index: 1;
+}
+
+.bottom-shadow {
+    border-bottom: none;
+    box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.14), 0 3px 1px -2px rgba(0, 0, 0, 0.12), 0 1px 5px 0 rgba(0, 0, 0, 0.20);
+}
+
+.page-content {
+    height: calc(100% - 56px);
+    overflow-y: auto;
+}
+
+.page-title-tab {
+    height: 60px;
+    line-height: 60px;
+    padding-left: 0;
+}
+
+.page-content-tab {
+    height: calc(100% - 60px);
+}
+
+
+/* 全局内容容器边距10px */
+
+.container-padding10 {
+    padding: 10px;
+}
+
+.container-padding24 {
+    padding: 24px;
+}
+
+.padding16-18 {
+    padding: 16px 18px;
+}
+
+
+/* 全局左滑弹框边距20px */
+
+.dialog-padding20 {
+    padding: 20px;
+}
+
+
+/* iview菜单超过字数省略 */
+
+.ivu-menu-vertical .ivu-menu-item,
+.ivu-menu-vertical div.ivu-menu-submenu-title {
+    padding-right: 45px;
+    overflow: hidden;
+    white-space: nowrap;
+    /* text-overflow: ellipsis; */
+}
+
+.ivu-menu-vertical div.ivu-menu-submenu-title>div {
+    overflow: hidden;
+    white-space: nowrap;
+    /* text-overflow: ellipsis; */
+}
+
+.ivu-menu-submenu-title>div>i {
+    margin-right: 6px;
+}
+
+.ivu-menu-vertical .ivu-menu-child-item-active>.ivu-menu-submenu-title,
+.ivu-menu-vertical .ivu-menu-child-item-active>.ivu-menu-submenu-title>i:first-child,
+.ivu-menu-vertical .ivu-menu-child-item-active>*>.ivu-menu-submenu-title-icon {
+    color: #2185f0;
+}
+
+.ivu-menu-vertical .ivu-menu-submenu .ivu-menu-item-active:hover {
+    background: #f0faff!important;
+}
+
+.hr-right .ivu-badge-dot {
+    top: 15px;
+    right: -5px;
+}
+
+
+/* 覆盖iview复合型输入框在一行显示 */
+
+.ivu-input-group {
+    display: inline-table;
+    top: 0;
+}
+
+.ivu-btn .ivu-icon-ios-search {
+    font-size: 16px;
+    line-height: 1;
+}
+
+.card-nopadding .ivu-card-body {
+    padding: 0;
+}
+
+
+/* 全局蓝色（与iview对应） */
+
+.color-blue {
+    color: #008cf8;
+}
+
+
+/* 列表总条数 */
+
+.total-count {
+    margin-left: 10px;
+    position: relative;
+    top: 3px;
+}
+
+.total-count i {
+    color: #008cf8;
+    padding: 0 5px;
+    font-style: normal;
+    font-size: 14px;
+}
+
+
+/* 左滑窗固定头部相关 */
+
+
+/* <div class="slide-create-box">
+    <edit-title></edit-title>
+    <div class="slide-scroll-box">
+        <!-- 弹框内容（自定义宽度） -->
+    </div>
+</div> */
+
+.slide-create-box {
+    height: 100%;
+}
+
+.slide-scroll-box {
+    height: calc(100% - 53px);
+    overflow: auto;
+}
+
+
+/* app.vue css */
+
+html,
+body,
+#app {
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    color: rgba(23, 35, 61, 0.75);
+    font-size: 14px;
+    font-family: "Roboto", "Helvetica Neue", '-apple-system', "BlinkMacSystemFont", "Segoe UI", "Helvetica", "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", "SimSun", "sans-serif";
+}
+
+.main-nav a {
+    color: #fff;
+}
+
+
+/**
+    覆盖scrollbar 默认颜色;
+**/
+
+#app .scrollbar-track {
+    background: rgba(255, 255, 255, 0);
+}
+
+#app .scrollbar-thumb {
+    background: rgb(23, 35, 61, 0.8);
+}
+
+
+/* 默认显示自定义滚动条 */
+
+#app .scrollbar-track {
+    opacity: 1;
+}
+
+
+/* 修复表格在body line-height: 1.5，垂直不居中 */
+
+.ivu-table {
+    line-height: 1.2;
+}
+
+
+/* 覆盖iviewtextarea字体12px */
+
+textarea.ivu-input {
+    resize: none;
+}
+
+.ivu-badge-dot {
+    top: 4px;
+    right: -8px;
+}
+
+
+/* 覆盖iview抽屉样式 */
+
+.ivu-drawer-wrap .ivu-drawer-body {
+    padding: 0;
+    height: 100%;
+    background: #f8f8f9;
+    overflow: hidden;
+}
+
+.ivu-drawer-wrap .mask-bg {
+    height: 100%;
+}
+
+.ivu-drawer-wrap .custom-dialog-content {
+    height: calc(100% - 55px);
+    overflow: auto;
+}
+
+.ivu-drawer-wrap .ivu-drawer-close {
+    left: 16px;
+    right: auto;
+}
+
+.ivu-drawer-wrap .ivu-drawer-close .ivu-icon-ios-close {
+    font-size: 32px;
+    top: 4px;
+    color: #818694;
+    font-weight: bold;
+}
+
+
+/* 覆盖ivew对话框遮罩层透明度 */
+
+.ivu-drawer-mask,
+.ivu-modal-mask {
+    background-color: rgba(73, 80, 96, 0.5);
+}
+
+
+/* 屏蔽ivew NumberInput的上下剪头 */
+
+.ivu-input-number-handler-wrap {
+    display: none;
+}
+
+
+/* 修复ivew Select Cascader 内容覆盖icon */
+
+.ivu-cascader .ivu-input {
+    padding-right: 24px;
+}
+
+.ivu-select-multiple .ivu-select-item-focus,
+.ivu-select-multiple .ivu-select-item-selected:hover {
+    padding-right: 30px;
+}
+
+
+/* 覆盖ivew对话框modal样式 */
+
+.ivu-modal-confirm-head-title {
+    font-weight: normal;
+}
+
+.warpper-box {
+    height: calc(100% - 64px);
+}
+
+.header-menu {
+    position: relative;
+    z-index: 1000;
+    height: 64px;
+    display: flex;
+    background-image: linear-gradient(143deg, #2945cb 20%, #2c83f9 81%, #3a9dff);
+    // -webkit-box-shadow: 0 2px 2px 0 rgba(0, 0, 0, .14), 0 3px 1px -2px rgba(0, 0, 0, .12), 0 1px 5px 0 rgba(0, 0, 0, .2);
+    // box-shadow: 0 2px 2px 0 rgba(0, 0, 0, .14), 0 3px 1px -2px rgba(0, 0, 0, .12), 0 1px 5px 0 rgba(0, 0, 0, .2);
+}
+
+.header-left {
+    width: 220px;
+    border-right: 1px solid #4D74C9;
+}
+
+.role-list-box {
+    display: flex;
+    font-size: 16px;
+    line-height: 24px;
+    color: rgba(23, 35, 61, 0.75);
+}
+
+.role-name-box {
+    flex: 1;
+}
+
+.channel-name {
+    font-size: 12px;
+    color: rgba(23, 35, 61, 0.55);
+}
+
+.hr-left li.ivu-dropdown-item-selected {
+    background: none;
+}
+
+.hr-left .ivu-dropdown-item {
+    box-shadow: inset 0 -1px 0 0 #E7E9EB;
+}
+
+.hr-left .ivu-dropdown-item:hover {
+    background: rgba(23, 35, 61, 0.06);
+}
+
+.hr-left li.ivu-dropdown-item-selected .channel-title,
+.hr-left li.ivu-dropdown-item-selected .channel-name,
+.hr-left li.ivu-dropdown-item-selected .role-icon {
+    color: #2185F0;
+}
+
+.role-icon {
+    margin: 8px 10px 0 5px;
+}
+
+.left-logo {
+    height: 100%;
+    display: flex;
+    align-items: center;
+}
+
+.left-logo img {
+    height: 30px;
+    margin: 0 10px 0 10px;
+}
+
+.left-logo span {
+    font-size: 13px;
+    font-weight: bold;
+    padding-right: 5px;
+    color: #f1f1f1;
+}
+
+.header-right {
+    flex: 1;
+}
+
+.hr-box {
+    display: flex;
+    height: 100%;
+}
+
+.hr-left .ivu-dropdown,
+.hr-left .ivu-dropdown a {
+    display: block;
+    line-height: 62px;
+    color: #f1f1f1;
+}
+
+.hr-left .ivu-select-dropdown {
+    min-width: 200px;
+    margin: 0;
+    padding: 0;
+}
+
+.hr-right .ivu-select-dropdown {
+    margin: -5px 0 0 0;
+    padding: 0;
+    text-align: left;
+}
+
+.hr-avatar {
+    display: inline-block;
+    text-align: center;
+    background: rgba(31, 49, 89, 0.50);
+    color: #fff;
+    white-space: nowrap;
+    position: relative;
+    overflow: hidden;
+    vertical-align: middle;
+    width: 32px;
+    height: 32px;
+    line-height: 32px;
+    border-radius: 16px;
+    margin-left: 15px;
+    cursor: pointer;
+}
+
+.hr-avatar.l-avatar {
+    margin-left: 0;
+    background: #2185F0;
+    margin-right: 10px;
+}
+
+.hr-left .iconfont {
+    font-size: 22px;
+    position: relative;
+    top: 2px;
+}
+
+.hr-menu-name {
+    min-width: 110px;
+    display: inline-block;
+    font-size: 16px;
+    padding-left: 8px;
+}
+
+.hr-menu-text {
+    padding: 0 20px;
+}
+
+.hr-left {
+    /*width: 200px;*/
+    border-right: 1px solid #4D74C9;
+}
+
+.hr-right {
+    flex: 1;
+    text-align: right;
+    padding: 0 20px;
+    line-height: 64px;
+}
+
+.hr-right .user-icon {
+    margin: 0 12px 0 5px;
+    float: left;
+}
+
+.hr-right .ivu-dropdown-item {
+    line-height: 31px;
+}
+
+.hr-right .ivu-dropdown-item:hover {
+    background: rgba(23, 35, 61, 0.06);
+}
+
+.hr-right .ivu-dropdown-item:first-child {
+    box-shadow: inset 0 -1px 0 0 #E7E9EB;
+    padding-bottom: 15px;
+    margin-bottom: 5px;
+    cursor: default;
+    pointer-events: none;
+}
+
+.hr-right .ivu-dropdown-item:first-child:hover {
+    background: none;
+}
+
+.main-left {
+    box-shadow: 0 2px 2px 0 rgba(0, 0, 0, .14), 0 3px 1px -2px rgba(0, 0, 0, .12), 0 1px 5px 0 rgba(0, 0, 0, .2);
+}
+
+.main-left .ivu-menu a {
+    display: block;
+}
+
+.main-left .scroll-content>.ivu-menu>a .ivu-menu-item-active {
+    /* background-color: #2d8cf0!important;
+    color: #fff; */
+}
+
+.mask-bg {
+    background: #f8f8f9;
+}
+
+
+/*--end--****************************************/
+
+
+/* 简约版卡片样式 */
+
+.common-card {
+    display: block;
+    padding: 24px;
+    margin: 24px;
+    background: #fff;
+    box-shadow: 0 0 4px #dcdee2;
+}
+
+
+/* 搜索框-搜索按钮鼠标滑过样式 */
+
+.ivu-input-group-append .ivu-btn {
+    border-radius: 0 4px 4px 0;
+}
+
+.ivu-input-group-append .ivu-btn:hover {
+    color: #57a3f3;
+    border-color: #57a3f3;
+    border-radius: 0 4px 4px 0;
+}
+
+
+/* 清除浮动 */
+
+.clear {
+    zoom: 1;
+}
+
+.clearfix:before,
+.clearfix:after {
+    display: table;
+    content: '';
+    clear: both;
+}
+
+.fl {
+    float: left;
+}
+
+.fr {
+    float: right;
+}
+
+.name-email {
+    float: right;
+}
+
+.ivu-select-multiple .name-email {
+    padding-right: 15px;
+}
+
+
+/* input 框默认高度30px，给前面的字加行高，和input框保持水平对齐*/
+
+.line-height30 {
+    line-height: 30px
+}
+
+
+/*分割线 hr */
+
+.hr {
+    height: 1px;
+    border: none;
+    border-top: 1px dashed #dcdee2;
+    margin-bottom: 10px
+}
+
+
+/* 对齐方式 text-align center left right*/
+
+.text-align-c {
+    text-align: center
+}
+
+.text-align-l {
+    text-align: left
+}
+
+.text-align-r {
+    text-align: right
+}
+
+
+/* page分页统一样式 晓晴*/
+
+.page-style {
+    margin: 10px;
+    text-align: right
+}
+
+
+/* 依赖的search位置 晓晴*/
+
+.dependant-search {
+    width: 300px;
+    margin-left: 10px
+}
+
+
+/* icon图标移入显示小手样式 */
+
+.ivu-icon,
+.fa {
+    cursor: pointer;
+}
+
+.pointer {
+    cursor: pointer;
+}
+
+
+/* 覆盖 iview Input 当是readonly时，移除高亮 */
+
+.ivu-input[readonly]:hover,
+.ivu-input[readonly]:focus {
+    box-shadow: none;
+    border-color: #dcdee2;
+}
+
+.ivu-input[readonly] {
+    cursor: default;
+}
+
+
+/* 特性、事件选择组件 tag-list */
+
+.select-tag-list {
+    height: 30px;
+    line-height: 30px;
+}
+
+
+/* 含有 iview Input 可输入的组合组件当是readonly时，保留高亮 */
+
+.ivu-cascader input.ivu-input[readonly]:hover,
+.ivu-cascader input.ivu-input[readonly]:focus,
+.ivu-select input.ivu-input[readonly]:hover,
+.ivu-select input.ivu-input[readonly]:focus,
+.ivu-date-picker input.ivu-input[readonly]:hover,
+.ivu-date-picker input.ivu-input[readonly]:focus {
+    border-color: #57a3f3;
+}
+
+.ivu-cascader input.ivu-input[readonly]:focus,
+.ivu-select input.ivu-input[readonly]:focus,
+.ivu-date-picker input.ivu-input[readonly]:focus {
+    box-shadow: 0 0 0 2px rgba(45, 140, 240, .2);
+}
+
+.smce-table-noscroll .ivu-table-overflowX,
+.smce-table-noscroll .ivu-table-tip {
+    overflow-x: hidden;
+}
+
+.ivu-cascader-not-found-tip {
+    /* width: 178px; */
+    text-align: left;
+    padding: 5px 10px;
+}
+
+
+/* 修正tooltip文字纵向排列 */
+
+.smce-tootip-width .ivu-tooltip-inner-with-width {
+    white-space: inherit;
+}
+
+.ivu-col {
+    /* padding: 1px 0; */
+    font-size: 14px;
+}
+
+
+/* card不要外边框 */
+
+.card-border {
+    border: none;
+}
+
+
+/* 滚动条样式 */
+
+::-webkit-scrollbar {
+    width: 10px;
+    height: 8px;
+    background-color: #515a6e;
+    -webkit-transition: background-color .3s ease-in-out;
+    transition: background-color .3s ease-in-out;
+}
+
+::-webkit-scrollbar:hover {
+    background-color: #d1d1d1;
+}
+
+::-webkit-scrollbar-thumb {
+    background-color: rgb(23, 35, 61, 0.6);
+    height: 50px;
+    -webkit-border-radius: 5px;
+    border-radius: 5px;
+    border-right: 1px solid #fff;
+    border-left: 1px solid #fff;
+    -webkit-transition: background-color .3s ease-in-out;
+    transition: background-color .3s ease-in-out;
+}
+
+::-webkit-scrollbar-thumb:hover,
+::-webkit-scrollbar-thumb:active {
+    background-color: rgb(23, 35, 61, 0.8);
+    border-right: 1px solid #f1f1f1;
+    border-left: 1px solid #f1f1f1;
+}
+
+::-webkit-scrollbar-track {
+    background-color: #fff;
+}
+
+::-webkit-scrollbar-track:hover {
+    background-color: #fff;
+}
+
+
+/* 锁定详情页头部 */
+
+.scroll-wrap {
+    height: calc(100% - 50px);
+    overflow-y: auto;
+    overflow-x: hidden;
+}
+
+.no-paddinng-border .ivu-card-body {
+    padding-top: 0;
+    padding-bottom: 0;
+}
+
+.no-paddinng-border .ivu-card-head {
+    border-bottom: none;
+}
+
+
+/* 解决iview中textarea不居中问题 */
+
+textarea.ivu-input {
+    padding-top: 7px;
+}
+
+
+/* 解决tip单词过长，不能换行的问题 */
+
+.ivu-tooltip-content {
+    word-wrap: break-word;
+    word-break: normal;
+}
+
+/* 树拖拽时，光标的可移动和不可放下的样式 */
+.cursor-move,.cursor-move *{
+    cursor: move !important;
+}
+.cursor-no-drop, .cursor-no-drop *{
+    cursor: no-drop !important;
+}
+
+/* 解决特性组件，在本地样式生效，部署146无效的问题 */
+.condition-cascade-box{
+    max-height: 500px;
+    width: 600px;
+}
+.condition-cascade .ivu-dropdown{
+    width: 100%;
+}
+/*.multiple-tag  .ivu-tag .ivu-icon-ios-close,*/
+.condition-cascade .ivu-tag .ivu-icon-ios-close{
+    top: -2px !important;
+}
+
