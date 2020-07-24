@@ -3,7 +3,6 @@
     <!-- <Spin style="margin:auto;" v-if="loading" size="large"></Spin> -->
     <Row  style="width:100%;display:flex;">
         <Card dis-hover style="flex:1">
-            <p slot="title">回访任务量统计</p>
             <no-data v-if="!allData" />
             <Row v-else>
                 <i-col span="24">
@@ -17,7 +16,6 @@
         </Card>
 
         <Card dis-hover style="flex:1">
-            <p slot="title">回访导购统计</p>
             <no-data v-if="!allData"  />
             <Row v-else>
                 <i-col span="24">
@@ -26,8 +24,6 @@
                 <i-col span="24">
                     <div id="main_4" style="margin:auto"></div>
                 </i-col>
-
-
             </Row>
         </Card>
     </Row>
@@ -35,33 +31,6 @@
 </template>
 <script>
 
-// batch_num: "20200615003"
-// create_time: 1592203705000
-// creator: "admin"
-// department: "新零售四群"
-// fid: "291ee9c6-7552-4eea-81fc-0311d9b14a54"
-// hierarchy: "1"
-// source_type: "商城新粉"
-// total_vip_count: 5000
-// visited_guide_rate: 0
-// visited_rate: 0
-//
-// //////
-//
-// batch_num: "20200615001"
-// create_time: 1592203694000
-// creator: "admin"
-// department: "新零售一群"
-// dispatched_vip_count: 4197 //
-// fid: "d625548b-b0a8-4d88-8a7f-7cdcfd0607cb"
-// hierarchy: "1"
-// source_type: "商城新粉"
-// total_guide_count: 18 //
-// total_vip_count: 20000
-// visited_guide_count: 9 //
-// visited_guide_rate: 0.5
-// visited_rate: 0
-// visited_vip_count: 18 //
 
     export default {
         name: 'whole-order',
@@ -88,10 +57,6 @@
                 default: 'total'
             }
         },
-        created() {
-            console.log(this.allData);
-        },
-
         mounted() {
             if (!this.allData) {
                 this.loading = true;
@@ -111,7 +76,7 @@
             const option_1 = {
                 color: 'red',
                 title: {
-                    text: '回访率'
+                    text: '任务回访率'
                 },
                 tooltip: {
                     formatter: '{a} <br/>{b} : {c}%'
@@ -126,14 +91,14 @@
                             offsetCenter: [0, '55%'],
                             formatter: '{value}%'
                         },
-                        data: [{ value: (((this.allData.visited_vip_count / this.allData.total_vip_count) || 0) * 100).toFixed(2), name: '完成率' }],
+                        data: [{ value: ((this.allData.visited_rate || 0) * 100).toFixed(2), name: '完成率' }],
                         axisLine: {
                             show: true,
                             lineStyle: {
                                 width: 30,
                                 shadowBlur: 0,
                                 color: [
-                                    [((this.allData.visited_vip_count / this.allData.total_vip_count) || 0).toFixed(2) || 0, '#0E7CE2'],
+                                    [(this.allData.visited_rate || 0).toFixed(2) || 0, '#0E7CE2'],
                                     [1, '#FF8352']
                                 ]
                             }
@@ -143,16 +108,15 @@
             };
 
             const bgColor = '#fff';
-            const title = '回访任务总量';
             const color = ['#0E7CE2', '#FF8352'];
             const echartData_1 = [
                 {
-                    name: '已回访统计',
+                    name: '已回访',
                     value: this.allData.visited_vip_count || 0
                 },
                 {
-                    name: '未回访统计',
-                    value: this.allData.total_vip_count - this.allData.visited_vip_count || 0
+                    name: '未回访',
+                    value: this.allData.dispatched_vip_count - this.allData.visited_vip_count || 0
                 }
             ];
 
@@ -161,12 +125,12 @@
                 const reg = /(?=(\B)(\d{3})+$)/g;
                 return num.toString().replace(reg, ',');
             };
-            const total_1 = echartData_1.reduce((a, b) => a + b.value * 1, 0);
+            // const total_1 = echartData_1.reduce((a, b) => a + b.value * 1, 0);
             const option_2 = {
                 backgroundColor: bgColor,
                 color,
                 title: [{
-                    text: `{name|${title}}\n{val|${formatNumber(total_1)}}`,
+                    text: `{name|${'回访任务总量'}}\n{val|${this.allData.dispatched_vip_count || 0}}`,
                     top: 'center',
                     left: 'center',
                     textStyle: {
@@ -251,14 +215,14 @@
                             offsetCenter: [0, '55%'],
                             formatter: '{value}%'
                         },
-                        data: [{ value: (((this.allData.visited_guide_count / this.allData.total_guide_count) || 0) * 100).toFixed(2), name: '完成率' }],
+                        data: [{ value: ((this.allData.visited_guide_rate || 0) * 100).toFixed(2), name: '参与率' }],
                         axisLine: {
                             show: true,
                             lineStyle: {
                                 width: 30,
                                 shadowBlur: 0,
                                 color: [
-                                    [((this.allData.visited_guide_count / this.allData.total_guide_count) || 0).toFixed(2), '#0E7CE2'],
+                                    [(this.allData.visited_guide_rate || 0).toFixed(2), '#0E7CE2'],
                                     [1, '#FF8352']
                                 ]
                             }
@@ -281,7 +245,7 @@
                 backgroundColor: bgColor,
                 color,
                 title: [{
-                    text: `{name|${title}}\n{val|${formatNumber(total_2)}}`,
+                    text: `{name|${'导购总人数'}}\n{val|${formatNumber(total_2)}}`,
                     top: 'center',
                     left: 'center',
                     textStyle: {

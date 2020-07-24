@@ -31,8 +31,8 @@
           </i-col>
           <i-col>
             <span class="top-font" @click="downloadExcel">下载模板</span>
-            <i-button size="large">导入</i-button>
-            <i-button size="large" @click="addData" icon="md-add" type="primary">添加活动</i-button>
+            <i-button size="default">导入</i-button>
+            <i-button size="default" @click="addData" icon="md-add" type="primary">添加活动</i-button>
           </i-col>
         </Row>
         <Table
@@ -96,7 +96,7 @@
                     key: 'display_name',
                     render: (h, params) => (
                     <div style="display:flex;">
-                        <icon style='color:#19be6b;margin:auto 0;' type='ios-radio-button-on'></icon>
+                        <icon style={(params.row.calculate_status === '0') ? 'color:#FFCD42;margin:auto 0;' : (params.row.calculate_status === '1') ? 'color:#19be6b;margin:auto 0;' : 'color:#c5c8ce;margin:auto 0;'} type='ios-radio-button-on'></icon>
                         <span> {params.row.display_name} </span>
                     </div>
                 )
@@ -225,9 +225,8 @@
 <style lang="less" scoped>
 .top-font {
   color: #328ff1;
-  font-size: 18px;
   cursor: pointer;
-  margin-right: 5px;
+  margin-right: 7px;
 }
 /deep/ .ivu-card-body {
   padding: 0 !important;

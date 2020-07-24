@@ -1,9 +1,9 @@
 <template>
     <div class="analysisKanban">
-      <div class="padding16-18" style="background:white;margin-bottom:15px;">
-          <header>
-            <h3 style="color:#17233d;font-size: 14px;">回访看板</h3>
-          </header>
+      <div class="page-title bottom-shadow page-title-tab">
+        <Menu class="pl24" mode="horizontal" theme="light" :active-name="1">
+          <MenuItem :key="0" :name="1">回访看板</MenuItem>
+        </Menu>
       </div>
       <div>
         <router-view />

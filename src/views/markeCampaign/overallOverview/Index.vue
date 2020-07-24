@@ -3,12 +3,13 @@
 
     <div class="page-content page-content-tab">
         <!-- 顶部下载图标 -->
-        <Row style="padding:13px 18px;background:white;">
+        <Row  class="page-title bottom-shadow page-title-tab" style="background:white;">
             <i-col span="6">
-                <h3 style="color:#17233d;font-size: 14px;">营销分析整体概览</h3>
+                <Menu class="pl24" mode="horizontal" theme="light" :active-name="1">
+                    <MenuItem :key="0" :name="1">订单分析对比管理</MenuItem>
+                </Menu>
             </i-col>
-
-            <i-col span="6" offset="12" style="text-align:center;">
+            <i-col span="6" offset="12" style="text-align:right;padding-right:20px;color:#3493FC;">
                 <i style="font-weight:700;font-size:25px;margin-right:20px;cursor: pointer;" class="el-icon-download"></i>
                 <Tooltip>
                     <i style="font-weight:700;font-size:25px;cursor: pointer;" class="el-icon-question"></i>
@@ -22,16 +23,15 @@
         </Row>
 
         <Card dis-hover>
-            <p slot="title" class="rbg">订单分析-整体概览</p>
             <div class="content-text flex borbox" style="background:#F1F2F4;padding:11px;">
             <div class="content-text-left" >
                 <h3 class="borbox title">总销售额</h3>
                 <div class="user-info">
-                    <div class="header-img" >
+                    <div class="header-img" style="padding:8px 0;" >
                     <!--<Icon type="person-stalker" style="font-size:30px;color:#bbbdc6;"></Icon>-->
-                    <img style="width:120px;height:120px;" src="@/assets/images/yinger.png" title="影儿时尚集团">
+                    <img style="width:90px;height:90px;" src="@/assets/images/yinger.png" title="影儿时尚集团">
                     </div>
-                    <h2 style="font-size:24px; margin-top:6px;color:#1890ff;padding:0 6px;"> {{(allData.sales_amount) | toFixed0 | allMoney}} </h2>
+                    <h2 style="font-size:24px; margin-top:6px;color:#1890ff;padding:6px;"> {{(allData.sales_amount) | toFixed0 | allMoney}} </h2>
                 </div>
             </div>
             <div class="content-text-right">
@@ -40,7 +40,7 @@
                     <div class="conten-child  two">
                     <div>
                         <p>平均客单价</p>
-                        <p>{{allData.avg_transaction_value | toFixed}}</p>
+                        <p>{{allData.avg_transaction_value | toFixed0}}</p>
                     </div>
                     <div>
                         <p>平均客单件</p>
@@ -50,11 +50,11 @@
                     <div class="conten-child  two">
                     <div>
                         <p>平均件单价</p>
-                        <p>{{allData.avg_unit_value | toFixed}}</p>
+                        <p>{{allData.avg_unit_value | toFixed0}}</p>
                     </div>
                     <div>
                         <p>联单率</p>
-                        <p>{{allData.joint_purchase_rate*100 | toFixed}}%</p>
+                        <p>{{allData.joint_purchase_rate*100 | toFixed0}}%</p>
                     </div>
                     </div>
                     <div class="conten-child  two">
@@ -64,15 +64,7 @@
                     </div>
                     <div>
                         <p>新会员占比</p>
-                        <p>{{allData.new_vip_rate*100 | toFixed}}%</p>
-                    </div>
-                    </div>
-                    <div class="conten-child two one">
-                    <div>
-                        <p>新会员转化率</p>
-                    </div>
-                    <div>
-                        <p>{{allData.new_vip_case_rate*100 | toFixed}}%</p>
+                        <p>{{allData.new_vip_rate*100 | toFixed0}}%</p>
                     </div>
                     </div>
                     <div class="conten-child  two">
@@ -82,17 +74,31 @@
                     </div>
                     <div>
                         <p>老会员占比</p>
-                        <p>{{allData.old_vip_rate*100 | toFixed}}%</p>
+                        <p>{{allData.old_vip_rate*100 | toFixed0}}%</p>
                     </div>
                     </div>
-                    <div class="conten-child two one">
+
+
+                    <div class="conten-child  two">
+                    <div>
+                        <p>新会员转化率</p>
+                        <p>{{allData.new_vip_case_rate*100 | toFixed0}}%</p>
+                    </div>
+                    <div>
+                        <p>平均折扣率</p>
+                        <p>{{allData.avg_discount_rate*100 | toFixed0}}%</p>
+                    </div>
+                    </div>
+
+                    <!-- <div class="conten-child two one">
                     <div>
                         <p>平均折扣率</p>
                     </div>
                     <div>
                         <p>{{allData.avg_discount_rate*100 | toFixed}}%</p>
                     </div>
-                    </div>
+                    </div> -->
+
                 </div>
             </div>
             </div>
@@ -103,12 +109,12 @@
         <Card dis-hover class="conten">
             <p slot="title" class="rbg">订单分析-TOP排名</p>
             <div ref="content" class="padding16-18">
-            <Table :width="conWidth" border :columns="columns" :data="tableData"></Table>
+                <Table :width="conWidth" border :columns="columns" :data="tableData"></Table>
             </div>
         </Card>
 
         <div class="flex conten">
-            <Card dis-hover ref="refund" style="width:30%;margin:7.5px auto">
+            <Card dis-hover ref="refund" style="width:25%;margin:7.5px auto">
                 <p slot="title" class="rbg" style="text-indent:15px;">退货率</p>
                 <div class="echarts" style="margin-top:15px;">
                     <div ref="chart_1"></div>
@@ -116,8 +122,8 @@
                 </div>
             </Card>
 
-            <Card dis-hover style="width:80%;margin:7.5px auto">
-                <p slot="title" class="rbg" style="text-indent:15px;">会员占比</p>
+            <Card dis-hover style="width:75%;margin:7.5px auto">
+                <p slot="title" class="rbg" style="text-indent:15px;">占比</p>
                 <div class="echarts" style="margin-top:15px;">
                     <div ref="chart_3"></div>
                     <div ref="chart_4"></div>
@@ -130,7 +136,7 @@
             <Card dis-hover style="width:100%;margin:7.5px auto">
                 <p slot="title" class="rbg" style="text-indent:15px;">商品偏好系列</p>
                 <div class="flex echarts" style="margin-top:15px;">
-                    <div ref="chart_6"></div>
+                    <div ref="chart_6" style="margin-bottom: 23px;"></div>
                     <div ref="chart_7"></div>
                     <div ref="chart_8"></div>
                     <div ref="chart_9"></div>
@@ -161,15 +167,20 @@
             this.columns = [
                 {
                     title: '指标名称',
-                    key: 'keyName',
                     align: 'center',
-                    width: 180
+                    minWidth: 200,
+                    render: (h, params) => (
+                    <div style="font-weight:600;">
+                        <span> {params.row.keyName} </span>
+                    </div>
+                )
+
                 }
             ];
 
             for (let i = 1; i <= 10; i++) {
                 this.columns.push({
-                    title: `Top${i}`, key: `top${i}`, minWidth: 200, align: 'center'
+                    title: `Top${i}`, key: `top${i}`, minWidth: 230, align: 'center'
                 });
             }
         },
@@ -203,16 +214,27 @@
                     },
                     series: [
                         {
-                            name: '订单销量',
+                            name: '退货率',
                             type: 'gauge',
-                            max: Math.min(~~this.allData.total_count_return_rate + 10, 100),
+                            max: Math.min((~~this.allData.total_count_return_rate + 1) * 100 + 10, 100),
                             title: { color: '#333' },
                             detail: {
-                                fontSize: 17,
-                                offsetCenter: [0, '40%'],
-                                formatter: '{value}%\n \n \n 订单销量退货率'
+                                fontSize: 25,
+                                offsetCenter: [0, '65%'],
+                                formatter: '{value}%'
                             },
-                            data: [{ value: this.allData.total_count_return_rate, name: '退货率' }]
+                            data: [{ value: (this.allData.total_count_return_rate * 100).toFixed(0), name: '\n订单销量' }],
+                            axisLine: {
+                                show: true,
+                                lineStyle: {
+                                    width: 30,
+                                    shadowBlur: 0,
+                                    color: [
+                                        [this.allData.total_count_return_rate, '#FF8352'],
+                                        [1, '#3398DB']
+                                    ]
+                                }
+                            }
                         }
                     ]
                 };
@@ -222,16 +244,27 @@
                     },
                     series: [
                         {
-                            name: '订单销售额',
+                            name: '退货率',
                             type: 'gauge',
                             title: { color: '#333' },
-                            max: Math.min(~~this.allData.total_sales_return_rate + 10, 100),
+                            max: Math.min((~~this.allData.total_sales_return_rate + 1) * 100 + 10, 100),
                             detail: {
-                                fontSize: 16,
-                                offsetCenter: [0, '40%'],
-                                formatter: '{value}%\n \n \n 订单销售额退货率'
+                                fontSize: 25,
+                                offsetCenter: [0, '65%'],
+                                formatter: '{value}%'
                             },
-                            data: [{ value: this.allData.total_sales_return_rate, name: '退货率' }]
+                            data: [{ value: (this.allData.total_sales_return_rate * 100).toFixed(0), name: '\n订单销售额' }],
+                            axisLine: {
+                                show: true,
+                                lineStyle: {
+                                    width: 30,
+                                    shadowBlur: 0,
+                                    color: [
+                                        [this.allData.total_sales_return_rate, '#FF8352'],
+                                        [1, '#3398DB']
+                                    ]
+                                }
+                            }
                         }
                     ]
                 };
@@ -239,7 +272,10 @@
                 const option3 = {
                     color: ['#3398DB'],
                     title: {
-                        text: '会员订单占比'
+                        text: '会员订单占比',
+                        textStyle: {
+                            fontSize: 15
+                        }
                     },
                     tooltip: {
                         trigger: 'axis',
@@ -250,7 +286,7 @@
                     },
                     grid: {
                         left: '3%',
-                        right: '4%',
+                        right: '3%',
                         bottom: '3%',
                         containLabel: true,
                         backgroundColor: 'red'
@@ -281,7 +317,10 @@
                 const option4 = {
                     color: ['#3398DB'],
                     title: {
-                        text: '会员金额占比'
+                        text: '会员金额占比',
+                        textStyle: {
+                            fontSize: 15
+                        }
                     },
                     tooltip: {
                         trigger: 'axis',
@@ -292,7 +331,7 @@
                     },
                     grid: {
                         left: '3%',
-                        right: '4%',
+                        right: '3%',
                         bottom: '3%',
                         containLabel: true,
                         backgroundColor: 'red'
@@ -323,7 +362,10 @@
                 const option5 = {
                     color: ['#3398DB'],
                     title: {
-                        text: '联单件数占比分析'
+                        text: '联单件数占比分析',
+                        textStyle: {
+                            fontSize: 15
+                        }
                     },
                     tooltip: {
                         trigger: 'axis',
@@ -334,7 +376,7 @@
                     },
                     grid: {
                         left: '3%',
-                        right: '4%',
+                        right: '3%',
                         bottom: '3%',
                         containLabel: true,
                         backgroundColor: 'red'
@@ -367,7 +409,10 @@
                 const option6 = {
                     color: ['#3398DB'],
                     title: {
-                        text: '季节分布'
+                        text: '  季节分布',
+                        textStyle: {
+                            fontSize: 15
+                        }
                     },
                     tooltip: {
                         trigger: 'axis',
@@ -377,8 +422,8 @@
                         formatter: item => `${item[0].axisValue} <br /> ${item[0].marker}${item[0].seriesName}:${item[0].value}`
                     },
                     grid: {
-                        left: '3%',
-                        right: '4%',
+                        left: '3.2%',
+                        right: '3%',
                         bottom: '3%',
                         containLabel: true,
                         backgroundColor: 'red'
@@ -410,7 +455,10 @@
                 const option7 = {
                     color: ['#3398DB'],
                     title: {
-                        text: '价格带分布'
+                        text: '价格带分布',
+                        textStyle: {
+                            fontSize: 15
+                        }
                     },
                     tooltip: {
                         trigger: 'axis',
@@ -456,7 +504,10 @@
                 const option8 = {
                     color: ['#3398DB'],
                     title: {
-                        text: '色系分布'
+                        text: '色系分布',
+                        textStyle: {
+                            fontSize: 15
+                        }
                     },
                     tooltip: {
                         trigger: 'axis',
@@ -468,7 +519,7 @@
                     grid: {
                         left: '3%',
                         right: '4%',
-                        bottom: '3%',
+                        bottom: '0%',
                         containLabel: true,
                         backgroundColor: 'red'
                     },
@@ -502,7 +553,10 @@
                 const option9 = {
                     color: ['#3398DB'],
                     title: {
-                        text: '面料分布'
+                        text: '面料分布',
+                        textStyle: {
+                            fontSize: 15
+                        }
                     },
                     tooltip: {
                         trigger: 'axis',
@@ -512,8 +566,8 @@
                         formatter: item => `${item[0].axisValue} <br /> ${item[0].marker}${item[0].seriesName}:${item[0].value}`
                     },
                     grid: {
-                        left: '3%',
-                        right: '4%',
+                        left: '1%',
+                        right: '5.5%',
                         bottom: '3%',
                         containLabel: true,
                         backgroundColor: 'red'
@@ -547,9 +601,6 @@
                     ]
                 };
 
-                for (let i = 1; i <= this.chartsSize; i++) {
-                    // this[`myChart${i}`].setOption(`option${i}`);
-                }
                 this.myChart1.setOption(option1);
                 this.myChart2.setOption(option2);
                 this.myChart3.setOption(option3);
@@ -586,29 +637,29 @@
                 const domChart9 = this.$refs.chart_9;
 
 
-                domChart1.style.width = `${setWidth * 0.8}px`;
+                domChart1.style.width = `${setWidth * 0.7}px`;
                 domChart1.style.height = '400px';
 
-                domChart2.style.width = `${setWidth * 0.8}px`;
+                domChart2.style.width = `${setWidth * 0.7}px`;
                 domChart2.style.height = '400px';
 
-                domChart3.style.width = `${this.conWidth * 0.7}px`;
+                domChart3.style.width = `${(this.conWidth) * 0.75}px`;
                 domChart3.style.height = '200px';
-                domChart4.style.width = `${this.conWidth * 0.7}px`;
+                domChart4.style.width = `${(this.conWidth) * 0.75}px`;
                 domChart4.style.height = '200px';
-                domChart5.style.width = `${this.conWidth * 0.7}px`;
+                domChart5.style.width = `${(this.conWidth) * 0.75}px`;
                 domChart5.style.height = '350px';
 
-                domChart6.style.width = `${this.conWidth}px`;
+                domChart6.style.width = `${this.conWidth + 36}px`;
                 domChart6.style.height = '300px';
 
-                domChart7.style.width = `${this.conWidth * 0.32}px`;
+                domChart7.style.width = `${(this.conWidth + 36) * 0.32}px`;
                 domChart7.style.height = '400px';
 
-                domChart8.style.width = `${this.conWidth * 0.32}px`;
+                domChart8.style.width = `${(this.conWidth + 36) * 0.32}px`;
                 domChart8.style.height = '400px';
 
-                domChart9.style.width = `${this.conWidth * 0.32}px`;
+                domChart9.style.width = `${(this.conWidth + 36) * 0.32}px`;
                 domChart9.style.height = '400px';
                 for (let i = 1; i <= this.chartsSize; i++) {
                     this[`myChart${i}`].resize();
@@ -628,7 +679,7 @@
                 if (num) { result = num + result; }
                 return `${result}`;
             },
-            toFixed: val => !!val && val.toFixed(2),
+            toFixed: val => !!val && val.toFixed(1),
             toFixed0: val => !!val && parseInt(val)
         }
     };
@@ -655,13 +706,14 @@
           height: calc( 100% - 45px);
           .conten-child{
             flex: 1;
+            font-weight: 600;
             height: 100%;
             border-right: 1px solid #EEF0F3;
             &:last-child{border-right: 0px;}
           }
           .two{
-
             >div{
+              font-size: 15px;
               height: 50%;
               box-sizing: border-box;
               &:first-child{
@@ -688,7 +740,7 @@
             }
           }
           .one>div{
-            font-size: 17px;
+            font-size: 18px;
             &:first-child{
               border-bottom: 1px solid transparent;
               p{
@@ -705,13 +757,14 @@
         text-indent: 10px;
         margin-bottom: 10px;
         border-bottom: 1px solid #EEF0F3;
+        color:black;
       }
     }
     /deep/ .ivu-card-head{padding:0}
     /deep/ .ivu-card-body{padding:0}
     .rbg{
       font-size: 16px;
-      text-indent: 30px;
+      text-indent: 10px;
       height: 40px;
       line-height: 40px;
     //   background-color: #D7D7D7;
@@ -738,6 +791,11 @@
         border-top-color:black;
         margin: 30px 0;
     }
+
+/** th */
+/deep/ .ivu-table th {
+    background-color: #3398DB;
+}
 
 /* 滚动条 */
     /deep/ .ivu-table-overflowY::-webkit-scrollbar-thumb {

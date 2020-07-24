@@ -3,50 +3,52 @@
     <Spin style="margin:auto;" v-if="loading" size="large"></Spin>
     <Row v-else>
         <Row class="padding16-18" style="background:white;font-size:18px;font-weight:600;color:#000">
-            <i-col span="6" style="font-size:18px;font-weight:600;">
+            <!-- <i-col span="6" style="font-size:18px;font-weight:600;">
                 {{title}}
-            </i-col>
-            <i-col span="5" offset="13" style="text-align:center;">
+            </i-col> -->
+            <i-col span="5" offset="19" style="text-align:right;padding-right:20px;color:#3398DB">
                 <i style="font-weight:700;font-size:25px;margin-right:20px;cursor: pointer;" class="el-icon-download"></i>
                 <i style="font-weight:700;font-size:25px;cursor: pointer;" class="el-icon-question"></i>
             </i-col>
         </Row>
         <Card dis-hover>
-            <p slot="title">订单分析-整体订单</p>
+            <p slot="title">订单概览</p>
             <Table class="table-css" :width="gaugeWidth" border :columns="columns_1" :data="data_1"></Table>
         </Card>
         <Card dis-hover>
-            <p slot="title">订单分析-销售数量款色TOP10</p>
+            <p slot="title">销售数量款色TOP10</p>
             <Table class="table-css" :width="gaugeWidth" border :columns="columns_2" :data="data_2"></Table>
         </Card>
         <Card dis-hover>
-            <p slot="title">订单分析-销售金额款色TOP10</p>
+            <p slot="title">销售金额款色TOP10</p>
             <Table class="table-css" :width="gaugeWidth" border :columns="columns_3" :data="data_3"></Table>
         </Card>
         <Card dis-hover>
-            <p slot="title">订单分析-销售品类Top10</p>
+            <p slot="title">销售品类Top10</p>
             <Table class="table-css" :width="gaugeWidth" border :columns="columns_4" :data="data_4"></Table>
         </Card>
         <i-col class="padding16-18 echart" style="justify-content: space-between;flex-wrap: wrap;" span="24">
-            <div class="flex">
-                <div id="main_1" style="height:550px"></div>
-                <div id="main_4" style="height:550px"></div>
+            <div class="flex" style="justify-content: space-around;" >
+                <div id="main_1" style="height:400px"></div>
+                <div id="main_4" style="height:400px"></div>
             </div>
 
-            <div class="flex" v-show="vip==='total'">
+            <div class="flex martop80" style="justify-content: space-around;" v-show="vip==='total'">
                 <div id="main_2" style="height:300px"></div>
                 <div id="main_3" style="height:300px"></div>
             </div>
 
-            <Card dis-hover style="margin-top:30px;">
-                <p slot="title" class="rbg" style="text-indent:15px;">商品偏好系列</p>
-                <div class="flex" style="flex-wrap: wrap;">
-                    <div id="main_5" style="height:400px"></div>
-                    <div id="main_6" style="height:400px"></div>
-                    <div id="main_7" style="height:400px"></div>
-                    <div id="main_8" style="height:400px"></div>
-                </div>
-            </Card>
+            <div class="martop80">
+                <Card dis-hover style="margin-top:30px;">
+                    <p slot="title" class="rbg" style="text-indent:15px;">商品偏好系列</p>
+                    <div class="flex" style="flex-wrap: wrap;justify-content: space-around;">
+                        <div id="main_5" style="height:400px"></div>
+                        <div id="main_6" style="height:400px"></div>
+                        <div id="main_7" style="height:400px"></div>
+                        <div id="main_8" style="height:400px"></div>
+                    </div>
+                </Card>
+            </div>
 
 
         </i-col>
@@ -96,43 +98,43 @@
                     title: '对比任务名称',
                     key: 'display_name',
                     align: 'center',
-                    minWidth: 150
+                    minWidth: 220
                 },
                 {
                     title: '总销售额',
                     key: 'sales_amount',
                     align: 'center',
-                    minWidth: 150
+                    minWidth: 220
                 },
                 {
                     title: '平均客单价',
                     key: 'avg_transaction_value',
                     align: 'center',
-                    minWidth: 150
+                    minWidth: 220
                 },
                 {
                     title: '平均客单件',
                     key: 'avg_transaction_unit',
                     align: 'center',
-                    minWidth: 150
+                    minWidth: 220
                 },
                 {
                     title: '平均件单价',
                     key: 'avg_unit_value',
                     align: 'center',
-                    minWidth: 150
+                    minWidth: 220
                 },
                 {
                     title: '联单率',
                     key: 'joint_purchase_rate',
                     align: 'center',
-                    minWidth: 150
+                    minWidth: 220
                 },
                 {
                     title: '平均折扣率',
                     key: 'joint3_purchase_scale',
                     align: 'center',
-                    minWidth: 150
+                    minWidth: 220
                 }
 
             ];
@@ -145,31 +147,31 @@
                         title: '新会员人数',
                         key: 'new_vip_count',
                         align: 'center',
-                        minWidth: 150
+                        minWidth: 220
                     },
                     {
                         title: '新会员转化率',
                         key: 'new_vip_case_rate',
                         align: 'center',
-                        minWidth: 150
+                        minWidth: 220
                     },
                     {
                         title: '新会员占比',
                         key: 'new_vip_rate',
                         align: 'center',
-                        minWidth: 150
+                        minWidth: 220
                     },
                     {
                         title: '老会员人数',
                         key: 'old_vip_count',
                         align: 'center',
-                        minWidth: 150
+                        minWidth: 220
                     },
                     {
                         title: '老会员占比',
                         key: 'old_vip_rate',
                         align: 'center',
-                        minWidth: 150
+                        minWidth: 220
                     }
                 );
                 break;
@@ -181,7 +183,7 @@
                         title: '老会员人数',
                         key: 'old_vip_count',
                         align: 'center',
-                        minWidth: 150
+                        minWidth: 220
                     }
                 );
                 break;
@@ -191,7 +193,7 @@
                         title: '新会员人数',
                         key: 'new_vip_count',
                         align: 'center',
-                        minWidth: 150
+                        minWidth: 220
                     },
                 );
                 break;
@@ -199,15 +201,14 @@
                 break;
             }
 
-
             this.columns_2 = [{
-                title: '对比任务名称', key: 'display_name', align: 'center', width: 180
+                title: '对比任务名称', key: 'display_name', align: 'center', minWidth: 220
             }];
             this.columns_3 = [{
-                title: '对比任务名称', key: 'display_name', align: 'center', width: 180
+                title: '对比任务名称', key: 'display_name', align: 'center', minWidth: 220
             }];
             this.columns_4 = [{
-                title: '对比任务名称', key: 'display_name', align: 'center', width: 180
+                title: '对比任务名称', key: 'display_name', align: 'center', minWidth: 220
             }];
             for (let i = 1; i <= 10; i++) {
                 this.columns_2.push({
@@ -282,7 +283,10 @@
             const option_1 = {
                 color: ['#3398DB', '#67E0E3', '#FFDB5C'],
                 title: {
-                    text: '退货率'
+                    text: '退货率',
+                    textStyle: {
+                        fontSize: 15
+                    }
                 },
                 tooltip: {
                     trigger: 'axis',
@@ -291,7 +295,8 @@
                     }
                 },
                 legend: {
-                    data: this.optionName
+                    data: this.optionName,
+                    left: '50%'
                 },
                 grid: {
                     left: '3%',
@@ -318,7 +323,10 @@
             const option_2 = {
                 color: ['#3398DB', '#67E0E3', '#FFDB5C'],
                 title: {
-                    text: '会员订单占比'
+                    text: '会员订单占比',
+                    textStyle: {
+                        fontSize: 15
+                    }
                 },
                 tooltip: {
                     trigger: 'axis',
@@ -327,10 +335,11 @@
                     }
                 },
                 legend: {
-                    data: this.optionName
+                    data: this.optionName,
+                    left: '50%'
                 },
                 grid: {
-                    left: '3%',
+                    left: '3.8%',
                     right: '3%',
                     bottom: '3%',
                     containLabel: true,
@@ -345,7 +354,7 @@
                 },
                 yAxis: {
                     type: 'category',
-                    data: ['会员订单', '非会员订单']
+                    data: ['会\n员\n订\n单', '非\n会\n员\n订\n单']
                 },
                 series: []
             };
@@ -353,7 +362,10 @@
             const option_3 = {
                 color: ['#3398DB', '#67E0E3', '#FFDB5C'],
                 title: {
-                    text: '会员金额占比'
+                    text: '会员金额占比',
+                    textStyle: {
+                        fontSize: 15
+                    }
                 },
                 tooltip: {
                     trigger: 'axis',
@@ -362,10 +374,11 @@
                     }
                 },
                 legend: {
-                    data: this.optionName
+                    data: this.optionName,
+                    left: '50%'
                 },
                 grid: {
-                    left: '3%',
+                    left: '4.3%',
                     right: '3%',
                     bottom: '3%',
                     containLabel: true,
@@ -380,7 +393,7 @@
                 },
                 yAxis: {
                     type: 'category',
-                    data: ['会员订单', '非会员订单']
+                    data: ['会\n员\n订\n单', '非\n 会\n员\n订\n单']
                 },
                 series: []
             };
@@ -388,7 +401,10 @@
             const option_4 = {
                 color: ['#3398DB', '#67E0E3', '#FFDB5C'],
                 title: {
-                    text: '联单件数占比分析'
+                    text: '联单件数占比分析',
+                    textStyle: {
+                        fontSize: 15
+                    }
                 },
                 tooltip: {
                     trigger: 'axis',
@@ -397,7 +413,8 @@
                     }
                 },
                 legend: {
-                    data: this.optionName
+                    data: this.optionName,
+                    left: '50%'
                 },
                 grid: {
                     left: '3%',
@@ -423,7 +440,10 @@
             const option_5 = {
                 color: ['#3398DB', '#67E0E3', '#FFDB5C'],
                 title: {
-                    text: '商品偏好-季节分布'
+                    text: '季节分布',
+                    textStyle: {
+                        fontSize: 15
+                    }
                 },
                 tooltip: {
                     trigger: 'axis',
@@ -432,10 +452,11 @@
                     }
                 },
                 legend: {
-                    data: this.optionName
+                    data: this.optionName,
+                    left: '50%'
                 },
                 grid: {
-                    left: '3%',
+                    left: '2.7%',
                     right: '3%',
                     bottom: '3%',
                     containLabel: true,
@@ -457,7 +478,7 @@
             if (!this.allData[0].season_distribution.length) {
                 delete option_5.legend;
                 option_5.title = {
-                    text: '商品偏好-季节分布\n\n\n( 暂无数据 )',
+                    text: '季节分布\n\n\n( 暂无数据 )',
                     x: 'center',
                     y: 'center',
                     textStyle: {
@@ -469,7 +490,10 @@
             const option_6 = {
                 color: ['#3398DB', '#67E0E3', '#FFDB5C'],
                 title: {
-                    text: '商品偏好-价格带分布'
+                    text: '价格带分布',
+                    textStyle: {
+                        fontSize: 15
+                    }
                 },
                 tooltip: {
                     trigger: 'axis',
@@ -478,10 +502,11 @@
                     }
                 },
                 legend: {
-                    data: this.optionName
+                    data: this.optionName,
+                    left: '50%'
                 },
                 grid: {
-                    left: '3%',
+                    left: '3.4%',
                     right: '3%',
                     bottom: '3%',
                     containLabel: true,
@@ -503,7 +528,7 @@
             if (!this.allData[0].price_range_distribution.length) {
                 delete option_6.legend;
                 option_6.title = {
-                    text: '商品偏好-价格带分布\n\n\n( 暂无数据 )',
+                    text: '价格带分布\n\n\n( 暂无数据 )',
                     x: 'center',
                     y: 'center',
                     textStyle: {
@@ -515,7 +540,10 @@
             const option_7 = {
                 color: ['#3398DB', '#67E0E3', '#FFDB5C'],
                 title: {
-                    text: '商品偏好-色系分布'
+                    text: '色系分布',
+                    textStyle: {
+                        fontSize: 15
+                    }
                 },
                 tooltip: {
                     trigger: 'axis',
@@ -524,11 +552,12 @@
                     }
                 },
                 legend: {
-                    data: this.optionName
+                    data: this.optionName,
+                    left: '50%'
 
                 },
                 grid: {
-                    left: '3%',
+                    left: '2.7%',
                     right: '3%',
                     bottom: '3%',
                     containLabel: true,
@@ -550,7 +579,7 @@
             if (!this.allData[0].color_distribution.length) {
                 delete option_7.legend;
                 option_7.title = {
-                    text: '商品偏好-色系分布\n\n\n( 暂无数据 )',
+                    text: '色系分布\n\n\n( 暂无数据 )',
                     x: 'center',
                     y: 'center',
                     textStyle: {
@@ -562,7 +591,10 @@
             const option_8 = {
                 color: ['#3398DB', '#67E0E3', '#FFDB5C'],
                 title: {
-                    text: '商品偏好-面料分布'
+                    text: '面料分布',
+                    textStyle: {
+                        fontSize: 15
+                    }
                 },
                 tooltip: {
                     trigger: 'axis',
@@ -571,11 +603,12 @@
                     }
                 },
                 legend: {
-                    data: this.optionName
+                    data: this.optionName,
+                    left: '50%'
 
                 },
                 grid: {
-                    left: '3%',
+                    left: '3.4%',
                     right: '3%',
                     bottom: '3%',
                     containLabel: true,
@@ -597,7 +630,7 @@
             if (!this.allData[0].fabric_distribution.length) {
                 delete option_8.legend;
                 option_8.title = {
-                    text: '商品偏好-面料分布\n\n\n( 暂无数据 )',
+                    text: '面料分布\n\n\n( 暂无数据 )',
                     x: 'center',
                     y: 'center',
                     textStyle: {
@@ -704,15 +737,15 @@
         methods: {
             resize() {
                 this.gaugeWidth = this.$refs.win.clientWidth - 38;
-                document.getElementById('main_1').style.width = `${this.gaugeWidth * 0.5}px`;
-                document.getElementById('main_2').style.width = `${this.gaugeWidth * 0.5}px`;
-                document.getElementById('main_3').style.width = `${this.gaugeWidth * 0.5}px`;
-                document.getElementById('main_4').style.width = `${this.gaugeWidth * 0.5}px`;
+                document.getElementById('main_1').style.width = `${this.gaugeWidth * 0.45}px`;
+                document.getElementById('main_2').style.width = `${this.gaugeWidth * 0.45}px`;
+                document.getElementById('main_3').style.width = `${this.gaugeWidth * 0.45}px`;
+                document.getElementById('main_4').style.width = `${this.gaugeWidth * 0.45}px`;
 
-                document.getElementById('main_5').style.width = `${this.gaugeWidth * 0.5}px`;
-                document.getElementById('main_6').style.width = `${this.gaugeWidth * 0.5}px`;
-                document.getElementById('main_7').style.width = `${this.gaugeWidth * 0.5}px`;
-                document.getElementById('main_8').style.width = `${this.gaugeWidth * 0.5}px`;
+                document.getElementById('main_5').style.width = `${this.gaugeWidth * 0.45}px`;
+                document.getElementById('main_6').style.width = `${this.gaugeWidth * 0.45}px`;
+                document.getElementById('main_7').style.width = `${this.gaugeWidth * 0.45}px`;
+                document.getElementById('main_8').style.width = `${this.gaugeWidth * 0.45}px`;
             }
         }
     };
@@ -730,7 +763,13 @@
       line-height: 40px;
     //   background-color: #D7D7D7;
     }
+.martop80{margin-top: 80px;}
 
+
+/** th */
+/deep/ .ivu-table th {
+    background-color: #3398DB;
+}
 /* 滚动条 */
     /deep/ .ivu-table-overflowY::-webkit-scrollbar-thumb {
         border-radius: 5px;

@@ -11,7 +11,7 @@
             </i-col>
         </Row>
         <div class="slide-scroll-box">
-            <div class="page-title bottom-shadow page-title-tab">
+            <div class="page-title page-title-tab">
                 <Menu class="pl24" mode="horizontal" theme="light" @on-select="menuSelect" :active-name='active_name'>
                 <MenuItem v-for="(item,index) in menu" :key="index" :name="index">{{item}}</MenuItem>
                 </Menu>

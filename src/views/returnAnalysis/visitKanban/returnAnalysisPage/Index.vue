@@ -1,27 +1,35 @@
 <template>
     <div>
+        <!-- <Row>
+            <i-col>
+                <brand-area
+
+                />
+            </i-col>
+        </Row> -->
         <Row type="flex" justify="space-between" align="middle" style="padding:16px 24px;background-color:white;margin-top:15px">
             <i-col style="background-color:white;">
                 <span @click="back">
                     <Icon type="md-arrow-back" size="24" color="rgba(23,35,61,0.55)" style="margin-top:-5px;margin-right:5px;"/>
                 </span>
                 <span style="font-size:20px;">
-                   回访看板
+                   回访批次号【 <span style="color:#FF905A;font-weight:600;">{{allData.batch_num}}</span> 】
                 </span>
             </i-col>
         </Row>
         <div class="slide-scroll-box">
-            <div class="page-title bottom-shadow page-title-tab">
+            <!-- <div class="page-title bottom-shadow page-title-tab">
                 <Menu class="pl24" mode="horizontal" theme="light" :active-name='active_name'>
                 <MenuItem v-for="(item,index) in menu" :key="index" :name="index">{{item}}</MenuItem>
                 </Menu>
-            </div>
+            </div> -->
 
             <Row class="padding16-18" style="background:white;font-size:18px;font-weight:600;color:#000;display:flex">
                 <i-col style="display:flex;">
                     <i-col class="borbox" style="padding-right:25px;">
                         <span>品牌渠道</span>
                         <i-select
+                            filterable
                             @on-change="ditchChange"
                             placeholder="请选择渠道"
                             v-model="queryChannelOptions.brand"
@@ -38,6 +46,7 @@
                     <i-col class="borbox" style="padding-right:25px;">
                         <span>区域</span>
                         <i-select
+                            filterable
                             @on-change="areaChange"
                             placeholder="请选择区域"
                             v-model="queryChannelOptions.area"
@@ -54,6 +63,7 @@
                     <i-col style="padding-right:25px;">
                         <span>门店</span>
                         <i-select
+                            filterable
                             multiple
                             @on-change="shopChange"
                             placeholder="请选择门店"
@@ -69,13 +79,14 @@
                     </i-col>
 
                     <i-col>
+                            <Button @click="blank">清除</Button>
                         <Button type="primary" @click="inquire">查询</Button>
                     </i-col>
 
                 </i-col>
-                <i-col style="text-align:right;flex:1;">
-                    <i style="font-weight:900;font-size:17px;margin-right:5px;cursor: pointer;" class="el-icon-download"></i>
-                    <i style="font-weight:700;font-size:17px;cursor: pointer;" class="el-icon-question"></i>
+                <i-col style="text-align:right;flex:1;font-size:23px;color:#3493FC;padding-right:20px;">
+                    <i style="font-weight:900;margin-right:5px;cursor: pointer;" class="el-icon-download"></i>
+                    <i style="font-weight:700;cursor: pointer;" class="el-icon-question"></i>
                 </i-col>
             </Row>
 
@@ -94,6 +105,7 @@
 
 <script>
     import ChartPage from './ChartPage';
+    // import BrandArea from '@/components/select/BrandArea ';
 
     export default {
         data() {
@@ -123,13 +135,14 @@
         },
         components: {
             ChartPage
+            // BrandArea
         },
         created() {
             this.$https.analysisManagement.allQueryType().then((res) => {
                 this.ditchList = res[0].data.data.map(item => ({ label: item.name, value: item.orgId }));
                 this.ditchList.unshift({ label: '选择渠道', value: '0' });
                 this.areaList = res[1].data.data.map(item => ({ label: item.name, value: item.orgId }));
-                this.areaList.unshift({ label: '选择门店', value: '0' });
+                this.areaList.unshift({ label: '选择区域', value: '0' });
             });
 
             this.menu = ['回访数据'];
@@ -167,13 +180,20 @@
             },
             /** 渠道 */
             ditchChange(e) {
-                this.queryOptions.brand = this.find(this.ditchList, 'value', e) && (this.find(this.ditchList, 'value', e).label || '');
+                if (e !== '0') {
+                    this.queryOptions.brand = this.find(this.ditchList, 'value', e) && (this.find(this.ditchList, 'value', e).label || '');
+                } else {
+                    this.queryOptions.brand = '';
+                }
                 this.changeStroe();
-                // this.getData();
             },
             /** 区域 */
             areaChange(e) {
-                this.queryOptions.area = this.find(this.areaList, 'value', e) && (this.find(this.areaList, 'value', e).label || '');
+                if (e !== '0') {
+                    this.queryOptions.area = this.find(this.areaList, 'value', e) && (this.find(this.areaList, 'value', e).label || '');
+                } else {
+                    this.queryOptions.area = '';
+                }
                 this.changeStroe();
                 // this.getData();
             },
@@ -197,6 +217,18 @@
             /** 查询 */
             inquire() {
                 this.getData();
+            },
+            blank() {
+                this.queryChannelOptions = {
+                    brand: '',
+                    area: '',
+                    shop: ''
+                };
+                this.queryOptions = {
+                    brand: '',
+                    area: '',
+                    shop: ''
+                };
             }
         }
     };

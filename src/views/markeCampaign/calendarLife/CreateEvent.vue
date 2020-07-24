@@ -95,6 +95,7 @@
         },
         watch: {
             'formValidate.timeValue': function (e) {
+                console.log(e);
                 if (e[0]) {
                     this.formValidate.value1 = 'true';
                 } else {

@@ -42,6 +42,7 @@
           <Form-item label="渠道选择">
             <Form-item prop="copyditch">
               <i-select
+                filterable
                 @on-change="ditchChange"
                 placeholder="渠道"
                 v-model="formValidate.ditch"
@@ -55,6 +56,7 @@
               </i-select>
               &nbsp;&nbsp;&nbsp;区域&nbsp;
               <i-select
+                filterable
                 @on-change="areaChange"
                 placeholder="区域"
                 v-model="formValidate.area"
@@ -71,6 +73,7 @@
             <Form-item prop="copyshop">
 
               <i-select
+                filterable
                 @on-change="shopChange"
                 multiple
                 placeholder="门店"
@@ -88,7 +91,7 @@
           </Form-item>
           <Form-item label="已选择渠道">{{selectDitch}}</Form-item>
           <Form-item label="金蓝标选择" prop="copymodel">
-            <i-select multiple @on-change="optionChange" v-model="formValidate.model" style="width:300px">
+            <i-select filterable multiple @on-change="optionChange" v-model="formValidate.model" style="width:300px">
               <i-option
                 v-for="item in colorList"
                 :key="item.value"
@@ -220,7 +223,7 @@
                 this.ditchList = res[0].data.data.map(item => ({ label: item.name, value: item.orgId }));
                 this.ditchList.unshift({ label: '选择渠道', value: '0' });
                 this.areaList = res[1].data.data.map(item => ({ label: item.name, value: item.orgId }));
-                this.areaList.unshift({ label: '选择门店', value: '0' });
+                this.areaList.unshift({ label: '选择区域', value: '0' });
             });
             this.colorList = [
                 // 金蓝标选择
@@ -228,6 +231,9 @@
                 { value: '蓝标', label: '蓝标' },
                 { value: '蓝标转金标', label: '蓝标转金标' }
             ];
+
+            const timer = this.$config.debounce_wait; // 节流的延迟时间
+            this.changeStroeTime = this.$lodash.debounce(this.changeStroe, timer); // 门店接口延迟
         },
         mounted() {
             this.dataBack = this.$lodash.cloneDeep(this.formValidate);
@@ -236,7 +242,7 @@
             cancel() {
                 this.$emit('cancelCreatEvent', false);
             },
-            // 提交创建
+            /** 提交创建 */
             ok() {
                 this.$refs.formValidate.validate((valid) => {
                     if (valid) {
@@ -282,15 +288,15 @@
             },
             /** 渠道 */
             ditchChange() {
-                if (this.formValidate.ditch === '0') this.formValidate.ditch = undefined;
+                if (this.formValidate.ditch === '0') this.formValidate.ditch = '';
                 this.formValidate.shop = [];
-                this.changeStroe();
+                this.changeStroeTime();
             },
             /** 区域 */
             areaChange() {
-                if (this.formValidate.area === '0') this.formValidate.area = undefined;
+                if (this.formValidate.area === '0') this.formValidate.area = '';
                 this.formValidate.shop = [];
-                this.changeStroe();
+                this.changeStroeTime();
             },
             /** 门店 */
             shopChange() {
@@ -315,16 +321,21 @@
             },
             /** 门店接口 */
             changeStroe() {
+                // 区域
                 const areaObj = this.areaList.find(item => item.value === this.formValidate.area);
+                // 渠道
+                const brandObj = this.ditchList.find(item => item.value === this.formValidate.ditch);
                 let area; let brand;
                 if (areaObj) {
-                    if (areaObj.label !== '选择门店') {
-                        area = areaObj.label;
-                    }
+                    area = areaObj.label;
                 }
-                if (this.formValidate.ditch != '0') {
+                if (brandObj) {
                     brand = this.ditchList.find(item => item.value === this.formValidate.ditch).label;
                 }
+
+                console.log(brandObj, areaObj);
+
+
                 this.$https.analysisManagement.queryChannelOptions({
                     queryType: 'stroe',
                     brand,
@@ -333,8 +344,9 @@
                     this.shopList = res.data.data.map(item => ({ label: item.storeName, value: item.storeNo }));
                 });
             }
-        },
+        }
         /** keep-alive 显示的生命周期 */
+        /**
         activated() {
             this.formValidate = { // 表单数据
                 code: '',
@@ -351,6 +363,7 @@
             this.selectVal = '';
             this.$refs.formValidate.resetFields();
         }
+         */
     };
 </script>
 

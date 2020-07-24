@@ -28,7 +28,7 @@
                 <span style="font-weight:600;" v-for="item in dataChild" :key="item.code">
                 {{ item.code }}、
                 </span>
-                （可选对比人群不超过3个）
+                <span :style="{color:dataChild.length>3?'red':'black'}">（可选对比人群不超过3个）</span>
             </span>
           </i-col>
           <i-col>
@@ -108,7 +108,6 @@
                     this.data.forEach((item) => {
                         item.action = false;
                     });
-
                     if (this.dataChild.length > 0) {
                         this.dataChild.forEach((item) => {
                             const act = this.data.find(item_2 => item_2.code === item.code);
@@ -168,7 +167,7 @@
                             },
                             props: {
                                 value: params.row.action,
-                                disabled: !params.row.calculate_status
+                                disabled: params.row.calculate_status !== 1
                             }
                         })
                     }
