@@ -45,6 +45,8 @@
         "vue-router": "^3.0.1",
         "vuedraggable": "^2.19.2",
         "vuex": "^3.0.1",
+        "xlsx": "^0.16.1",
+        "file-saver": "^2.0.2",
         "websocket-heartbeat-js": "^1.0.8"
     },
     "devDependencies": {

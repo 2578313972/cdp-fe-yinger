@@ -146,7 +146,7 @@
                 },
                 ruleValidate: {
                     code: [{ required: true, message: '请输入活动名', trigger: 'blur,change' }],
-                    value1: [{ required: true, message: '请选择活动时间,并且时间之差不得超过30天', trigger: 'blur,change' }],
+                    value1: [{ required: true, message: '请选择活动时间', trigger: 'blur,change' }],
                     copymodel: [{ required: true, message: '请选择金蓝标中的其一', trigger: 'blur,change' }],
                     copyditch: [{ required: true, message: '请选择渠道或者区域', trigger: 'blur,change' }],
                     copyshop: [{ required: true, message: '请选择门店', trigger: 'change' }],
@@ -158,7 +158,7 @@
         },
         watch: {
             'formValidate.timeValue': function (e) {
-                if (e[0] && e[1].getTime() / 1000 / 60 / 60 / 24 - e[0].getTime() / 1000 / 60 / 60 / 24 <= 30) {
+                if (e[0]) {
                     this.formValidate.value1 = 'true';
                 } else {
                     this.formValidate.value1 = null;

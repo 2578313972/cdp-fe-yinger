@@ -93,7 +93,6 @@
 
             <chart-page
                 v-if="show"
-                ref="child"
                 :loading="loading"
                 :allData="allData"
                 :vip="this.dimension[this.active_name]"
@@ -214,21 +213,7 @@
             },
             /** 查询 */
             inquire() {
-                this.$https.visitKanban.detail({
-                    code: this.$route.query.f_id,
-                    data: {
-                        area: this.queryOptions.area && this.queryOptions.area.split(),
-                        brand: this.queryOptions.brand && this.queryOptions.brand.split(),
-                        shop: this.queryOptions.shop
-                    }
-                }).then((res) => {
-                    this.allData = res.data.data;
-                    this.code = this.allData.batch_num || this.code;
-                    console.log('inquire');
-                    this.$nextTick(() => {
-                        this.$refs.child.info();
-                    });
-                });
+                this.getData();
             },
             blank() {
                 this.queryChannelOptions = {
