@@ -22,7 +22,7 @@
               @input="debounceSearch"
               v-model="name"
               icon="ios-search"
-              placeholder="输入任务名称"
+              placeholder="输入人群名称"
             ></i-input>
             <span class="total-count">
               共
@@ -73,10 +73,10 @@
                 current: 1,
                 butNum: 0,
                 pageSize: 10,
-                butData: ['全部', '进行中', '结束'],
+                butData: ['全部'],
                 loading: false, // table的loading
                 creatEvent: false,
-                calculate_status_item: ['未开始', '活动开始', '活动结束'],
+                calculate_status_item: ['未开始', '计算成功', '计算失败'],
                 columns: [],
                 data: [],
                 allData: [],
@@ -98,41 +98,45 @@
             /** 获取接口数据 */
             getData() {
                 this.loading = true;
-                return this.$axios.get('/cdp-web/marketplugin/orderAnalysis/queryOrderList', {
+                return this.$https.crowdContrastManagement.queryMarketingCrowdList({
                     params: {
                         displayName: this.name,
                         page: this.current,
                         rows: this.pageSize
                     }
                 }).then((res) => {
-                    this.data = res.data.data;
-                    this.data.forEach((item) => {
-                        item.action = false;
-                    });
-                    if (this.dataChild.length > 0) {
-                        this.dataChild.forEach((item) => {
-                            const act = this.data.find(item_2 => item_2.code === item.code);
-                            act && (act.action = true);
+                    if (res.data.data) {
+                        this.data = res.data.data;
+                        this.data.forEach((item) => {
+                            item.action = false;
                         });
+                        if (this.dataChild.length > 0) {
+                            this.dataChild.forEach((item) => {
+                                const act = this.data.find(item_2 => item_2.code === item.code);
+                                act && (act.action = true);
+                            });
+                        }
+                        this.tableColumn();
+                        this.allDataSize = res.data.pageInfo.total;
                     }
-                    this.tableColumn();
-                    this.allDataSize = res.data.pageInfo.total;
                     this.loading = false;
                 });
             },
             /** 按钮切换 */
-            butStatus(e) {
-                if (this.butNum === e) return;
-                this.butNum = e;
-                this.getData();
-            },
+            butStatus() {},
             /** 重新渲染Table结构 */
             tableColumn() {
                 this.columns = [
                     {
                         title: '人群名称',
                         key: 'display_name',
-                        width: '200px'
+                        minWidth: 200,
+                        render: (h, params) => (
+                        <div style="display:flex;">
+                            <icon style='color:#19be6b;margin:auto 0;' type='ios-radio-button-on'></icon>
+                            <span> {params.row.crowd_name} </span>
+                        </div>
+                    )
                     },
                     {
                         title: '人群ID',
@@ -149,17 +153,16 @@
                         align: 'center',
                         render: (h, params) => (
                         <div>{this.calculate_status_item[params.row.calculate_status]}</div>
-                    )
+                        )
                     },
                     {
                         title: '时间',
                         align: 'center',
-                        minWidth: 80,
+                        minWidth: 100,
                         render: (h, params) => (
-                <div>{params.row.start_time_day} 至 {params.row.end_time_day}</div>
-                )
+                        <div>{ this.$time(new Date(params.row.create_time))} 至 {params.row.end_time_day}</div>
+                        )
                     },
-
                     {
                         title: '选择',
                         width: 150,
@@ -172,7 +175,7 @@
                             },
                             props: {
                                 value: params.row.action,
-                                disabled: !params.row.calculate_status
+                                disabled: params.row.calculate_status !== 1
                             }
                         })
                     }
@@ -215,19 +218,19 @@
             },
             // 提交新建事件
             submitCreat() {
-                this.$axios.post('/cdp-web/marketplugin/orderAnalysis/addOrderComparedTask',
-                                 { taskIds: this.dataChild.map(item => item.code).toString() },
-                                 { headers: { 'Content-Type': 'application/json' } }).then((res) => {
-                                     switch (res.data.success) {
-                                     case 'true':
-                                         this.$Message.success({ background: true, content: res.data.msg });
-                                         break;
-                                     default:
-                                         this.$Message.error({ background: true, content: res.data.msg });
-                                         break;
-                                     }
-                                 });
-                this.creatEvent = false;
+                this.$https.crowdContrastManagement.addCrowdComparedTask({
+                    taskIds: this.dataChild.map(item => item.code).toString()
+                }).then((res) => {
+                    switch (res.data.success) {
+                    case 'true':
+                        this.$Message.success({ background: true, content: res.data.msg });
+                        break;
+                    default:
+                        this.$Message.error({ background: true, content: res.data.msg });
+                        break;
+                    }
+                    this.creatEvent = false;
+                });
             }
         }
     };

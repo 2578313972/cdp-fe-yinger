@@ -17,7 +17,7 @@ import VueClipboard from 'vue-clipboard2';
 // 活动管理demo数据
 import activityData from '@/api/activityData';
 
-// 引入td-component
+// 引入 td-component
 import 'td-component';
 
 // 引入css文件
@@ -43,7 +43,6 @@ import App from './App';
 // 引入所有接口
 import * as https from '@/http';
 
-
 // 对iView进行部分全局配置
 Vue.use(iView, {
     // select: {
@@ -55,6 +54,8 @@ Vue.use(iView, {
         arrowSize: 24
     }
 });
+
+// require('../mock/mock');
 
 Vue.use(Vuex);
 Vue.use(VueClipboard);

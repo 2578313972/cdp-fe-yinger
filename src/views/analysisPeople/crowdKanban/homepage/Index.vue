@@ -88,12 +88,14 @@
             /** 获取接口数据 */
             getData() {
                 this.loading = true;
-                return this.$https.analysisKanban.queryComparedTasks({
+                return this.$https.crowdKanban.queryComparedTaskList({
                     page: this.current,
                     rows: this.pageSize
                 }).then((res) => {
-                    this.showData = res.data.data;
-                    this.allDataSize = res.data.pageInfo.total;
+                    if (res.data.data) {
+                        this.showData = res.data.data;
+                        this.allDataSize = res.data.pageInfo.total;
+                    }
                     this.loading = false;
                 });
             },

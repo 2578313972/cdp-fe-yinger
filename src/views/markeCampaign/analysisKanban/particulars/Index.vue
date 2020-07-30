@@ -92,8 +92,10 @@
                     page: this.current,
                     rows: this.pageSize
                 }).then((res) => {
-                    this.showData = res.data.data;
-                    this.allDataSize = res.data.pageInfo.total;
+                    if (res.data.data) {
+                        this.showData = res.data.data;
+                        this.allDataSize = res.data.pageInfo.total;
+                    }
                     this.loading = false;
                 });
             },

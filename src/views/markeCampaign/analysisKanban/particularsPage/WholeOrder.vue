@@ -2,7 +2,7 @@
   <div ref="win" class="whole-order">
     <Spin style="margin:auto;" v-if="loading" size="large"></Spin>
     <Row v-else>
-        <Row class="padding16-18" style="background:white;font-size:18px;font-weight:600;color:#000">
+        <Row class="padding16-18" style="background:white;">
             <!-- <i-col span="6" style="font-size:18px;font-weight:600;">
                 {{title}}
             </i-col> -->
@@ -29,27 +29,26 @@
         </Card>
         <i-col class="padding16-18 echart" style="justify-content: space-between;flex-wrap: wrap;" span="24">
             <div class="flex" style="justify-content: space-around;" >
-                <div id="main_1" style="height:400px"></div>
-                <div id="main_4" style="height:400px"></div>
+                <div ref="chart_1" style="height:450px"></div>
+                <div ref="chart_4" style="height:450px"></div>
             </div>
 
             <div class="flex martop80" style="justify-content: space-around;" v-show="vip==='total'">
-                <div id="main_2" style="height:450px"></div>
-                <div id="main_3" style="height:450px"></div>
+                <div ref="chart_2" style="height:450px"></div>
+                <div ref="chart_3" style="height:450px"></div>
             </div>
 
             <div class="martop80">
                 <Card dis-hover style="margin-top:30px;">
                     <p slot="title" class="rbg" style="text-indent:15px;">商品偏好系列</p>
                     <div class="flex" style="flex-wrap: wrap;justify-content: space-around;">
-                        <div id="main_5" style="height:400px"></div>
-                        <div id="main_6" style="height:400px"></div>
-                        <div id="main_7" style="height:400px"></div>
-                        <div id="main_8" style="height:400px"></div>
+                        <div ref="chart_5" style="height:400px"></div>
+                        <div ref="chart_6" style="height:400px"></div>
+                        <div ref="chart_7" style="height:450px"></div>
+                        <div ref="chart_8" style="height:450px"></div>
                     </div>
                 </Card>
             </div>
-
 
         </i-col>
     </Row>
@@ -92,7 +91,8 @@
         },
         created() {
             console.log(this.allData);
-            this.optionName = this.allData.map(item => item.display_name);
+            this.optionName = this.allData.map(item => item.display_name.replace('数据分析对比任务', ''));
+            console.log(this.optionName);
             // 制作表格格式
             this.columns_1 = [
                 {
@@ -155,7 +155,6 @@
                 }
 
             ];
-
 
             switch (this.vip) {
             case 'total':
@@ -306,24 +305,13 @@
         },
 
         mounted() {
-            this.resize();
+            this.chartsSize = Object.keys(this.$refs).filter(item => item.indexOf('chart_') !== -1).length;
 
-            // 退货率
-            const myChart_1 = this.echarts.init(document.getElementById('main_1'));
-            // 会员订单占比
-            const myChart_2 = this.echarts.init(document.getElementById('main_2'));
-            // 会员金额占比
-            const myChart_3 = this.echarts.init(document.getElementById('main_3'));
-            // 联单件数占比分析
-            const myChart_4 = this.echarts.init(document.getElementById('main_4'));
-            // 商品偏好-季节分布
-            const myChart_5 = this.echarts.init(document.getElementById('main_5'));
-            // 商品偏好-价格带分布
-            const myChart_6 = this.echarts.init(document.getElementById('main_6'));
-            // 商品偏好-色系分布
-            const myChart_7 = this.echarts.init(document.getElementById('main_7'));
-            // 商品偏好-面料分布
-            const myChart_8 = this.echarts.init(document.getElementById('main_8'));
+            for (let i = 1; i <= this.chartsSize; i++) {
+                this[`chart_${i}`] = this.echarts.init(this.$refs[`chart_${i}`]);
+            }
+
+            this.resize();
 
             const top = 60 + (this.allData.length - 1) * 10;
             const option_1 = {
@@ -342,7 +330,7 @@
                 },
                 legend: {
                     data: this.optionName,
-                    left: '65%'
+                    left: '80%'
                 },
                 grid: {
                     left: '3%',
@@ -354,8 +342,7 @@
                 },
                 xAxis: {
                     type: 'category',
-                    data: ['订单销售额退货率', '订单总销量退货率']
-
+                    data: [`订单销售额${this.nbsp}退货率`, `订单总销量${this.nbsp}退货率`]
                 },
                 yAxis: {
                     type: 'value',
@@ -383,7 +370,7 @@
                 },
                 legend: {
                     data: this.optionName,
-                    left: '65%'
+                    left: '80%'
                 },
                 grid: {
                     left: '3.8%',
@@ -423,7 +410,7 @@
                 },
                 legend: {
                     data: this.optionName,
-                    left: '65%'
+                    left: '80%'
                 },
                 grid: {
                     left: '4.3%',
@@ -446,7 +433,6 @@
                 },
                 series: []
             };
-
             const option_4 = {
                 color: ['#3398DB', '#67E0E3', '#FFDB5C'],
                 title: {
@@ -463,15 +449,14 @@
                 },
                 legend: {
                     data: this.optionName,
-                    left: '65%'
+                    left: '80%'
                 },
                 grid: {
                     left: '3%',
                     right: '3%',
                     bottom: '3%',
                     top,
-                    containLabel: true,
-                    backgroundColor: 'red'
+                    containLabel: true
                 },
                 yAxis: {
                     type: 'value',
@@ -482,7 +467,7 @@
                 },
                 xAxis: {
                     type: 'category',
-                    data: ['联单件数5件以上占比', '联单件数3件以上占比', '联单件数2件占比', '联单件数1件占比']
+                    data: [`联单5件以上${this.nbsp}占比`, `联单3件以上${this.nbsp}占比`, `联单2件${this.nbsp}占比`, `联单1件${this.nbsp}占比`]
                 },
                 series: []
             };
@@ -503,7 +488,7 @@
                 },
                 legend: {
                     data: this.optionName,
-                    left: '65%'
+                    left: '80%'
                 },
                 grid: {
                     left: '2.7%',
@@ -554,7 +539,7 @@
                 },
                 legend: {
                     data: this.optionName,
-                    left: '65%'
+                    left: '80%'
                 },
                 grid: {
                     left: '3.4%',
@@ -605,7 +590,7 @@
                 },
                 legend: {
                     data: this.optionName,
-                    left: '65%'
+                    left: '80%'
 
                 },
                 grid: {
@@ -618,7 +603,10 @@
                 },
                 xAxis: {
                     type: 'category',
-                    data: this.allData[0].color_distribution.map(item => Object.keys(item)[0])
+                    data: this.allData[0].color_distribution.map(item => Object.keys(item)[0]),
+                    axisLabel: {
+                        rotate: 45
+                    }
                 },
                 yAxis: {
                     type: 'value',
@@ -657,25 +645,27 @@
                 },
                 legend: {
                     data: this.optionName,
-                    left: '65%'
+                    left: '80%'
 
                 },
                 grid: {
                     left: '3.4%',
                     right: '3%',
-                    bottom: '3%',
+                    bottom: '5%',
                     top,
                     containLabel: true,
                     backgroundColor: 'red'
                 },
                 xAxis: {
                     type: 'category',
-                    data: this.allData[0].fabric_distribution.map(item => Object.keys(item)[0])
+                    data: this.allData[0].fabric_distribution.map(item => Object.keys(item)[0]),
+                    axisLabel: {
+                        rotate: 45
+                    }
                 },
                 yAxis: {
                     type: 'value',
                     axisLabel: {
-                        show: true,
                         formatter: '{value}'
                     }
                 },
@@ -773,14 +763,14 @@
                 };
             });
 
-            myChart_1.setOption(option_1);
-            myChart_2.setOption(option_2);
-            myChart_3.setOption(option_3);
-            myChart_4.setOption(option_4);
-            myChart_5.setOption(option_5);
-            myChart_6.setOption(option_6);
-            myChart_7.setOption(option_7);
-            myChart_8.setOption(option_8);
+            this.chart_1.setOption(option_1);
+            this.chart_2.setOption(option_2);
+            this.chart_3.setOption(option_3);
+            this.chart_4.setOption(option_4);
+            this.chart_5.setOption(option_5);
+            this.chart_6.setOption(option_6);
+            this.chart_7.setOption(option_7);
+            this.chart_8.setOption(option_8);
             // 监听 窗口大小
             window.addEventListener('resize', this.resize);
         },
@@ -791,15 +781,12 @@
         methods: {
             resize() {
                 this.gaugeWidth = this.$refs.win.clientWidth - 38;
-                document.getElementById('main_1').style.width = `${this.gaugeWidth * 0.45}px`;
-                document.getElementById('main_2').style.width = `${this.gaugeWidth * 0.45}px`;
-                document.getElementById('main_3').style.width = `${this.gaugeWidth * 0.45}px`;
-                document.getElementById('main_4').style.width = `${this.gaugeWidth * 0.45}px`;
+                this.nbsp = this.gaugeWidth < 1200 ? '\n' : '';
 
-                document.getElementById('main_5').style.width = `${this.gaugeWidth * 0.45}px`;
-                document.getElementById('main_6').style.width = `${this.gaugeWidth * 0.45}px`;
-                document.getElementById('main_7').style.width = `${this.gaugeWidth * 0.45}px`;
-                document.getElementById('main_8').style.width = `${this.gaugeWidth * 0.45}px`;
+                for (let i = 1; i <= this.chartsSize; i++) {
+                    this.$refs[`chart_${i}`].style.width = `${this.gaugeWidth * 0.45}px`;
+                    this[`chart_${i}`].resize();
+                }
             }
         }
     };

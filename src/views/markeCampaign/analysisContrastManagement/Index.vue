@@ -104,18 +104,20 @@
                     page: this.current,
                     rows: this.pageSize
                 }).then((res) => {
-                    this.data = res.data.data;
-                    this.data.forEach((item) => {
-                        item.action = false;
-                    });
-                    if (this.dataChild.length > 0) {
-                        this.dataChild.forEach((item) => {
-                            const act = this.data.find(item_2 => item_2.code === item.code);
-                            act && (act.action = true);
+                    if (res.data.data) {
+                        this.data = res.data.data;
+                        this.data.forEach((item) => {
+                            item.action = false;
                         });
+                        if (this.dataChild.length > 0) {
+                            this.dataChild.forEach((item) => {
+                                const act = this.data.find(item_2 => item_2.code === item.code);
+                                act && (act.action = true);
+                            });
+                        }
+                        this.allDataSize = res.data.pageInfo.total;
+                        this.tableColumn();
                     }
-                    this.tableColumn();
-                    this.allDataSize = res.data.pageInfo.total;
                     this.loading = false;
                 });
             },

@@ -30,9 +30,34 @@
             </span>
           </i-col>
           <i-col>
-            <span class="top-font" @click="downloadExcel">下载模板</span>
-            <i-button size="default">导入</i-button>
-            <i-button size="default" @click="addData" icon="md-add" type="primary">添加活动</i-button>
+            <span class="top-font" @click="downloadExcel"><a  :href="downloadLink">下载模板</a></span>
+
+            <Tooltip
+                class="tooltip"
+                transfer
+                max-width="250"
+                content="对不存在子节点的，可导入文件进行初始化设置；对已存在子节点的无法导入"
+                placement="right">
+                <Upload
+                    :show-upload-list="false"
+                    multiple
+                    :format="['xlsx', 'xls']"
+                    :on-format-error="handleFormatError"
+                    :max-size="1024"
+                    :on-exceeded-size="uploadSizeError"
+                    :action="uploadLink"
+                    :before-upload="beforeUpload"
+                    :on-success="handleSuccess"
+                    :on-error="handleError">
+                    <Button>
+                        <span class="iconfont icon-file_upload custom-icon"></span>
+                        导入
+                    </Button>
+                </Upload>
+            </Tooltip>
+
+
+            <i-button @click="addData" icon="md-add" type="primary">添加活动</i-button>
           </i-col>
         </Row>
         <Table
@@ -80,9 +105,11 @@
                 columns: [],
                 data: [],
                 allData: [],
+                downloadLink: `${this.$config.apiDomain}/sys/orgs/org-template`,
                 allDataSize: 0,
                 calculate_status_item: ['未开始', '进行中', '结束'],
-                statusName: []
+                statusName: [],
+                uploadLink: ''
             };
         },
         components: {
@@ -140,6 +167,8 @@
             ];
             /** 请求数据接口 */
             this.getData();
+            console.log(this.$config);
+            this.uploadLink = `${this.$config.apiDomain}/sys/orgs/org-importing?org_id=`;
 
             const timer = this.$config.debounce_wait; // 节流的延迟时间
             this.debounceSearch = this.$lodash.debounce(this.changeInput, timer); // 搜索
@@ -155,8 +184,10 @@
                     page: this.current,
                     rows: this.pageSize
                 }).then((res) => {
-                    this.data = res.data.data;
-                    this.allDataSize = res.data.pageInfo.total;
+                    if (res.data.data) {
+                        this.data = res.data.data;
+                        this.allDataSize = res.data.pageInfo.total;
+                    }
                     this.loading = false;
                 });
             },
@@ -215,9 +246,52 @@
             },
             /** 下载Excel表格 */
             downloadExcel() {
-                this.$refs.table.exportCsv({
-                    filename: '原始数据'
+                // this.$refs.table.exportCsv({
+                //     filename: '原始数据'
+                // });
+            },
+            // 文件上传前
+            beforeUpload() {
+                this.$emit('loading', true);
+            },
+            // 文件上传成功回调
+            handleSuccess() {
+                this.$Message.info({
+                    content: '导入成功',
+                    duration: 3
                 });
+                const params = {
+                    org_id: this.rootInfo.org_id
+                };
+                this.$emit('loading', false);
+                this.$tools.bus.$emit('finishUploadTreeData', params);
+            },
+            // 文件大小超限回调
+            uploadSizeError() {
+                this.$Message.destroy();
+                this.$Message.error({
+                    content: '无法导入，文件大小超过限制',
+                    duration: 5
+                });
+                this.$emit('loading', false);
+            },
+            // 文件类型上传出错回调
+            handleFormatError() {
+                this.$Message.destroy();
+                this.$Message.error({
+                    content: '无法导入，请检查文件格式',
+                    duration: 5
+                });
+                this.$emit('loading', false);
+            },
+            // 文件上传失败回调
+            handleError(error, res) {
+                this.$Message.destroy();
+                this.$Message.error({
+                    content: res.message,
+                    duration: 5
+                });
+                this.$emit('loading', false);
             }
         }
     };

@@ -16,7 +16,7 @@
           ref="formValidate"
           class="padding16-18"
           label-position="left"
-          :label-width="110"
+          :label-width="120"
           :model="formValidate"
           :rules="ruleValidate"
         >
@@ -30,7 +30,7 @@
           </Form-item>
           <Form-item label="交易起止时间" prop="value1">
             <Date-picker
-              class="width300"
+              class="width400"
               v-model="formValidate.timeValue"
               format="yyyy/MM/dd"
               type="daterange"
@@ -38,7 +38,15 @@
               placeholder="选择日期"
             ></Date-picker>
           </Form-item>
-
+          <Form-item label="线上 线下选择" prop="copyOto">
+            <i-select class="width400" multiple @on-change="otoChange" v-model="formValidate.oto">
+              <i-option
+                v-for="item in otoList"
+                :key="item.value"
+                :value="item.value"
+              >{{ item.label }}</i-option>
+            </i-select>
+          </Form-item>
           <Form-item label="渠道选择">
             <Form-item prop="copyditch">
               <i-select
@@ -46,7 +54,7 @@
                 @on-change="ditchChange"
                 placeholder="渠道"
                 v-model="formValidate.ditch"
-                style="width:100px"
+                style="width:90px"
               >
                 <i-option
                   v-for="item in ditchList"
@@ -60,7 +68,7 @@
                 @on-change="areaChange"
                 placeholder="区域"
                 v-model="formValidate.area"
-                style="width:80px"
+                style="width:90px"
               >
                 <i-option
                   v-for="item in areaList"
@@ -76,9 +84,10 @@
                 filterable
                 @on-change="shopChange"
                 multiple
+                :max-tag-count='2'
                 placeholder="门店"
                 v-model="formValidate.shop"
-                style="width:200px;"
+                style="width:180px;"
               >
                 <i-option
                   v-for="item in shopList"
@@ -91,7 +100,7 @@
           </Form-item>
           <Form-item label="已选择渠道">{{selectDitch}}</Form-item>
           <Form-item label="金蓝标选择" prop="copymodel">
-            <i-select filterable multiple @on-change="optionChange" v-model="formValidate.model" style="width:300px">
+            <i-select class="width400" multiple @on-change="optionChange" v-model="formValidate.model">
               <i-option
                 v-for="item in colorList"
                 :key="item.value"
@@ -130,27 +139,32 @@
                 areaList: [], // 区域
                 shopList: [], // 门店
                 colorList: [], // 金蓝标选择
+                otoList: [], // 线上 线下选择
 
                 formValidate: { // 表单数据
                     code: '',
                     timeValue: [],
-                    description: '',
-                    model: [],
+                    oto: [],
                     ditch: '',
                     area: '',
                     shop: [],
+                    model: [],
+                    description: '',
+
                     value1: '',
                     copyditch: '',
                     copyshop: '',
+                    copyOto: '',
                     copymodel: ''
                 },
                 ruleValidate: {
-                    code: [{ required: true, message: '请输入活动名', trigger: 'blur,change' }],
-                    value1: [{ required: true, message: '请选择活动时间,并且时间之差不得超过30天', trigger: 'blur,change' }],
-                    copymodel: [{ required: true, message: '请选择金蓝标中的其一', trigger: 'blur,change' }],
+                    code: [{ required: true, message: '请输入任务名', trigger: 'blur,change' }],
+                    value1: [{ required: true, message: '请选择任务时间,并且时间之差不得超过30天', trigger: 'blur,change' }],
+                    copyOto: [{ required: true, message: '请选择线上或线下（可多选）', trigger: 'blur,change' }],
+                    copymodel: [{ required: true, message: '请选择金蓝标（可多选）', trigger: 'blur,change' }],
                     copyditch: [{ required: true, message: '请选择渠道或者区域', trigger: 'blur,change' }],
                     copyshop: [{ required: true, message: '请选择门店', trigger: 'change' }],
-                    description: [{ required: true, message: '请输入描述', trigger: 'blur,change' }]
+                    description: [{ required: true, message: '请输入任务描述', trigger: 'blur,change' }]
                 },
                 dataBack: {},
                 shopData: []
@@ -225,8 +239,14 @@
                 this.areaList = res[1].data.data.map(item => ({ label: item.name, value: item.orgId }));
                 this.areaList.unshift({ label: '选择区域', value: '0' });
             });
+            // 线上 线下选择
+            this.otoList = [
+                { value: '线上', label: '线上' },
+                { value: '线下', label: '线下' }
+            ];
+            // 金蓝标选择
             this.colorList = [
-                // 金蓝标选择
+
                 { value: '金标', label: '金标' },
                 { value: '蓝标', label: '蓝标' },
                 { value: '蓝标转金标', label: '蓝标转金标' }
@@ -304,6 +324,19 @@
                     this.formValidate.copyshop = 'true';
                 } else {
                     this.formValidate.copyshop = null;
+                }
+            },
+            /** 线上线下 */
+            otoChange(e) {
+                if (e.length) {
+                    this.formValidate.copyOto = 'true';
+                } else {
+                    this.formValidate.copyOto = undefined;
+                }
+                if (this.formValidate.oto.toString()) {
+                    this.selectVal = `[ ${this.formValidate.oto.toString()} ]`;
+                } else {
+                    this.selectVal = '';
                 }
             },
             /** 金蓝标 */

@@ -4,7 +4,7 @@
       :loading="saveBtnStatus"
       @cancel-click="cancel"
       @ok-click="ok"
-      :title="title"
+      title="人群分析-新增人群"
       :disabled="hasChanged"
     ></edit-title>
     <div class="slide-scroll-box dialog-padding20">
@@ -19,17 +19,15 @@
           :model="formValidate"
           :rules="ruleValidate"
         >
-          <Form-item label="人群选择" prop="code">
-            <Input
-              class="width400"
-              :maxlength="32"
-              v-model.trim="formValidate.code"
-              placeholder="请输入活动名称"
-            />
+          <Form-item label="人群选择" prop="person">
+            <Select filterable v-model="formValidate.person" placeholder="请选择人群" class="width400">
+                <Option v-for="item in personList" :value="item.value" :key="item.value">{{ item.label }}</Option>
+            </Select>
           </Form-item>
+
           <Form-item label="分析时间" prop="value1">
             <Date-picker
-              class="width300"
+              class="width400"
               v-model="formValidate.timeValue"
               format="yyyy/MM/dd"
               type="daterange"
@@ -59,26 +57,27 @@
     export default {
         data() {
             return {
-                title: '人群分析-新增人群',
                 saveBtnStatus: false,
+                personList: [], // 人群下拉框数据
                 formValidate: {
                     code: '',
                     timeValue: [],
+                    person: '',
                     description: '',
                     value1: ''
                 },
                 ruleValidate: {
-                    code: [
+                    person: [
                         {
                             required: true,
-                            message: '请输入活动名',
+                            message: '请选择人群',
                             trigger: 'blur,change'
                         }
                     ],
                     value1: [
                         {
                             required: true,
-                            message: '请选择活动时间',
+                            message: '请选择活动时间,并且时间之差不得超过30天',
                             trigger: 'blur,change'
                         }
                     ],
@@ -93,9 +92,14 @@
                 dataBack: {}
             };
         },
+        created() {
+            this.$https.crowdManagement.visible().then((res) => {
+                this.personList = res.data.items.map(item => ({ label: item.name, value: item.code }));
+            });
+        },
         watch: {
             'formValidate.timeValue': function (e) {
-                if (e[0]) {
+                if (e[0] && e[1].getTime() / 1000 / 60 / 60 / 24 - e[0].getTime() / 1000 / 60 / 60 / 24 <= 30) {
                     this.formValidate.value1 = 'true';
                 } else {
                     this.formValidate.value1 = null;
@@ -110,7 +114,6 @@
         components: {
             editTitle
         },
-        // created: {},
         mounted() {
             this.dataBack = this.$lodash.cloneDeep(this.formValidate);
         },
@@ -123,18 +126,15 @@
                     if (valid) {
                         this.saveBtnStatus = true;
                         const data = {
-                            display_name: this.formValidate.code,
-                            starttime_day: this.formValidate.timeValue[0],
-                            endtime_day: this.formValidate.timeValue[1],
+                            crowdCode: this.formValidate.person,
+                            startTimeDay: this.formValidate.timeValue[0],
+                            endTimeDay: this.formValidate.timeValue[1],
                             descriptions: this.formValidate.description
                         };
-                        data.starttime_day = this.$time(data.starttime_day);
-                        data.endtime_day = this.$time(data.endtime_day);
+                        data.startTimeDay = this.$time(data.startTimeDay);
+                        data.endTimeDay = this.$time(data.endTimeDay);
 
-                        this.$axios.post(
-                            '/cdp-web/marketplugin/calendarManagement/addActivity', data,
-                            { headers: { 'Content-Type': 'application/json' } }
-                        ).then((res) => {
+                        this.$https.crowdManagement.addMarketingCrowd(data).then((res) => {
                             this.saveBtnStatus = false;
                             this.$Message.destroy();
                             this.$Message.success('已添加');
@@ -151,7 +151,7 @@
 </script>
 
 <style lang="less" scoped>
-.pr20 {
-  padding: 0;
-}
+    .pr20 {
+        padding: 0;
+    }
 </style>

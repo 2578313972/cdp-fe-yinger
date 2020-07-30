@@ -37,7 +37,7 @@
                 loading: false,
                 columns: [],
                 hasChanged: false,
-                calculate_status_item: ['未开始', '活动开始', '活动结束']
+                calculate_status_item: ['未开始', '计算成功', '计算失败']
             };
         },
         props: {
@@ -50,10 +50,12 @@
             editTitle
         },
         created() {
+            console.log(this.showData);
             this.columns = [
                 {
                     title: '任务名称',
-                    key: 'display_name'
+                    key: 'crowd_name',
+                    minWidth: 120
                 },
                 {
                     title: '任务ID',

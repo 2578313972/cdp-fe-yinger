@@ -21,7 +21,7 @@
               class="width300"
               v-model="name"
               icon="ios-search"
-              placeholder="活动名称搜索"
+              placeholder="人群名称搜索"
               @input="debounceSearch"
             ></i-input>
             <span class="total-count">
@@ -38,7 +38,7 @@
           :loading="loading"
           no-data-text="暂无数据"
           :columns="columns"
-          :data="data"
+          :data="tableData"
           ref="table"
         ></Table>
         <Page
@@ -76,7 +76,7 @@
                 loading: false, // table的loading
                 creatEvent: false,
                 columns: [],
-                data: [],
+                tableData: [],
                 allData: [],
                 allDataSize: 0,
                 calculate_status_item: [],
@@ -87,17 +87,18 @@
             CreateEvent
         },
         created() {
-            this.butData = ['全部', '进行中', '结束'];
-            this.calculate_status_item = ['未开始', '计算完成', '计算失败'];
-            this.statusName = ['processing', 'nostarted', 'completed'];
+            this.butData = ['全部'];
+            this.calculate_status_item = ['未开始', '计算成功', '计算失败'];
+            this.statusName = ['nostarted', 'completed', 'failed'];
             this.columns = [ // 定义Table模板
                 {
                     title: '人群名称',
                     key: 'display_name',
+                    minWidth: 200,
                     render: (h, params) => (
                     <div style="display:flex;">
                         <icon style='color:#19be6b;margin:auto 0;' type='ios-radio-button-on'></icon>
-                        <span> {params.row.display_name} </span>
+                        <span> {params.row.crowd_name} </span>
                     </div>
                 )
                 },
@@ -121,8 +122,9 @@
                 {
                     title: '时间',
                     align: 'center',
+                    minWidth: 100,
                     render: (h, params) => (
-                      <div>{params.row.starttime_day} 至 {params.row.endtime_day}</div>
+                      <div>{ this.$time(new Date(params.row.create_time))} 至 {params.row.end_time_day}</div>
                     )
                 },
                 {
@@ -145,42 +147,25 @@
             ];
             /** 请求数据接口 */
             this.getData();
-
             const timer = this.$config.debounce_wait; // 节流的延迟时间
-            this.debounceSearch = this.$lodash.debounce(this.changeInput, timer); // 搜索
+            this.debounceSearch = this.$lodash.debounce(this.changeInput, timer); // 模糊查询
             this.debouncePage = this.$lodash.debounce(this.pageChange, timer); // 分页
         },
         methods: {
             /** 获取接口数据 */
             getData() {
-                // this.loading = true;
-                // this.$https.crowdManagement.queryMarketingCrowdList({
-                //     // calc_status: this.statusName[this.butNum - 1],
-                //     displayName: this.name,
-                //     page: this.current,
-                //     rows: this.pageSize
-                // }).then((res) => {
-                //     this.data = res.data.data;
-                //     this.allDataSize = res.data.pageInfo.total;
-                //     this.loading = false;
-                // });
-                for (let i = 0; i < 10; i++) {
-                    this.data.push({
-                        id: 1,
-                        code: 'mc1',
-                        crowd_code: 'cr1',
-                        crowd_name: '会员人群',
-                        calculate_status: 0,
-                        status: 1,
-                        starttime_day: '2020-07-13',
-                        endtime_day: '2020-07-16',
-                        channel_id: 'c2',
-                        descriptions: 'aaaaaa',
-                        creator_username: 'u201',
-                        create_time: 1594689657000,
-                        update_time: 1594689657000
-                    });
-                }
+                this.loading = true;
+                this.$https.crowdManagement.queryMarketingCrowdList({
+                    displayName: this.name,
+                    page: this.current,
+                    rows: this.pageSize
+                }).then((res) => {
+                    if (res.data.data) {
+                        this.tableData = res.data.data;
+                        this.allDataSize = res.data.pageInfo.total;
+                    }
+                    this.loading = false;
+                });
             },
             /** 模糊查询 */
             changeInput() {
@@ -188,11 +173,7 @@
                 this.getData();
             },
             /** 按钮切换 */
-            butStatus(e) {
-                if (this.butNum === e) return;
-                this.butNum = e;
-                this.getData();
-            },
+            butStatus() {},
             /** click添加活动 */
             addData() {
                 this.creatEvent = true;
@@ -201,10 +182,10 @@
             deleteEvent(params) {
                 this.$Modal.confirm({
                     title: '确认删除此活动？',
-                    content: `活动名称：${params.row.display_name}`,
+                    content: `活动名称：${params.row.crowd_name}`,
                     loading: true,
                     onOk: () => {
-                        this.$axios.delete(`/cdp-web/marketplugin/calendarManagement/delete/${params.row.code}`).then((res) => {
+                        this.$https.crowdManagement.deleteMarketingCrowd(params.row.code).then((res) => {
                             switch (res.data.success) {
                             case 'true':
                                 this.getData();
@@ -233,7 +214,6 @@
             submitCreat() {
                 this.getData();
                 this.creatEvent = false;
-                // this.allData.push(data);
             }
         }
     };

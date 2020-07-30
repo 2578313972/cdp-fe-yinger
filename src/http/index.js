@@ -54,17 +54,25 @@ const analysisKanban = {
 const crowdManagement = {
     // 表格数据
     queryMarketingCrowdList: params => axios.get('/cdp-web/marketplugin/crowdAnalysis/queryMarketingCrowdList', { params }),
+    // 人群下拉框
+    visible: () => axios.get('/cdp-web/crowds/drop/list/visible'),
     // 添加
-    addMarketingCrowd: data => axios.post('/cdp-web/marketplugin/crowdAnalysis/addMarketingCrowd', data, { headers: { 'Content-Type': 'application/json' } })
+    addMarketingCrowd: data => axios.post('/cdp-web/marketplugin/crowdAnalysis/addMarketingCrowd', data, { headers: { 'Content-Type': 'application/json' } }),
+    // 删除
+    deleteMarketingCrowd: code => axios.delete(`/cdp-web/marketplugin/crowdAnalysis/deleteMarketingCrowd/${code}`)
 };
-// // 人群分析对比管理
-// const crowdContrastManagement = {
-
-// }
-// // 人群分析看板
-// const crowdKanban = {
-
-// }
+// 人群分析对比管理
+const crowdContrastManagement = {
+    // 表格数据
+    queryMarketingCrowdList: params => axios.get('/cdp-web/marketplugin/crowdAnalysis/queryMarketingCrowdList', { params }),
+    // 添加
+    addCrowdComparedTask: data => axios.post('/cdp-web/marketplugin/crowdAnalysis/addCrowdComparedTask', data, { headers: { 'Content-Type': 'application/json' } })
+};
+// 人群分析看板
+const crowdKanban = {
+    // 表格数据
+    queryComparedTaskList: params => axios.get('/cdp-web/marketplugin/crowdAnalysis/queryComparedTaskList', { params })
+};
 
 /** 回访分析 */
 // 回访看板
@@ -89,8 +97,8 @@ export {
 
 
     crowdManagement,
-    // crowdContrastManagement,
-    // crowdKanban,
+    crowdContrastManagement,
+    crowdKanban,
 
     visitKanban
 

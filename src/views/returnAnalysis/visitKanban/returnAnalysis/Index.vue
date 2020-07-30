@@ -114,8 +114,10 @@
                     page: this.current,
                     rows: this.pageSize
                 }).then((res) => {
-                    this.showData = res.data.data;
-                    this.allDataSize = res.data.pageInfo.total;
+                    if (res.data.data) {
+                        this.showData = res.data.data;
+                        this.allDataSize = res.data.pageInfo.total;
+                    }
                     this.loading = false;
                 });
             },
@@ -126,10 +128,6 @@
             /** 切换页码 */
             pageChange(ind) {
                 this.showData = this.allData.slice((ind - 1) * this.pageSize + 1, (ind - 1) * this.pageSize + 1 + this.pageSize);
-            },
-            /** 关闭新建事件 */
-            cancelCreat(status) {
-                this.creatEvent = status;
             }
         }
     };

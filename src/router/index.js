@@ -12,22 +12,6 @@ import StrategyApi from '@/components/strategy/strategyApi';
 
 Vue.use(Router);
 
-// const len = config.login_info.role_view.menus.length;
-// const aaa = {
-//     children: [
-//         { idx: `${len}-0`, name: '生活日历', path: '/calendarLife' },
-//         { idx: `${len}-1`, name: '营销整体概览', path: '/overallOverview' },
-//         { idx: `${len}-2`, name: '营销分析管理', path: '/analysisManagement' },
-//         { idx: `${len}-3`, name: '营销分析对比管理', path: '/analysisContrastManagement' },
-//         { idx: `${len}-4`, name: '营销分析看板', path: '/analysisKanban' }
-//     ],
-//     icon: 'md-stats',
-//     idx: len,
-//     name: '营销活动管理',
-//     path: ''
-// };
-// config.login_info.role_view.menus.push(aaa);
-
 
 function Session(session) {
     return {
@@ -164,16 +148,16 @@ function getSession(to, from, next) {
                     name: '营销活动管理',
                     path: ''
                 };
-                // const analysisPeople = {
-                //     children: [
-                //         { name: '营销人群管理', path: '/crowdManagement' },
-                //         { name: '人群分析对比管理', path: '/crowdContrastManagement' },
-                //         { name: '人群分析看板', path: '/crowdKanban' }
-                //     ],
-                //     icon: 'ios-people',
-                //     name: '人群分析',
-                //     path: ''
-                // };
+                const analysisPeople = {
+                    children: [
+                        { name: '营销人群管理', path: '/crowdManagement' },
+                        { name: '人群分析对比管理', path: '/crowdContrastManagement' },
+                        { name: '人群分析看板', path: '/crowdKanban' }
+                    ],
+                    icon: 'ios-people',
+                    name: '人群分析',
+                    path: ''
+                };
                 const returnAnalysis = {
                     children: [
                         { name: '回访看板', path: '/visitKanban' }
@@ -183,17 +167,18 @@ function getSession(to, from, next) {
                     path: ''
                 };
 
-                // const dataDownload = {
-                //     children: [
-                //         { name: '数据下载', path: '/dataDown' }
-                //     ],
-                //     icon: 'md-download',
-                //     name: '数据下载',
-                //     path: ''
-                // };
-               res.data.role_view.menus.push(markeCampaign, returnAnalysis);
-               // res.data.role_view.menus.push(markeCampaign, analysisPeople, returnAnalysis, dataDownload);
+                const dataDownload = {
+                    children: [
+                        { name: '数据下载', path: '/dataDown' }
+                    ],
+                    icon: 'md-download',
+                    name: '数据下载',
+                    path: ''
+                };
+            //    res.data.role_view.menus.push(markeCampaign, returnAnalysis);
+               res.data.role_view.menus.push(markeCampaign, analysisPeople, returnAnalysis, dataDownload);
             }
+
 
             wsSession(res.data.session_id);
 

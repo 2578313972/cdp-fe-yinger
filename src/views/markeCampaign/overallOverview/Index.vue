@@ -1,6 +1,6 @@
 <template>
   <div class="page-warpper">
-
+    <Spin size="large" fix v-if="spinShow"></Spin>
     <div class="page-content page-content-tab">
         <!-- 顶部下载图标 -->
         <Row  class="page-title bottom-shadow page-title-tab" style="background:white;">
@@ -38,56 +38,54 @@
                 <h3 class="borbox title">消费分析</h3>
                 <div class="flex conten">
                     <div class="conten-child  two">
-                    <div>
-                        <p>平均客单价</p>
-                        <p>{{allData.avg_transaction_value | toFixed0}}</p>
-                    </div>
-                    <div>
-                        <p>平均客单件</p>
-                        <p>{{allData.avg_transaction_unit | toFixed}}</p>
-                    </div>
-                    </div>
-                    <div class="conten-child  two">
-                    <div>
-                        <p>平均件单价</p>
-                        <p>{{allData.avg_unit_value | toFixed0}}</p>
-                    </div>
-                    <div>
-                        <p>联单率</p>
-                        <p>{{allData.joint_purchase_rate*100 | toFixed0}}%</p>
-                    </div>
+                        <div>
+                            <p>平均客单价</p>
+                            <p>{{allData.avg_transaction_value | toFixed0}}</p>
+                        </div>
+                        <div>
+                            <p>平均客单件</p>
+                            <p>{{allData.avg_transaction_unit | toFixed}}</p>
+                        </div>
                     </div>
                     <div class="conten-child  two">
-                    <div>
-                        <p>新会员人数</p>
-                        <p>{{allData.new_vip_count}}</p>
-                    </div>
-                    <div>
-                        <p>新会员占比</p>
-                        <p>{{allData.new_vip_rate*100 | toFixed0}}%</p>
-                    </div>
+                        <div>
+                            <p>平均件单价</p>
+                            <p>{{allData.avg_unit_value | toFixed0}}</p>
+                        </div>
+                        <div>
+                            <p>联单率</p>
+                            <p>{{allData.joint_purchase_rate*100 | toFixed0}}%</p>
+                        </div>
                     </div>
                     <div class="conten-child  two">
-                    <div>
-                        <p>老会员人数</p>
-                        <p>{{allData.old_vip_count}}</p>
+                        <div>
+                            <p>新会员人数</p>
+                            <p>{{allData.new_vip_count}}</p>
+                        </div>
+                        <div>
+                            <p>新会员占比</p>
+                            <p>{{allData.new_vip_rate*100 | toFixed0}}%</p>
+                        </div>
                     </div>
-                    <div>
-                        <p>老会员占比</p>
-                        <p>{{allData.old_vip_rate*100 | toFixed0}}%</p>
-                    </div>
-                    </div>
-
-
                     <div class="conten-child  two">
-                    <div>
-                        <p>新会员转化率</p>
-                        <p>{{allData.new_vip_case_rate*100 | toFixed0}}%</p>
+                        <div>
+                            <p>老会员人数</p>
+                            <p>{{allData.old_vip_count}}</p>
+                        </div>
+                        <div>
+                            <p>老会员占比</p>
+                            <p>{{allData.old_vip_rate*100 | toFixed0}}%</p>
+                        </div>
                     </div>
-                    <div>
-                        <p>平均折扣率</p>
-                        <p>{{allData.avg_discount_rate*100 | toFixed0}}%</p>
-                    </div>
+                    <div class="conten-child  two">
+                        <div>
+                            <p>新会员转化率</p>
+                            <p>{{allData.new_vip_case_rate*100 | toFixed0}}%</p>
+                        </div>
+                        <div>
+                            <p>平均折扣率</p>
+                            <p>{{allData.avg_discount_rate*100 | toFixed0}}%</p>
+                        </div>
                     </div>
 
                     <!-- <div class="conten-child two one">
@@ -154,6 +152,7 @@
         name: 'Group',
         data() {
             return {
+                spinShow: true,
                 columns: [],
                 tableData: [], // 表格数据
                 allData: {}, // 所有数据内容
@@ -180,13 +179,21 @@
 
             for (let i = 1; i <= 10; i++) {
                 this.columns.push({
-                    title: `Top${i}`, key: `top${i}`, minWidth: 230, align: 'center'
+                    title: `Top${i}`,
+                    key: `top${i}`,
+                    minWidth: 300,
+                    align: 'center',
+                    render: (h, params) => (
+                        <div>
+                        {params.row[params.column.key].split(' ')[0]}
+                        <span style="color:#1890ff"> {params.row[params.column.key].split(' ')[1]}</span>
+                        </div>
+                        )
                 });
             }
         },
         mounted() {
             this.chartsSize = Object.keys(this.$refs).filter(item => item.indexOf('chart_') !== -1).length;
-
 
             for (let i = 1; i <= this.chartsSize; i++) {
                 this[`myChart${i}`] = this.echarts.init(this.$refs[`chart_${i}`]);
@@ -204,11 +211,13 @@
                 ];
                 for (let i = 1; i <= 10; i++) {
                     if (this.allData.top10_by_unit.length > 0) {
-                        this.tableData[0][`top${i}`] = Object.keys(this.allData.top10_by_unit[i - 1])[0];
+                        this.tableData[0][`top${i}`] = `${Object.keys(this.allData.top10_by_unit[i - 1])[0]} (${(Object.values(this.allData.top10_by_unit[i - 1])[0])}件)`;
                     }
+
                     if (this.allData.top10_by_value.length > 0) {
-                        this.tableData[1][`top${i}`] = Object.keys(this.allData.top10_by_value[i - 1])[0];
+                        this.tableData[1][`top${i}`] = `${Object.keys(this.allData.top10_by_value[i - 1])[0]} (${this.$options.filters.allMoney(~~(Object.values(this.allData.top10_by_value[i - 1])[0]))}元)`;
                     }
+
                     if (this.allData.category_distribution.length > 0) {
                         this.tableData[2][`top${i}`] = Object.keys(this.allData.category_distribution[i - 1])[0];
                     }
@@ -607,6 +616,7 @@
                     ]
                 };
 
+
                 this.myChart1.setOption(option1);
                 this.myChart2.setOption(option2);
                 this.myChart3.setOption(option3);
@@ -616,6 +626,8 @@
                 this.myChart7.setOption(option7);
                 this.myChart8.setOption(option8);
                 this.myChart9.setOption(option9);
+
+                this.spinShow = false;
             });
             // const timer = this.$config.debounce_wait; // 节流的延迟时间
             // this.debounceSearch = this.$lodash.debounce(this.resize1, timer); // 搜索
@@ -626,7 +638,6 @@
         },
         methods: {
             resize1() {
-                console.log(this.$refs.content.clientWidth);
                 this.conWidth = this.$refs.content.clientWidth - 47;
                 const setWidth = this.conWidth / 3 - 36;
                 // 仪表盘
@@ -676,8 +687,9 @@
             /** 每3位数字  加上 逗号 */
             allMoney: (val) => {
                 if (!val) return '······';
-                let num = (val.toString().split('.')[0] || 0).toString(); let
-                    result = '';
+                let num = (val.toString().split('.')[0] || 0).toString();
+                let result = '';
+
                 while (num.length > 3) {
                     result = `,${num.slice(-3)}${result}`;
                     num = num.slice(0, num.length - 3);
@@ -685,6 +697,7 @@
                 if (num) { result = num + result; }
                 return `${result}`;
             },
+
             toFixed: (val) => {
                 if (typeof (val) == 'undefined') {
                     return 0;
@@ -703,6 +716,9 @@
 </script>
 <style lang="less" scoped>
 // .page-warpper{background-color: white;}
+    .page-content-tab{
+        height: 100%;
+    }
     .content-text {
       width: 100%;
       overflow: hidden;

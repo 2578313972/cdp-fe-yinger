@@ -159,14 +159,16 @@
                     page: this.current,
                     rows: this.pageSize
                 }).then((res) => {
-                    this.data = res.data.data;
-                    this.data.forEach((item) => {
-                        if (item.brand !== '') item.ifItem += `[${item.brand}] `;
-                        if (item.area !== '') item.ifItem += `[${item.area}] `;
-                        item.ifItem += `[${item.store}]`;
-                        item.ifItem = item.ifItem.slice(9);
-                    });
-                    this.allDataSize = res.data.pageInfo.total;
+                    if (res.data.data) {
+                        this.data = res.data.data;
+                        this.allDataSize = res.data.pageInfo.total;
+                        this.data.forEach((item) => {
+                            if (item.brand !== '') item.ifItem += `[${item.brand}] `;
+                            if (item.area !== '') item.ifItem += `[${item.area}] `;
+                            item.ifItem += `[${item.store}]`;
+                            item.ifItem = item.ifItem.slice(9);
+                        });
+                    }
                     this.loading = false;
                 });
             },
