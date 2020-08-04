@@ -21,11 +21,11 @@
         </Card>
         <Card dis-hover>
             <p slot="title">销售金额款色TOP10</p>
-            <Table class="table-css" :width="gaugeWidth" border :columns="columns_3" :data="data_3"></Table>
+            <Table class="table-css" :width="gaugeWidth" border :columns="columns_2" :data="data_3"></Table>
         </Card>
         <Card dis-hover>
             <p slot="title">销售品类Top10</p>
-            <Table class="table-css" :width="gaugeWidth" border :columns="columns_4" :data="data_4"></Table>
+            <Table class="table-css" :width="gaugeWidth" border :columns="columns_2" :data="data_4"></Table>
         </Card>
         <i-col class="padding16-18 echart" style="justify-content: space-between;flex-wrap: wrap;" span="24">
             <div class="flex" style="justify-content: space-around;" >
@@ -92,7 +92,6 @@
         created() {
             console.log(this.allData);
             this.optionName = this.allData.map(item => item.display_name.replace('数据分析对比任务', ''));
-            console.log(this.optionName);
             // 制作表格格式
             this.columns_1 = [
                 {
@@ -257,13 +256,22 @@
             }];
             for (let i = 1; i <= 10; i++) {
                 this.columns_2.push({
-                    title: `Top${i}`, key: `top${i}`, minWidth: 200, align: 'center'
-                });
-                this.columns_3.push({
-                    title: `Top${i}`, key: `top${i}`, minWidth: 200, align: 'center'
-                });
-                this.columns_4.push({
-                    title: `Top${i}`, key: `top${i}`, minWidth: 200, align: 'center'
+                    title: `Top${i}`,
+                    key: `top${i}`,
+                    minWidth: 280,
+                    align: 'center',
+                    render: (h, params) => {
+                        if (params.row[`top${i}`]) {
+                            return h('div', {}, [
+                                h('span', params.row[`top${i}`].split(' ')[0]),
+                                h('span', {
+                                    style: {
+                                        color: '#1890ff'
+                                    }
+                                }, ` ${params.row[`top${i}`].split(' ')[1]}`)
+                            ]);
+                        }
+                    }
                 });
             }
 
@@ -271,16 +279,16 @@
             this.allData.forEach((item, index) => {
                 this.data_2[index] = { display_name: item.display_name };
                 item.top10_by_unit.forEach((item_2, index_2) => {
-                    this.data_2[index][`top${+index_2 + 1}`] = Object.keys(item_2)[0];
+                    this.data_2[index][`top${+index_2 + 1}`] = `${Object.keys(item_2)[0]} (${Object.values(item_2)[0]}件)`;
                 });
                 this.data_3[index] = { display_name: item.display_name };
                 item.top10_by_value.forEach((item_2, index_2) => {
-                    this.data_3[index][`top${+index_2 + 1}`] = Object.keys(item_2)[0];
+                    this.data_3[index][`top${+index_2 + 1}`] = `${Object.keys(item_2)[0]} (${Object.values(item_2)[0]}元)`;
                 });
                 this.data_4[index] = { display_name: item.display_name };
                 item.category_distribution.forEach((item_2, index_2) => {
                     if (index_2 > 10) return;
-                    this.data_4[index][`top${+index_2 + 1}`] = Object.keys(item_2)[0];
+                    this.data_4[index][`top${+index_2 + 1}`] = `${Object.keys(item_2)[0]} (${Object.values(item_2)[0]}件)`;
                 });
             });
 

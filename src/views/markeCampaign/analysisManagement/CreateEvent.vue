@@ -269,6 +269,7 @@
                         this.saveBtnStatus = true;
                         const data = {
                             displayName: this.formValidate.code,
+                            channel: this.formValidate.oto.toString(),
                             brand: '',
                             store: '',
                             area: '',

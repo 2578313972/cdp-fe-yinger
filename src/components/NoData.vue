@@ -9,8 +9,6 @@
         width: 100%;
         height: 100%;
         display: flex;
-        // min-height: 200px;
         text-align: center;
-        // line-height: ;
     }
 </style>

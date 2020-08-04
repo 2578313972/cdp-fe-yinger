@@ -1,25 +1,9 @@
 <template>
-    <div class="portrayal">
-        <!-- <Row class="padding16-18" style="background:white;font-size:18px;font-weight:600;color:#000">
-            <i-col span="6" style="font-size:18px;font-weight:600;">
-            </i-col>
-            <i-col span="5" offset="13" style="text-align:center;">
-                <i style="font-weight:700;font-size:25px;margin-right:20px;cursor: pointer;" class="el-icon-download"></i>
-                <i style="font-weight:700;font-size:25px;cursor: pointer;" class="el-icon-question"></i>
-            </i-col>
-        </Row> -->
-
-        <Row class="padding16-18" style="background:white;">
-            <i-col span="6" style="font-size:18px;font-weight:600;">
-                {{title}}
-            </i-col>
-            <i-col span="5" offset="19" style="text-align:right;padding-right:20px;color:#3398DB">
-                <i style="font-weight:700;font-size:25px;margin-right:20px;cursor: pointer;" class="el-icon-download"></i>
-                <i style="font-weight:700;font-size:25px;cursor: pointer;" class="el-icon-question"></i>
-            </i-col>
-        </Row>
-
-
+    <div class="commodityAnalysis">
+        <Spin size="large" fix v-if="spinLoading"></Spin>
+        <div style="margin:0 auto">
+            <Table border :loading="loading" :width="winWidth*0.98" :columns="columns" :data="tableData"></Table>
+        </div>
     </div>
 </template>
 
@@ -27,10 +11,110 @@
     export default {
         data() {
             return {
-
+                columns: [],
+                tableData: [],
+                loading: false,
+                spinLoading: true
             };
         },
-        mounted() {},
+        props: {
+            allData: {
+                type: Array,
+                required: true
+            },
+            winWidth: {
+                type: Number,
+                required: true
+            }
+        },
+        created() {
+            console.log(this.allData[0]);
+            console.log(this.winWidth);
+            this.columns = [
+                {
+                    title: '人群名称',
+                    key: 'crowd_name',
+                    align: 'center',
+                    ellipsis: true,
+                    minWidth: 80
+                },
+                {
+                    title: '使用积分人数',
+                    key: 'new_vip_count',
+                    align: 'center',
+                    ellipsis: true,
+                    minWidth: 80
+                },
+                {
+                    title: '积分消耗总量',
+                    key: 'new_vip_case_rate',
+                    align: 'center',
+                    ellipsis: true,
+                    minWidth: 80
+                },
+                {
+                    title: '人均积分消耗量',
+                    key: 'new_vip_case_rate',
+                    align: 'center',
+                    ellipsis: true,
+                    minWidth: 80
+                },
+                {
+                    title: '积分使用率',
+                    key: 'new_vip_case_rate',
+                    align: 'center',
+                    ellipsis: true,
+                    minWidth: 80
+                },
+                {
+                    title: '积分销售额',
+                    key: 'new_vip_case_rate',
+                    align: 'center',
+                    ellipsis: true,
+                    minWidth: 80
+                },
+                {
+                    title: '积分贴现率',
+                    key: 'new_vip_case_rate',
+                    align: 'center',
+                    ellipsis: true,
+                    minWidth: 80
+                },
+                {
+                    title: '活动开始日期',
+                    key: 'starttime_day',
+                    align: 'center',
+                    ellipsis: true,
+                    minWidth: 80
+                },
+                {
+                    title: '活动结束日期',
+                    key: 'endtime_day',
+                    align: 'center',
+                    ellipsis: true,
+                    minWidth: 80
+                }
+            ];
+            this.tableData = this.allData.map(item => ({
+                crowd_name: item.crowd_name,
+                new_vip_count: item.new_vip_count,
+                new_vip_case_rate: item.new_vip_case_rate,
+                starttime_day: item.starttime_day,
+                endtime_day: item.endtime_day
+            }));
+        },
+        mounted() {
+            this.spinLoading = false;
+        },
         methods: {}
     };
 </script>
+
+<style lang="less" scoped>
+    .commodityAnalysis{
+        position: relative;
+        display: flex;
+        flex-wrap: wrap;
+        background-color: white;
+    }
+</style>

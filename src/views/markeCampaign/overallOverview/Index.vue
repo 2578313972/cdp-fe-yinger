@@ -87,16 +87,6 @@
                             <p>{{allData.avg_discount_rate*100 | toFixed0}}%</p>
                         </div>
                     </div>
-
-                    <!-- <div class="conten-child two one">
-                    <div>
-                        <p>平均折扣率</p>
-                    </div>
-                    <div>
-                        <p>{{allData.avg_discount_rate*100 | toFixed}}%</p>
-                    </div>
-                    </div> -->
-
                 </div>
             </div>
             </div>
@@ -188,7 +178,7 @@
                         {params.row[params.column.key].split(' ')[0]}
                         <span style="color:#1890ff"> {params.row[params.column.key].split(' ')[1]}</span>
                         </div>
-                        )
+                    )
                 });
             }
         },
@@ -219,7 +209,7 @@
                     }
 
                     if (this.allData.category_distribution.length > 0) {
-                        this.tableData[2][`top${i}`] = Object.keys(this.allData.category_distribution[i - 1])[0];
+                        this.tableData[2][`top${i}`] = `${Object.keys(this.allData.category_distribution[i - 1])[0]} (${this.$options.filters.allMoney(~~(Object.values(this.allData.category_distribution[i - 1])[0]))}件)`;
                     }
                 }
 
@@ -329,6 +319,7 @@
                         }
                     ]
                 };
+
                 const option4 = {
                     color: ['#3398DB'],
                     title: {
@@ -374,6 +365,7 @@
                         }
                     ]
                 };
+
                 const option5 = {
                     color: ['#3398DB'],
                     title: {

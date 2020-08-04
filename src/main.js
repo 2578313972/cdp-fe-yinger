@@ -43,6 +43,10 @@ import App from './App';
 // 引入所有接口
 import * as https from '@/http';
 
+// axios.get('/cdp-web/traits').then((res) => {
+//     console.log(res);
+// });
+
 // 对iView进行部分全局配置
 Vue.use(iView, {
     // select: {
@@ -54,8 +58,6 @@ Vue.use(iView, {
         arrowSize: 24
     }
 });
-
-// require('../mock/mock');
 
 Vue.use(Vuex);
 Vue.use(VueClipboard);

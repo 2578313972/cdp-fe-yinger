@@ -78,7 +78,12 @@
                     title: '创建人',
                     key: 'creator',
                     align: 'center',
-                    minWidth: 150
+                    minWidth: 150,
+                    render: (h, params) => (
+                        <span>
+                            {params.row.creator ? params.row.creator : '系统创建'}
+                        </span>
+                    )
                 },
                 {
                     title: '创建时间',
@@ -127,7 +132,8 @@
             },
             /** 切换页码 */
             pageChange(ind) {
-                this.showData = this.allData.slice((ind - 1) * this.pageSize + 1, (ind - 1) * this.pageSize + 1 + this.pageSize);
+                this.current = ind;
+                this.getData();
             }
         }
     };

@@ -25,7 +25,7 @@
             ></i-input>
           </i-col>
           <i-col>
-            <i-button size="large" @click="addData" icon="md-add" type="primary">任务</i-button>
+            <i-button @click="addData" icon="md-add" type="primary">任务</i-button>
           </i-col>
         </Row>
         <Table

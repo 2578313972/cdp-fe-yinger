@@ -30,7 +30,7 @@
             </span>
           </i-col>
           <i-col>
-            <span class="top-font" @click="downloadExcel"><a  :href="downloadLink">下载模板</a></span>
+            <!-- <span class="top-font" @click="downloadExcel"><a  :href="downloadLink">下载模板</a></span>
 
             <Tooltip
                 class="tooltip"
@@ -54,7 +54,7 @@
                         导入
                     </Button>
                 </Upload>
-            </Tooltip>
+            </Tooltip> -->
 
 
             <i-button @click="addData" icon="md-add" type="primary">添加活动</i-button>
@@ -167,7 +167,7 @@
             ];
             /** 请求数据接口 */
             this.getData();
-            console.log(this.$config);
+
             this.uploadLink = `${this.$config.apiDomain}/sys/orgs/org-importing?org_id=`;
 
             const timer = this.$config.debounce_wait; // 节流的延迟时间

@@ -32,7 +32,7 @@
             </span>
           </i-col>
           <i-col>
-            <i-button size="large" :disabled="!dataChild.length" @click="addData" icon="md-add" type="primary">对比</i-button>
+            <i-button :disabled="!dataChild.length" @click="addData" icon="md-add" type="primary">对比</i-button>
           </i-col>
         </Row>
         <Table

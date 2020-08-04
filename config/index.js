@@ -11,11 +11,11 @@ module.exports = {
 		assetsPublicPath: "/",
 		proxyTable: {
 			// "/cdp-web": {
-				// target: "http://localhost:3000",
-				// secure: false,
+			// 	target: "http://localhost:3000",
+			// 	secure: false,
 			// 	// cookie JSESSIONID设置了httpOnly不能重写cookie到target，故无效
 			// 	cookieDomainRewrite: "localhost",
-				// changeOrigin: true,
+			// 	changeOrigin: true,
 			// 	pathRewrite: {
 			// 		"^/cdp-web": "/cdp-web"
 			// 	}
@@ -30,7 +30,7 @@ module.exports = {
 					"^/cdp-web": "/cdp-web"
 				},
 				headers:{
-					Cookie:"cdp-session-id=B2E1A547C1099E3F71C508F8BBB6AA1A;",// JSESSIONID=937286E9B4F243A175F01CAF77582418;
+					Cookie:"cdp-session-id=2397739AE86E34B1F0DFF29139DFC106;",// JSESSIONID=937286E9B4F243A175F01CAF77582418;
 					Referer:"localhost/cdp/",
 					Host:"192.168.19.183"
 				}
