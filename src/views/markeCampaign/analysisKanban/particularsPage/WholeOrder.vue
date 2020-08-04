@@ -1,7 +1,6 @@
 <template>
   <div ref="win" class="whole-order">
-    <Spin style="margin:auto;" v-if="loading" size="large"></Spin>
-    <Row v-else>
+    <Row>
         <Row class="padding16-18" style="background:white;">
             <!-- <i-col span="6" style="font-size:18px;font-weight:600;">
                 {{title}}
@@ -42,10 +41,11 @@
                 <Card dis-hover style="margin-top:30px;">
                     <p slot="title" class="rbg" style="text-indent:15px;">商品偏好系列</p>
                     <div class="flex" style="flex-wrap: wrap;justify-content: space-around;">
-                        <div ref="chart_5" style="height:400px"></div>
-                        <div ref="chart_6" style="height:400px"></div>
-                        <div ref="chart_7" style="height:450px"></div>
-                        <div ref="chart_8" style="height:450px"></div>
+                        <div ref="chart_5" style="height:400px;"></div>
+                        <div ref="chart_6" style="height:400px;"></div>
+                        <!-- <Divider /> -->
+                        <div ref="chart_7" style="height:450px;margin-top:50px;"></div>
+                        <div ref="chart_8" style="height:450px;margin-top:50px;"></div>
                     </div>
                 </Card>
             </div>
@@ -79,10 +79,6 @@
             allData: {
                 type: Array,
                 required: true
-            },
-            loading: {
-                type: Boolean,
-                default: false
             },
             vip: {
                 type: String,
@@ -381,7 +377,7 @@
                     left: '80%'
                 },
                 grid: {
-                    left: '3.8%',
+                    left: '5%',
                     right: '3%',
                     bottom: '3%',
                     top,
@@ -602,7 +598,7 @@
 
                 },
                 grid: {
-                    left: '2.7%',
+                    left: '3.7%',
                     right: '3%',
                     bottom: '3%',
                     top,

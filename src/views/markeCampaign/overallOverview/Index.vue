@@ -439,7 +439,7 @@
                         type: 'value',
                         axisLabel: {
                             show: true,
-                            formatter: '{value} '
+                            formatter: '{value}'
                         },
                         show: true
                     },

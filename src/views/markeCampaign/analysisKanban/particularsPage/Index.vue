@@ -1,5 +1,7 @@
 <template>
     <div>
+        <Spin size="large" fix v-if="loading"></Spin>
+
         <Row type="flex" justify="space-between" align="middle" style="padding:16px 24px;background-color:white;">
             <i-col style="background-color:white;">
                 <span @click="back">
@@ -17,10 +19,10 @@
                 </Menu>
             </div>
 
+
             <whole-order
                 v-if="show"
                 :title="menu[active_name]"
-                :loading="loading"
                 :allData="allData"
                 :vip="this.dimension[this.active_name]"
             />
@@ -39,7 +41,7 @@
                 allData: [], // 所有数据
                 menu: [], // 菜单栏
                 active_name: 0, // 已选中的菜单栏
-                loading: false, // 加载
+                loading: true, // 加载
                 dimension: ['total', 'nonVip', 'oldVip', 'newVip'], // 加载数据的类型
                 show: false
             };
@@ -57,7 +59,7 @@
             /** 查询接口数据 */
             getData() {
                 this.show = false;
-                // this.loading = true;
+                this.loading = true;
                 this.$https.analysisKanban.detailView({
                     dimension: this.dimension[this.active_name],
                     taskIds: this.$route.query.code
@@ -65,6 +67,7 @@
                     this.allData = res.data.data;
                     this.title = this.allData.map(item => item.display_name).toString();
                     this.show = true;
+                    this.loading = false;
                 });
             },
             /** 菜单切换 */

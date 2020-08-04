@@ -98,10 +98,9 @@
                 {
                     title: '条件',
                     align: 'center',
+                    key: 'ifItem',
                     width: '280px',
-                    render: (h, params) => (
-                          <div style =" max-width: 250px; overflow: hidden; textOverflow: ellipsis; whiteSpace: nowrap;"> {params.row.ifItem} </div>
-                        )
+                    tooltip: true
                 },
                 {
                     title: '交易起止时间',
@@ -163,6 +162,7 @@
                         this.data = res.data.data;
                         this.allDataSize = res.data.pageInfo.total;
                         this.data.forEach((item) => {
+                            item.ifItem += `[${item.channel}] `;
                             if (item.brand !== '') item.ifItem += `[${item.brand}] `;
                             if (item.area !== '') item.ifItem += `[${item.area}] `;
                             item.ifItem += `[${item.store}]`;

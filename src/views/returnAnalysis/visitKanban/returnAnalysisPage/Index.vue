@@ -286,4 +286,7 @@
         height: 500px;
         position: relative;
     }
+    .ivu-select-item{
+        font-weight: 500;
+    }
 </style>
