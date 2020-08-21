@@ -30,7 +30,7 @@
             </span>
           </i-col>
           <i-col>
-            <i-button size="large" @click="addData" icon="md-add" type="primary">添加人群</i-button>
+            <i-button @click="addData" icon="md-add" type="primary">添加人群</i-button>
           </i-col>
         </Row>
         <Table
@@ -93,38 +93,46 @@
             this.columns = [ // 定义Table模板
                 {
                     title: '人群名称',
-                    key: 'display_name',
-                    minWidth: 200,
-                    render: (h, params) => (
-                    <div style="display:flex;">
-                        <icon style='color:#19be6b;margin:auto 0;' type='ios-radio-button-on'></icon>
-                        <span> {params.row.crowd_name} </span>
-                    </div>
-                )
+                    key: 'crowd_name',
+                    minWidth: 140,
+                    tooltip: true
                 },
                 {
                     title: '人群ID',
                     key: 'code',
-                    align: 'center'
+                    align: 'center',
+                    minWidth: 80
                 },
                 {
                     title: '人群数量',
-                    key: 'code',
-                    align: 'center'
+                    key: 'crowd_scale',
+                    align: 'center',
+                    minWidth: 80,
+                    render: (h, params) => (
+                        <div>{this.$kilobit(params.row.crowd_scale)}</div>
+                        )
+                },
+                {
+                    title: '描述',
+                    key: 'descriptions',
+                    align: 'center',
+                    minWidth: 200,
+                    tooltip: true
                 },
                 {
                     title: '状态',
                     align: 'center',
+                    minWidth: 100,
                     render: (h, params) => (
-                      <div>{this.calculate_status_item[params.row.calculate_status]}</div>
-                    )
+                        <div>{this.calculate_status_item[params.row.calculate_status]}</div>
+                        )
                 },
                 {
                     title: '时间',
                     align: 'center',
-                    minWidth: 100,
+                    minWidth: 200,
                     render: (h, params) => (
-                      <div>{ this.$time(new Date(params.row.create_time))} 至 {params.row.end_time_day}</div>
+                        <div>{ this.$time(new Date(params.row.create_time))} 至 {params.row.end_time_day}</div>
                     )
                 },
                 {

@@ -4,8 +4,9 @@
     height: 64px;
     width: 100%;
     /*margin: 0 24px 0 24px;*/
-    background: url(../images/logo.png) 0 center no-repeat;
-    background-size: contain;
+    background: url(../images/titlebg.png) 20px center no-repeat;
+    /* background-size: contain; */
+    background-size: 23%;
 }
 
 /* loading */

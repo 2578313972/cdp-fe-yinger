@@ -13,7 +13,6 @@
               <i-button
                 v-for="(item,index) in butData"
                 :key="item"
-                @click="butStatus(index)"
                 :type="butNum===index?'primary':null"
               >{{item}}</i-button>
               </Button-group>
@@ -30,7 +29,7 @@
             </span>
           </i-col>
           <i-col>
-            <i-button size="large" :disabled="!dataChild.length" @click="addData" icon="md-add" type="primary">对比</i-button>
+            <i-button :disabled="!dataChild.length" @click="addData" icon="md-add" type="primary">对比</i-button>
           </i-col>
         </Row>
         <Table
@@ -97,13 +96,12 @@
         methods: {
             /** 获取接口数据 */
             getData() {
+                console.log(this.current);
                 this.loading = true;
                 return this.$https.crowdContrastManagement.queryMarketingCrowdList({
-                    params: {
-                        displayName: this.name,
-                        page: this.current,
-                        rows: this.pageSize
-                    }
+                    displayName: this.name,
+                    page: this.current,
+                    rows: this.pageSize
                 }).then((res) => {
                     if (res.data.data) {
                         this.data = res.data.data;
@@ -122,35 +120,41 @@
                     this.loading = false;
                 });
             },
-            /** 按钮切换 */
-            butStatus() {},
             /** 重新渲染Table结构 */
             tableColumn() {
                 this.columns = [
                     {
                         title: '人群名称',
-                        key: 'display_name',
-                        minWidth: 200,
-                        render: (h, params) => (
-                        <div style="display:flex;">
-                            <icon style='color:#19be6b;margin:auto 0;' type='ios-radio-button-on'></icon>
-                            <span> {params.row.crowd_name} </span>
-                        </div>
-                    )
+                        key: 'crowd_name',
+                        minWidth: 140,
+                        tooltip: true
                     },
                     {
                         title: '人群ID',
                         key: 'code',
-                        align: 'center'
+                        align: 'center',
+                        minWidth: 80
                     },
                     {
                         title: '人群数量',
-                        key: 'code',
-                        align: 'center'
+                        key: 'crowd_scale',
+                        align: 'center',
+                        minWidth: 80,
+                        render: (h, params) => (
+                        <div>{this.$kilobit(params.row.crowd_scale)}</div>
+                        )
+                    },
+                    {
+                        title: '描述',
+                        key: 'descriptions',
+                        align: 'center',
+                        minWidth: 200,
+                        tooltip: true
                     },
                     {
                         title: '状态',
                         align: 'center',
+                        minWidth: 100,
                         render: (h, params) => (
                         <div>{this.calculate_status_item[params.row.calculate_status]}</div>
                         )
@@ -158,14 +162,14 @@
                     {
                         title: '时间',
                         align: 'center',
-                        minWidth: 100,
+                        minWidth: 200,
                         render: (h, params) => (
                         <div>{ this.$time(new Date(params.row.create_time))} 至 {params.row.end_time_day}</div>
                         )
                     },
                     {
                         title: '选择',
-                        width: 150,
+                        minWidth: 90,
                         align: 'center',
                         render: (h, params) => h('Checkbox', {
                             on: {
@@ -175,7 +179,7 @@
                             },
                             props: {
                                 value: params.row.action,
-                                disabled: params.row.calculate_status !== 1
+                                disabled: params.row.calculate_status !== 1 || params.row.crowd_scale <= 0
                             }
                         })
                     }
@@ -193,7 +197,7 @@
                     this.dataChild.push(this.data[params.index]);
                 } else {
                     const id = this.data[params.index].code;
-                    this.dataChild.splice(this.dataChild.findIndex(item => item.id === id), 1);
+                    this.dataChild.splice(this.dataChild.findIndex(item => item.code === id), 1);
                 }
             },
             /** click添加活动 */

@@ -127,17 +127,18 @@
                     {
                         title: '任务名称',
                         key: 'display_name',
-                        width: '200px'
+                        minWidth: 100
                     },
                     {
                         title: '任务ID',
                         key: 'code',
-                        align: 'center'
+                        align: 'center',
+                        minWidth: 40
                     },
                     {
                         title: '交易起止时间',
                         align: 'center',
-                        minWidth: 80,
+                        width: 220,
                         render: (h, params) => (
                 <div>{params.row.start_time_day} 至 {params.row.end_time_day}</div>
                 )
@@ -152,11 +153,12 @@
                     {
                         title: '创建时间',
                         align: 'center',
+                        minWidth: 100,
+                        tooltip: true,
                         render: (h, params) => (
                     <div>{new Date(params.row.create_time).toLocaleString()}</div>
                     )
                     },
-
                     {
                         title: '选择',
                         width: 150,
@@ -187,7 +189,7 @@
                     this.dataChild.push(this.data[params.index]);
                 } else {
                     const id = this.data[params.index].code;
-                    this.dataChild.splice(this.dataChild.findIndex(item => item.id === id), 1);
+                    this.dataChild.splice(this.dataChild.findIndex(item => item.code === id), 1);
                 }
             },
             /** click添加活动 */
@@ -215,6 +217,7 @@
                 this.$https.analysisContrastManagement.addOrderComparedTask({ taskIds: this.dataChild.map(item => item.code).toString() }).then((res) => {
                     switch (res.data.success) {
                     case 'true':
+                        console.log(this.dataChild);
                         this.dataChild.forEach((item) => {
                             const act = this.data.find(item_2 => item_2.code === item.code);
                             act && (act.action = false);

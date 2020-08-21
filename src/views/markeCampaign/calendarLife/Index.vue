@@ -30,13 +30,13 @@
             </span>
           </i-col>
           <i-col>
-            <!-- <span class="top-font" @click="downloadExcel"><a  :href="downloadLink">下载模板</a></span>
+            <span class="top-font"><a  :href="downloadLink">下载模板</a></span>
 
             <Tooltip
                 class="tooltip"
                 transfer
                 max-width="250"
-                content="对不存在子节点的，可导入文件进行初始化设置；对已存在子节点的无法导入"
+                content="只能导入格式为xlsx、xls的文件"
                 placement="right">
                 <Upload
                     :show-upload-list="false"
@@ -54,7 +54,7 @@
                         导入
                     </Button>
                 </Upload>
-            </Tooltip> -->
+            </Tooltip>
 
 
             <i-button @click="addData" icon="md-add" type="primary">添加活动</i-button>
@@ -105,7 +105,7 @@
                 columns: [],
                 data: [],
                 allData: [],
-                downloadLink: `${this.$config.apiDomain}/sys/orgs/org-template`,
+                downloadLink: `${this.$config.apiDomain}/marketplugin/calendarManagement/calendar-template`,
                 allDataSize: 0,
                 calculate_status_item: ['未开始', '进行中', '结束'],
                 statusName: [],
@@ -168,7 +168,7 @@
             /** 请求数据接口 */
             this.getData();
 
-            this.uploadLink = `${this.$config.apiDomain}/sys/orgs/org-importing?org_id=`;
+            this.uploadLink = `${this.$config.apiDomain}/marketplugin/calendarManagement/calendar-importing`;
 
             const timer = this.$config.debounce_wait; // 节流的延迟时间
             this.debounceSearch = this.$lodash.debounce(this.changeInput, timer); // 搜索
@@ -243,12 +243,6 @@
                 this.getData();
                 this.creatEvent = false;
                 // this.allData.push(data);
-            },
-            /** 下载Excel表格 */
-            downloadExcel() {
-                // this.$refs.table.exportCsv({
-                //     filename: '原始数据'
-                // });
             },
             // 文件上传前
             beforeUpload() {

@@ -43,9 +43,10 @@ import App from './App';
 // 引入所有接口
 import * as https from '@/http';
 
-// axios.get('/cdp-web/traits').then((res) => {
-//     console.log(res);
-// });
+/**
+    const context = require.context('./api', false, /\.js$/);
+    console.dir(context.keys().map(context));
+*/
 
 // 对iView进行部分全局配置
 Vue.use(iView, {
@@ -89,6 +90,14 @@ Vue.prototype.$time = function (date) {
         }
     }
     return timeArr.join('-');
+};
+
+Vue.prototype.$kilobit = function (num) {
+    return num.toString(10).split('.')[0].split('').reduceRight((data, item) => {
+        data = data[0] && data[0].length % 3 ? data : ['', ...data];
+        data[0] = item + data[0];
+        return data;
+    }, []).join(',');
 };
 
 

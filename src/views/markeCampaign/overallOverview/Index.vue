@@ -21,81 +21,88 @@
                 </Tooltip> -->
             </i-col>
         </Row>
-
+<!-- <Icon type="ios-information-circle-outline" /> -->
+<!-- <Icon type="ios-information-circle" /> -->
         <Card dis-hover>
             <div class="content-text flex borbox" style="background:#F1F2F4;padding:11px;">
-            <div class="content-text-left" >
-                <h3 class="borbox title">总销售额</h3>
-                <div class="user-info">
-                    <div class="header-img" style="padding:8px 0;" >
-                    <!--<Icon type="person-stalker" style="font-size:30px;color:#bbbdc6;"></Icon>-->
-                    <img style="width:90px;height:90px;" src="@/assets/images/yinger.png" title="影儿时尚集团">
-                    </div>
-                    <h2 style="font-size:24px; margin-top:6px;color:#1890ff;padding:6px;"> {{(allData.sales_amount) | toFixed0 | allMoney}} </h2>
-                </div>
-            </div>
-            <div class="content-text-right">
-                <h3 class="borbox title">消费分析</h3>
-                <div class="flex conten">
-                    <div class="conten-child  two">
-                        <div>
-                            <p>平均客单价</p>
-                            <p>{{allData.avg_transaction_value | toFixed0}}</p>
+                <div class="content-text-left" >
+                    <h3 class="borbox title">总销售额</h3>
+                    <div class="user-info">
+                        <div class="header-img" style="padding:8px 0;" >
+                        <img style="width:90px;height:90px;" src="@/assets/images/yinger.png" title="影儿时尚集团">
                         </div>
-                        <div>
-                            <p>平均客单件</p>
-                            <p>{{allData.avg_transaction_unit | toFixed}}</p>
-                        </div>
-                    </div>
-                    <div class="conten-child  two">
-                        <div>
-                            <p>平均件单价</p>
-                            <p>{{allData.avg_unit_value | toFixed0}}</p>
-                        </div>
-                        <div>
-                            <p>联单率</p>
-                            <p>{{allData.joint_purchase_rate*100 | toFixed0}}%</p>
-                        </div>
-                    </div>
-                    <div class="conten-child  two">
-                        <div>
-                            <p>新会员人数</p>
-                            <p>{{allData.new_vip_count}}</p>
-                        </div>
-                        <div>
-                            <p>新会员占比</p>
-                            <p>{{allData.new_vip_rate*100 | toFixed0}}%</p>
-                        </div>
-                    </div>
-                    <div class="conten-child  two">
-                        <div>
-                            <p>老会员人数</p>
-                            <p>{{allData.old_vip_count}}</p>
-                        </div>
-                        <div>
-                            <p>老会员占比</p>
-                            <p>{{allData.old_vip_rate*100 | toFixed0}}%</p>
-                        </div>
-                    </div>
-                    <div class="conten-child  two">
-                        <div>
-                            <p>新会员转化率</p>
-                            <p>{{allData.new_vip_case_rate*100 | toFixed0}}%</p>
-                        </div>
-                        <div>
-                            <p>平均折扣率</p>
-                            <p>{{allData.avg_discount_rate*100 | toFixed0}}%</p>
-                        </div>
+                        <h2 style="font-size:24px; margin-top:6px;color:#1890ff;padding:6px;">
+                        {{(allData.sales_amount) | toFixed_0 | allMoney}}
+                        <Tooltip>
+                            <i style="vertical-align: middle;font-size: 18px;color: #666;cursor:pointer;position: relative;top: -10px;left:-3px;" class="el-icon-info"></i>
+                            <div slot="content" style="padding:3px;">
+                                <p>{{useTime}}</p>
+                                <p>线上线下</p>
+                            </div>
+                        </Tooltip>
+                        </h2>
                     </div>
                 </div>
+                <div class="content-text-right">
+                    <h3 class="borbox title">消费分析</h3>
+                    <div class="flex conten">
+                        <div class="conten-child  two">
+                            <div>
+                                <p>平均客单价</p>
+                                <p>{{allData.avg_transaction_value | toFixed_0 | allMoney}}</p>
+                            </div>
+                            <div>
+                                <p>平均客单件</p>
+                                <p>{{allData.avg_transaction_unit | toFixed_2 | allMoney}}</p>
+                            </div>
+                        </div>
+                        <div class="conten-child  two">
+                            <div>
+                                <p>平均件单价</p>
+                                <p>{{allData.avg_unit_value | toFixed_0 | allMoney}}</p>
+                            </div>
+                            <div>
+                                <p>联单率</p>
+                                <p>{{allData.joint_purchase_rate*100 | toFixed_1}}%</p>
+                            </div>
+                        </div>
+                        <div class="conten-child  two">
+                            <div>
+                                <p>新会员人数</p>
+                                <p>{{allData.new_vip_count | allMoney}}</p>
+                            </div>
+                            <div>
+                                <p>新会员占比</p>
+                                <p>{{Math.round(allData.new_vip_rate*100)}}%</p>
+                            </div>
+                        </div>
+                        <div class="conten-child  two">
+                            <div>
+                                <p>老会员人数</p>
+                                <p>{{allData.old_vip_count | allMoney}}</p>
+                            </div>
+                            <div>
+                                <p>老会员占比</p>
+                                <p>{{Math.round(allData.old_vip_rate*100)}}%</p>
+                            </div>
+                        </div>
+                        <div class="conten-child  two">
+                            <div>
+                                <p>新会员转化率</p>
+                                <p>{{allData.new_vip_case_rate*100 | toFixed_1}}%</p>
+                            </div>
+                            <div>
+                                <p>平均折扣率</p>
+                                <p>{{Math.round(allData.avg_discount_rate*100)}}%</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
-            </div>
-
-
         </Card>
 
         <Card dis-hover class="conten">
-            <p slot="title" class="rbg">订单分析-TOP排名</p>
+            <p slot="title" class="rbg">销售商品分析</p>
             <div ref="content" class="padding16-18">
                 <Table :width="conWidth" border :columns="columns" :data="tableData"></Table>
             </div>
@@ -111,7 +118,7 @@
             </Card>
 
             <Card dis-hover style="width:75%;margin:7.5px auto">
-                <p slot="title" class="rbg" style="text-indent:15px;">占比</p>
+                <p slot="title" class="rbg" style="text-indent:15px;">订单情况分析</p>
                 <div class="echarts" style="margin-top:15px;">
                     <div ref="chart_3"></div>
                     <div ref="chart_4"></div>
@@ -136,7 +143,6 @@
   </div>
 </template>
 <script>
-    // import Charts from '@/components/chart/charts.vue';
 
     export default {
         name: 'Group',
@@ -148,16 +154,24 @@
                 allData: {}, // 所有数据内容
                 conWidth: 0, // 内容宽度
                 chartsSize: 0,
-                charts: []
+                useTime: '', // 时间间隔
+                vipCount: [], // 订单数
+                vipAmount: [], // 订单金额数
+                jointCount: [] // 联动数
             };
         },
-        // components: { Charts },
         created() {
+            const nowDateArr = new Date().toLocaleDateString().split('/');
+            nowDateArr[2] = +nowDateArr[2] < 15 ? 1 : 15;
+            this.useTime = `${nowDateArr[0] - 1}/${nowDateArr[1]}/${nowDateArr[2]} - ${nowDateArr[0]}/${nowDateArr[1]}/${nowDateArr[2]}`;
+            console.log(this.useTime);
+            // table 格式
             this.columns = [
                 {
                     title: '指标名称',
                     align: 'center',
                     minWidth: 200,
+                    fixed: 'left',
                     render: (h, params) => (
                     <div style="font-weight:600;">
                         <span> {params.row.keyName} </span>
@@ -166,7 +180,7 @@
 
                 }
             ];
-
+            // tableData 格式
             for (let i = 1; i <= 10; i++) {
                 this.columns.push({
                     title: `Top${i}`,
@@ -183,16 +197,23 @@
             }
         },
         mounted() {
+            // echarts的数量
             this.chartsSize = Object.keys(this.$refs).filter(item => item.indexOf('chart_') !== -1).length;
-
+            // 创建 echart 对象
             for (let i = 1; i <= this.chartsSize; i++) {
                 this[`myChart${i}`] = this.echarts.init(this.$refs[`chart_${i}`]);
             }
-            this.resize1();
 
+            this.resize();
+            // 调取数据接口
             this.$https.overallOverview.overview().then((res) => {
                 this.allData = res.data.data[0];
-
+                // 订单数
+                this.vipCount = [this.allData.vip_order_count, this.allData.non_vip_order_count];
+                // 订单金额
+                this.vipAmount = [this.allData.vip_sales_amount, this.allData.non_vip_sales_amount];
+                // 联单数
+                this.jointCount = [this.allData.joint5_purchase_count, this.allData.joint3_purchase_count, this.allData.joint2_purchase_count, this.allData.joint1_purchase_count];
                 // 表格数据
                 this.tableData = [
                     { keyName: '销量款色TOP10排名' },
@@ -201,17 +222,23 @@
                 ];
                 for (let i = 1; i <= 10; i++) {
                     if (this.allData.top10_by_unit.length > 0) {
-                        this.tableData[0][`top${i}`] = `${Object.keys(this.allData.top10_by_unit[i - 1])[0]} (${(Object.values(this.allData.top10_by_unit[i - 1])[0])}件)`;
+                        this.tableData[0][`top${i}`] = `${Object.keys(this.allData.top10_by_unit[i - 1])[0]} (${this.$options.filters.allMoney(+(Object.values(this.allData.top10_by_unit[i - 1])[0]))}件)`;
                     }
 
                     if (this.allData.top10_by_value.length > 0) {
-                        this.tableData[1][`top${i}`] = `${Object.keys(this.allData.top10_by_value[i - 1])[0]} (${this.$options.filters.allMoney(~~(Object.values(this.allData.top10_by_value[i - 1])[0]))}元)`;
+                        this.tableData[1][`top${i}`] = `${Object.keys(this.allData.top10_by_value[i - 1])[0]} (${this.$options.filters.allMoney(Math.round(Object.values(this.allData.top10_by_value[i - 1])[0]))}元)`;
                     }
 
                     if (this.allData.category_distribution.length > 0) {
-                        this.tableData[2][`top${i}`] = `${Object.keys(this.allData.category_distribution[i - 1])[0]} (${this.$options.filters.allMoney(~~(Object.values(this.allData.category_distribution[i - 1])[0]))}件)`;
+                        this.tableData[2][`top${i}`] = `${Object.keys(this.allData.category_distribution[i - 1])[0]} (${this.$options.filters.allMoney(Math.round(Object.values(this.allData.category_distribution[i - 1])[0]))}件)`;
                     }
                 }
+
+                const label = {
+                    show: true,
+                    position: 'right',
+                    formatter: '{@score}%'
+                };
 
                 const option1 = {
                     tooltip: {
@@ -221,14 +248,13 @@
                         {
                             name: '退货率',
                             type: 'gauge',
-                            max: Math.min((~~this.allData.total_count_return_rate + 1) * 100 + 10, 100),
                             title: { color: '#333' },
                             detail: {
                                 fontSize: 25,
                                 offsetCenter: [0, '65%'],
                                 formatter: '{value}%'
                             },
-                            data: [{ value: (this.allData.total_count_return_rate * 100).toFixed(0), name: '\n订单销量' }],
+                            data: [{ value: Math.round(this.allData.total_count_return_rate * 100), name: '\n订单销量' }],
                             axisLine: {
                                 show: true,
                                 lineStyle: {
@@ -243,6 +269,7 @@
                         }
                     ]
                 };
+
                 const option2 = {
                     tooltip: {
                         formatter: '{a} <br/>{b} : {c}%'
@@ -252,13 +279,12 @@
                             name: '退货率',
                             type: 'gauge',
                             title: { color: '#333' },
-                            max: Math.min((~~this.allData.total_sales_return_rate + 1) * 100 + 10, 100),
                             detail: {
                                 fontSize: 25,
                                 offsetCenter: [0, '65%'],
                                 formatter: '{value}%'
                             },
-                            data: [{ value: (this.allData.total_sales_return_rate * 100).toFixed(0), name: '\n订单销售额' }],
+                            data: [{ value: Math.round(this.allData.total_sales_return_rate * 100), name: '\n订单销售额' }],
                             axisLine: {
                                 show: true,
                                 lineStyle: {
@@ -277,7 +303,7 @@
                 const option3 = {
                     color: ['#3398DB'],
                     title: {
-                        text: '会员订单占比',
+                        text: '\n会员订单占比',
                         textStyle: {
                             fontSize: 15
                         }
@@ -287,11 +313,11 @@
                         axisPointer: {
                             type: 'shadow'
                         },
-                        formatter: item => `${item[0].axisValue} <br /> ${item[0].marker}${item[0].seriesName}:${item[0].value}<span>%</span>`
+                        formatter: item => `${item[0].axisValue} <br /> ${item[0].marker}${item[0].seriesName}：${this.kilobit(this.vipCount[item[0].dataIndex])} 单`
                     },
                     grid: {
-                        left: '3%',
-                        right: '3%',
+                        left: 74,
+                        right: '9%',
                         bottom: '3%',
                         containLabel: true,
                         backgroundColor: 'red'
@@ -300,13 +326,13 @@
                         type: 'value',
                         axisLabel: {
                             show: true,
-                            formatter: '{value} %'
+                            formatter: '{value}%'
                         },
-                        show: true
+                        max: 100
                     },
                     yAxis: {
                         type: 'category',
-                        data: ['                  会员订单', '非会员订单']
+                        data: ['会员订单', '非会员订单']
                     },
                     series: [
                         {
@@ -315,7 +341,8 @@
                             barGap: '10%',
                             legendHoverLink: true,
                             type: 'bar',
-                            data: [this.allData.vip_order_scale * 100, 100 - this.allData.vip_order_scale * 100]
+                            label,
+                            data: [Math.round(this.allData.vip_order_scale * 1000) / 10, Math.round(this.allData.non_vip_order_scale * 1000) / 10]
                         }
                     ]
                 };
@@ -323,7 +350,7 @@
                 const option4 = {
                     color: ['#3398DB'],
                     title: {
-                        text: '会员金额占比',
+                        text: '\n会员金额占比',
                         textStyle: {
                             fontSize: 15
                         }
@@ -333,11 +360,11 @@
                         axisPointer: {
                             type: 'shadow'
                         },
-                        formatter: item => `${item[0].axisValue} <br /> ${item[0].marker}${item[0].seriesName}:${item[0].value}<span>%</span>`
+                        formatter: item => `${item[0].axisValue} <br /> ${item[0].marker}${item[0].seriesName}：${this.kilobit(this.vipAmount[item[0].dataIndex])} 元`
                     },
                     grid: {
-                        left: '3%',
-                        right: '3%',
+                        left: 74,
+                        right: '9%',
                         bottom: '3%',
                         containLabel: true,
                         backgroundColor: 'red'
@@ -346,13 +373,13 @@
                         type: 'value',
                         axisLabel: {
                             show: true,
-                            formatter: '{value} %'
+                            formatter: '{value}%'
                         },
-                        show: true
+                        max: 100
                     },
                     yAxis: {
                         type: 'category',
-                        data: ['                  会员订单', '非会员订单']
+                        data: ['会员订单', '非会员订单']
                     },
                     series: [
                         {
@@ -361,7 +388,8 @@
                             barGap: '10%',
                             legendHoverLink: true,
                             type: 'bar',
-                            data: [this.allData.vip_sales_scale * 100, 100 - this.allData.vip_sales_scale * 100]
+                            label,
+                            data: [Math.round(this.allData.vip_sales_scale * 1000) / 10, Math.round(this.allData.non_vip_sales_scale * 1000) / 10]
                         }
                     ]
                 };
@@ -369,7 +397,7 @@
                 const option5 = {
                     color: ['#3398DB'],
                     title: {
-                        text: '联单件数占比分析',
+                        text: '\n联单件数占比分析',
                         textStyle: {
                             fontSize: 15
                         }
@@ -379,27 +407,26 @@
                         axisPointer: {
                             type: 'shadow'
                         },
-                        formatter: item => `${item[0].axisValue} <br /> ${item[0].marker}${item[0].seriesName}:${item[0].value}<span>%</span>`
+                        formatter: item => `${item[0].axisValue} <br /> ${item[0].marker}${item[0].seriesName}：${this.kilobit(this.jointCount[item[0].dataIndex])} 单`
                     },
                     grid: {
-                        left: '3%',
-                        right: '3%',
+                        left: 20,
+                        right: '9%',
                         bottom: '3%',
                         containLabel: true,
                         backgroundColor: 'red'
                     },
                     xAxis: {
                         type: 'value',
-                        boundaryGap: true,
                         axisLabel: {
                             show: true,
-                            formatter: '{value} %'
+                            formatter: '{value}%'
                         },
-                        show: true
+                        max: 100
                     },
                     yAxis: {
                         type: 'category',
-                        data: ['联单件数5件以上占比', '联单件数3件以上占比', '联单件数2件占比', '联单件数1件以上占比']
+                        data: ['联单件数5件及以上占比', '联单件数3-4件占比', '联单件数2件占比', '联单件数1件占比']
                     },
                     series: [
                         {
@@ -408,7 +435,13 @@
                             barGap: '10%',
                             legendHoverLink: true,
                             type: 'bar',
-                            data: [this.allData.joint5_purchase_scale * 100, this.allData.joint3_purchase_scale * 100, this.allData.joint2_purchase_scale * 100, this.allData.joint1_purchase_scale * 100]
+                            label,
+                            data: [
+                                this.toFixed_1(this.allData.joint5_purchase_scale * 100),
+                                this.toFixed_1(this.allData.joint3_purchase_scale * 100),
+                                this.toFixed_1(this.allData.joint2_purchase_scale * 100),
+                                this.toFixed_1(this.allData.joint1_purchase_scale * 100)
+                            ]
                         }
                     ]
                 };
@@ -416,7 +449,7 @@
                 const option6 = {
                     color: ['#3398DB'],
                     title: {
-                        text: '  季节分布',
+                        text: '  季节分布（单位:件）',
                         textStyle: {
                             fontSize: 15
                         }
@@ -426,7 +459,7 @@
                         axisPointer: {
                             type: 'shadow'
                         },
-                        formatter: item => `${item[0].axisValue} <br /> ${item[0].marker}${item[0].seriesName}:${item[0].value}`
+                        formatter: item => `${item[0].axisValue} <br /> ${item[0].marker}${item[0].seriesName} : ${this.kilobit(item[0].value)} 件`
                     },
                     grid: {
                         left: '3.2%',
@@ -462,7 +495,7 @@
                 const option7 = {
                     color: ['#3398DB'],
                     title: {
-                        text: '价格带分布',
+                        text: '价格带分布（单位:件）',
                         textStyle: {
                             fontSize: 15
                         }
@@ -472,7 +505,7 @@
                         axisPointer: {
                             type: 'shadow'
                         },
-                        formatter: item => `${item[0].axisValue} <br /> ${item[0].marker}${item[0].seriesName}:${item[0].value}`
+                        formatter: item => `${item[0].axisValue} <br /> ${item[0].marker}${item[0].seriesName} : ${this.kilobit(item[0].value)} 件`
                     },
                     grid: {
                         left: '3%',
@@ -511,7 +544,7 @@
                 const option8 = {
                     color: ['#3398DB'],
                     title: {
-                        text: '色系分布',
+                        text: '色系分布（单位:件）',
                         textStyle: {
                             fontSize: 15
                         }
@@ -521,7 +554,7 @@
                         axisPointer: {
                             type: 'shadow'
                         },
-                        formatter: item => `${item[0].axisValue} <br /> ${item[0].marker}${item[0].seriesName}:${item[0].value}`
+                        formatter: item => `${item[0].axisValue} <br /> ${item[0].marker}${item[0].seriesName} : ${this.kilobit(item[0].value)} 件`
                     },
                     grid: {
                         left: '3%',
@@ -560,7 +593,7 @@
                 const option9 = {
                     color: ['#3398DB'],
                     title: {
-                        text: '面料分布',
+                        text: '面料分布（单位:件）',
                         textStyle: {
                             fontSize: 15
                         }
@@ -570,7 +603,7 @@
                         axisPointer: {
                             type: 'shadow'
                         },
-                        formatter: item => `${item[0].axisValue} <br /> ${item[0].marker}${item[0].seriesName}:${item[0].value}`
+                        formatter: item => `${item[0].axisValue} <br /> ${item[0].marker}${item[0].seriesName} : ${this.kilobit(item[0].value)} 件`
                     },
                     grid: {
                         left: '1%',
@@ -608,7 +641,6 @@
                     ]
                 };
 
-
                 this.myChart1.setOption(option1);
                 this.myChart2.setOption(option2);
                 this.myChart3.setOption(option3);
@@ -621,15 +653,21 @@
 
                 this.spinShow = false;
             });
-            // const timer = this.$config.debounce_wait; // 节流的延迟时间
-            // this.debounceSearch = this.$lodash.debounce(this.resize1, timer); // 搜索
-            window.addEventListener('resize', this.resize1);
+            window.addEventListener('resize', this.resize);
             this.$once('hook:beforeDestroy', () => {
-                window.removeEventListener('resize', this.resize1);
+                window.removeEventListener('resize', this.resize);
             });
         },
         methods: {
-            resize1() {
+            kilobit(num) {
+                return num.toString(10).split('.')[0].split('').reduceRight((data, item) => {
+                    data = data[0] && data[0].length % 3 ? data : ['', ...data];
+                    data[0] = item + data[0];
+                    return data;
+                }, []).join(',');
+            },
+            toFixed_1: val => Math.round(val * 10) / 10,
+            resize() {
                 this.conWidth = this.$refs.content.clientWidth - 47;
                 const setWidth = this.conWidth / 3 - 36;
                 // 仪表盘
@@ -678,7 +716,7 @@
         filters: {
             /** 每3位数字  加上 逗号 */
             allMoney: (val) => {
-                if (!val) return '······';
+                if (!val) return '0';
                 let num = (val.toString().split('.')[0] || 0).toString();
                 let result = '';
 
@@ -687,22 +725,15 @@
                     num = num.slice(0, num.length - 3);
                 }
                 if (num) { result = num + result; }
+                if (val.toString().split('.')[1]) {
+                    result = `${result}.${val.toString().split('.')[1]}`;
+                }
                 return `${result}`;
             },
 
-            toFixed: (val) => {
-                if (typeof (val) == 'undefined') {
-                    return 0;
-                }
-                return val.toFixed(1);
-            },
-            // val => !!val && val.toFixed(1),
-            toFixed0: (val) => {
-                if (typeof (val) == 'undefined') {
-                    return 0;
-                }
-                return parseInt(val);
-            } // val => !!val && parseInt(val)
+            toFixed_2: val => Math.round(val * 100) / 100,
+            toFixed_1: val => Math.round(val * 10) / 10,
+            toFixed_0: val => Math.round(val) // val => !!val && Math.round(val)
         }
     };
 </script>
@@ -825,10 +856,10 @@
 /* 滚动条 */
     /deep/ .ivu-table-overflowY::-webkit-scrollbar-thumb {
         border-radius: 5px;
-        background: rgb(243, 243, 243);
+        background: #D6D6D6;
     }
     /deep/ .ivu-table-overflowX::-webkit-scrollbar-thumb {
         border-radius: 5px;
-        background: rgb(243, 243, 243);
+        background: #D6D6D6;
     }
 </style>

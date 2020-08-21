@@ -6,7 +6,9 @@
         </Menu>
       </div>
       <div>
-        <router-view />
+        <keep-alive include="Group">
+          <router-view />
+        </keep-alive>
       </div>
     </div>
 </template>

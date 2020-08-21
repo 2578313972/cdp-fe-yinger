@@ -15,11 +15,11 @@
             <Table class="table-css" :width="gaugeWidth" border :columns="columns_1" :data="data_1"></Table>
         </Card>
         <Card dis-hover>
-            <p slot="title">销售数量款色TOP10</p>
+            <p slot="title">销售数量TOP10款色</p>
             <Table class="table-css" :width="gaugeWidth" border :columns="columns_2" :data="data_2"></Table>
         </Card>
         <Card dis-hover>
-            <p slot="title">销售金额款色TOP10</p>
+            <p slot="title">销售金额TOP10款色</p>
             <Table class="table-css" :width="gaugeWidth" border :columns="columns_2" :data="data_3"></Table>
         </Card>
         <Card dis-hover>
@@ -61,14 +61,16 @@
             return {
                 columns_1: [],
                 columns_2: [],
-                columns_3: [],
-                columns_4: [],
                 data_1: [],
                 data_2: [],
                 data_3: [],
                 data_4: [],
+
                 gaugeWidth: 0,
-                optionName: []
+                optionName: [],
+                vipCount: [], // 订单数
+                vipAmount: [], // 订单金额数
+                jointCount: [] // 联动数
             };
         },
         props: {
@@ -86,14 +88,23 @@
             }
         },
         created() {
-            console.log(this.allData);
-            this.optionName = this.allData.map(item => item.display_name.replace('数据分析对比任务', ''));
+            // 订单数
+            this.vipCount = this.allData.map(item => ([Math.round(item.vip_order_count), Math.round(item.non_vip_order_count)]));
+            // 订单金额数
+            this.vipAmount = this.allData.map(item => ([Math.round(item.vip_sales_amount), Math.round(item.non_vip_sales_amount)]));
+            // 联动数
+            this.jointCount = this.allData.map(item => ([Math.round(item.joint5_purchase_count), Math.round(item.joint3_purchase_count), Math.round(item.joint2_purchase_count), Math.round(item.joint1_purchase_count)]));
+            // this.allData.map(item => ([Math.round(item.joint5_purchase_scale * 10000) / 100, Math.round(item.joint3_purchase_scale * 10000) / 100, Math.round(item.joint2_purchase_scale * 10000) / 100, Math.round(item.joint1_purchase_scale * 10000) / 100]));
+
+            // echart 对象
+            this.optionName = this.allData.map(item => item.display_name);
+
             // 制作表格格式
             this.columns_1 = [
                 {
                     title: '对比任务名称',
                     align: 'center',
-                    minWidth: 220,
+                    minWidth: 130,
                     render: (h, params) => (
                     <div style="font-weight:600;">
                         <span> {params.row.display_name} </span>
@@ -103,49 +114,49 @@
                 {
                     title: '总销售额',
                     align: 'center',
-                    minWidth: 220,
+                    minWidth: 90,
                     render: (h, params) => (
-                        <span> {~~params.row.sales_amount} </span>
+                        <span> {this.$kilobit(params.row.sales_amount)} </span>
                     )
                 },
                 {
                     title: '平均客单价',
                     align: 'center',
-                    minWidth: 220,
+                    minWidth: 110,
                     render: (h, params) => (
-                        <span> {~~params.row.avg_transaction_value} </span>
+                        <span> {this.$kilobit(params.row.avg_transaction_value)} </span>
                     )
                 },
                 {
                     title: '平均客单件',
                     align: 'center',
-                    minWidth: 220,
+                    minWidth: 110,
                     render: (h, params) => (
-                        <span> {~~params.row.avg_transaction_unit} </span>
+                        <span> {Math.round(params.row.avg_transaction_unit * 10) / 10} </span>
                     )
                 },
                 {
                     title: '平均件单价',
                     align: 'center',
-                    minWidth: 220,
+                    minWidth: 110,
                     render: (h, params) => (
-                        <span> {~~params.row.avg_unit_value} </span>
+                        <span> {this.$kilobit(params.row.avg_unit_value)} </span>
                     )
                 },
                 {
                     title: '联单率',
                     align: 'center',
-                    minWidth: 220,
+                    minWidth: 80,
                     render: (h, params) => (
-                        <span> {~~(params.row.joint_purchase_rate * 100)}% </span>
+                        <span> {Math.round(params.row.joint_purchase_rate * 1000) / 10}% </span>
                     )
                 },
                 {
                     title: '平均折扣率',
                     align: 'center',
-                    minWidth: 220,
+                    minWidth: 110,
                     render: (h, params) => (
-                        <span> {~~(params.row.joint3_purchase_scale * 100)}% </span>
+                        <span> {Math.round(params.row.avg_discount_rate * 1000) / 10}% </span>
                     )
                 }
 
@@ -158,37 +169,37 @@
                         title: '新会员人数',
                         key: 'new_vip_count',
                         align: 'center',
-                        minWidth: 220
+                        minWidth: 110
                     },
                     {
                         title: '新会员转化率',
                         align: 'center',
-                        minWidth: 220,
+                        minWidth: 120,
                         render: (h, params) => (
-                            <span> {params.row.new_vip_case_rate * 100}% </span>
+                            <span> {Math.round(params.row.new_vip_case_rate * 1000) / 10}% </span>
                         )
                     },
                     {
                         title: '新会员占比',
                         align: 'center',
-                        minWidth: 220,
+                        minWidth: 110,
                         render: (h, params) => (
-                                <span> {~~(params.row.new_vip_rate * 100)}% </span>
+                                <span> {Math.round(params.row.new_vip_rate * 1000) / 10}% </span>
                         )
                     },
                     {
                         title: '老会员人数',
                         key: 'old_vip_count',
                         align: 'center',
-                        minWidth: 220
+                        minWidth: 110
                     },
                     {
                         title: '老会员占比',
                         align: 'center',
-                        minWidth: 220,
+                        minWidth: 110,
                         render: (h, params) => (
                             <div>
-                                <span> {~~(params.row.old_vip_rate * 100)}% </span>
+                                <span> {Math.round(params.row.old_vip_rate * 1000) / 10}% </span>
                             </div>
                         )
                     }
@@ -202,7 +213,7 @@
                         title: '老会员人数',
                         key: 'old_vip_count',
                         align: 'center',
-                        minWidth: 220
+                        minWidth: 110
                     }
                 );
                 break;
@@ -212,7 +223,7 @@
                         title: '新会员人数',
                         key: 'new_vip_count',
                         align: 'center',
-                        minWidth: 220
+                        minWidth: 110
                     },
                 );
                 break;
@@ -224,32 +235,14 @@
                 title: '对比任务名称',
                 align: 'center',
                 minWidth: 220,
+                fixed: 'left',
                 render: (h, params) => (
                     <div style="font-weight:600;">
                         <span> {params.row.display_name} </span>
                     </div>
                 )
             }];
-            this.columns_3 = [{
-                title: '对比任务名称',
-                align: 'center',
-                minWidth: 220,
-                render: (h, params) => (
-                    <div style="font-weight:600;">
-                        <span> {params.row.display_name} </span>
-                    </div>
-                )
-            }];
-            this.columns_4 = [{
-                title: '对比任务名称',
-                align: 'center',
-                minWidth: 220,
-                render: (h, params) => (
-                    <div style="font-weight:600;">
-                        <span> {params.row.display_name} </span>
-                    </div>
-                )
-            }];
+
             for (let i = 1; i <= 10; i++) {
                 this.columns_2.push({
                     title: `Top${i}`,
@@ -264,7 +257,7 @@
                                     style: {
                                         color: '#1890ff'
                                     }
-                                }, ` ${params.row[`top${i}`].split(' ')[1]}`)
+                                }, ` ${params.row[`top${i}`].split(' ')[1] || ''}`)
                             ]);
                         }
                     }
@@ -275,37 +268,29 @@
             this.allData.forEach((item, index) => {
                 this.data_2[index] = { display_name: item.display_name };
                 item.top10_by_unit.forEach((item_2, index_2) => {
-                    this.data_2[index][`top${+index_2 + 1}`] = `${Object.keys(item_2)[0]} (${Object.values(item_2)[0]}件)`;
+                    if ((Object.values(item_2)[0]) > 0) {
+                        this.data_2[index][`top${+index_2 + 1}`] = `${Object.keys(item_2)[0]} (${(this.$kilobit(Object.values(item_2)[0]))}件)`;
+                    }
                 });
+
                 this.data_3[index] = { display_name: item.display_name };
                 item.top10_by_value.forEach((item_2, index_2) => {
-                    this.data_3[index][`top${+index_2 + 1}`] = `${Object.keys(item_2)[0]} (${Object.values(item_2)[0]}元)`;
+                    if ((Object.values(item_2)[0]) > 0) {
+                        this.data_3[index][`top${+index_2 + 1}`] = `${Object.keys(item_2)[0]} (${this.$kilobit(Object.values(item_2)[0])}元)`;
+                    }
                 });
+
                 this.data_4[index] = { display_name: item.display_name };
                 item.category_distribution.forEach((item_2, index_2) => {
                     if (index_2 > 10) return;
-                    this.data_4[index][`top${+index_2 + 1}`] = `${Object.keys(item_2)[0]} (${Object.values(item_2)[0]}件)`;
+                    if ((Object.values(item_2)[0]) > 0) {
+                        this.data_4[index][`top${+index_2 + 1}`] = `${Object.keys(item_2)[0]} (${this.$kilobit(Object.values(item_2)[0])}件)`;
+                    }
                 });
             });
 
             // data_1 的数据
-            this.data_1 = this.allData.map(item => ({
-                display_name: item.display_name,
-                sales_amount: item.sales_amount,
-                avg_transaction_value: item.avg_transaction_value,
-                avg_transaction_unit: item.avg_transaction_unit,
-                avg_unit_value: item.avg_unit_value,
-                joint_purchase_rate: item.joint_purchase_rate,
-                joint3_purchase_scale: item.joint3_purchase_scale,
-                vip_order_scale: item.vip_order_scale,
-                vip_sales_scale: item.vip_sales_scale,
-                new_vip_count: item.new_vip_count,
-                new_vip_case_rate: item.new_vip_case_rate,
-                new_vip_rate: item.new_vip_rate,
-                old_vip_count: item.old_vip_count,
-                old_vip_rate: item.old_vip_rate
-
-            }));
+            this.data_1 = this.allData.map(item => item);
         },
 
         mounted() {
@@ -317,7 +302,23 @@
 
             this.resize();
 
+            // 提示框组件 （件）
+            const tooltipNum = {
+                trigger: 'axis',
+                axisPointer: {
+                    type: 'shadow'
+                },
+                formatter: (item) => {
+                    let context = `${item[0].axisValue.replace(/\n/g, '')}`;
+                    for (let i = 0; i < item.length; i++) {
+                        context += `<br /> ${item[i].marker}${item[i].seriesName}：${this.$kilobit(item[i].value)} 件`;
+                    }
+                    return context;
+                }
+            };
+            // top 值
             const top = 60 + (this.allData.length - 1) * 10;
+
             const option_1 = {
                 color: ['#3398DB', '#67E0E3', '#FFDB5C'],
                 title: {
@@ -330,17 +331,25 @@
                     trigger: 'axis',
                     axisPointer: {
                         type: 'shadow'
+                    },
+                    formatter: (item) => {
+                        let context = `${item[0].axisValue.replace(/\n/g, '')}`;
+                        for (let i = 0; i < item.length; i++) {
+                            context += `<br /> ${item[i].marker}${item[i].seriesName}：${item[i].value}%`;
+                        }
+                        return context;
                     }
                 },
                 legend: {
                     data: this.optionName,
-                    left: '80%'
+                    right: '7%',
+                    orient: 'vertical'
                 },
                 grid: {
                     left: '3%',
-                    right: '3%',
+                    right: '7%',
                     bottom: '3%',
-                    top,
+                    top: 10 + top,
                     containLabel: true,
                     backgroundColor: 'red'
                 },
@@ -353,7 +362,8 @@
                     axisLabel: {
                         show: true,
                         formatter: '{value}%'
-                    }
+                    },
+                    max: 100
                 },
                 series: []
             };
@@ -370,15 +380,23 @@
                     trigger: 'axis',
                     axisPointer: {
                         type: 'shadow'
+                    },
+                    formatter: (item) => {
+                        let context = `${item[0].axisValue.replace(/\n/g, '')}`;
+                        for (let i = 0; i < item.length; i++) {
+                            context += `<br /> ${item[i].marker}${item[i].seriesName}：${this.$kilobit(this.vipCount[i][item[i].dataIndex])} 单`;
+                        }
+                        return context;
                     }
                 },
                 legend: {
                     data: this.optionName,
-                    left: '80%'
+                    right: '7%',
+                    orient: 'vertical'
                 },
                 grid: {
                     left: '5%',
-                    right: '3%',
+                    right: '7%',
                     bottom: '3%',
                     top,
                     containLabel: true,
@@ -389,7 +407,8 @@
                     axisLabel: {
                         show: true,
                         formatter: '{value}%'
-                    }
+                    },
+                    max: 100
                 },
                 yAxis: {
                     type: 'category',
@@ -410,15 +429,23 @@
                     trigger: 'axis',
                     axisPointer: {
                         type: 'shadow'
+                    },
+                    formatter: (item) => {
+                        let context = `${item[0].axisValue.replace(/\n/g, '')}`;
+                        for (let i = 0; i < item.length; i++) {
+                            context += `<br /> ${item[i].marker}${item[i].seriesName}：${this.$kilobit(this.vipAmount[i][item[i].dataIndex])} 元`;
+                        }
+                        return context;
                     }
                 },
                 legend: {
                     data: this.optionName,
-                    left: '80%'
+                    right: '7%',
+                    orient: 'vertical'
                 },
                 grid: {
                     left: '4.3%',
-                    right: '3%',
+                    right: '7%',
                     bottom: '3%',
                     top,
                     containLabel: true,
@@ -429,7 +456,8 @@
                     axisLabel: {
                         show: true,
                         formatter: '{value}%'
-                    }
+                    },
+                    max: 100
                 },
                 yAxis: {
                     type: 'category',
@@ -437,6 +465,7 @@
                 },
                 series: []
             };
+
             const option_4 = {
                 color: ['#3398DB', '#67E0E3', '#FFDB5C'],
                 title: {
@@ -449,17 +478,25 @@
                     trigger: 'axis',
                     axisPointer: {
                         type: 'shadow'
+                    },
+                    formatter: (item) => {
+                        let context = `${item[0].axisValue.replace(/\n/g, '')}`;
+                        for (let i = 0; i < item.length; i++) {
+                            context += `<br /> ${item[i].marker}${item[i].seriesName}：${this.$kilobit(this.jointCount[i][item[i].dataIndex])} 单`;
+                        }
+                        return context;
                     }
                 },
                 legend: {
                     data: this.optionName,
-                    left: '80%'
+                    right: '7%',
+                    orient: 'vertical'
                 },
                 grid: {
                     left: '3%',
-                    right: '3%',
+                    right: '7%',
                     bottom: '3%',
-                    top,
+                    top: 10 + top,
                     containLabel: true
                 },
                 yAxis: {
@@ -467,11 +504,12 @@
                     axisLabel: {
                         show: true,
                         formatter: '{value}%'
-                    }
+                    },
+                    max: 100
                 },
                 xAxis: {
                     type: 'category',
-                    data: [`联单5件以上${this.nbsp}占比`, `联单3件以上${this.nbsp}占比`, `联单2件${this.nbsp}占比`, `联单1件${this.nbsp}占比`]
+                    data: [`联单5件及以上${this.nbsp}占比`, `联单3-4件${this.nbsp}占比`, `联单2件${this.nbsp}占比`, `联单1件${this.nbsp}占比`]
                 },
                 series: []
             };
@@ -479,28 +517,23 @@
             const option_5 = {
                 color: ['#3398DB', '#67E0E3', '#FFDB5C'],
                 title: {
-                    text: '季节分布',
+                    text: '季节分布（单位:件）',
                     textStyle: {
                         fontSize: 15
                     }
                 },
-                tooltip: {
-                    trigger: 'axis',
-                    axisPointer: {
-                        type: 'shadow'
-                    }
-                },
+                tooltip: tooltipNum,
                 legend: {
                     data: this.optionName,
-                    left: '80%'
+                    right: '7%',
+                    orient: 'vertical'
                 },
                 grid: {
                     left: '2.7%',
-                    right: '3%',
+                    right: '7%',
                     bottom: '3%',
                     top,
-                    containLabel: true,
-                    backgroundColor: 'red'
+                    containLabel: true
                 },
                 yAxis: {
                     type: 'value',
@@ -523,35 +556,31 @@
                     y: 'center',
                     textStyle: {
                         fontWeight: 'bold',
-                        fontSize: 25
+                        fontSize: 25,
+                        color: '#bbb'
                     }
                 };
             }
             const option_6 = {
                 color: ['#3398DB', '#67E0E3', '#FFDB5C'],
                 title: {
-                    text: '价格带分布',
+                    text: '价格带分布（单位:件）',
                     textStyle: {
                         fontSize: 15
                     }
                 },
-                tooltip: {
-                    trigger: 'axis',
-                    axisPointer: {
-                        type: 'shadow'
-                    }
-                },
+                tooltip: tooltipNum,
                 legend: {
                     data: this.optionName,
-                    left: '80%'
+                    right: '7%',
+                    orient: 'vertical'
                 },
                 grid: {
                     left: '3.4%',
-                    right: '3%',
+                    right: '7%',
                     bottom: '3%',
                     top,
-                    containLabel: true,
-                    backgroundColor: 'red'
+                    containLabel: true
                 },
                 xAxis: {
                     type: 'category',
@@ -574,32 +603,29 @@
                     y: 'center',
                     textStyle: {
                         fontWeight: 'bold',
-                        fontSize: 25
+                        fontSize: 25,
+                        color: '#bbb'
                     }
                 };
             }
             const option_7 = {
                 color: ['#3398DB', '#67E0E3', '#FFDB5C'],
                 title: {
-                    text: '色系分布',
+                    text: '色系分布（单位:件）',
                     textStyle: {
                         fontSize: 15
                     }
                 },
-                tooltip: {
-                    trigger: 'axis',
-                    axisPointer: {
-                        type: 'shadow'
-                    }
-                },
+                tooltip: tooltipNum,
                 legend: {
                     data: this.optionName,
-                    left: '80%'
+                    right: '7%',
+                    orient: 'vertical'
 
                 },
                 grid: {
                     left: '3.7%',
-                    right: '3%',
+                    right: '7%',
                     bottom: '3%',
                     top,
                     containLabel: true,
@@ -629,32 +655,29 @@
                     y: 'center',
                     textStyle: {
                         fontWeight: 'bold',
-                        fontSize: 25
+                        fontSize: 25,
+                        color: '#bbb'
                     }
                 };
             }
             const option_8 = {
                 color: ['#3398DB', '#67E0E3', '#FFDB5C'],
                 title: {
-                    text: '面料分布',
+                    text: '面料分布（单位:件）',
                     textStyle: {
                         fontSize: 15
                     }
                 },
-                tooltip: {
-                    trigger: 'axis',
-                    axisPointer: {
-                        type: 'shadow'
-                    }
-                },
+                tooltip: tooltipNum,
                 legend: {
                     data: this.optionName,
-                    left: '80%'
+                    right: '7%',
+                    orient: 'vertical'
 
                 },
                 grid: {
                     left: '3.4%',
-                    right: '3%',
+                    right: '7%',
                     bottom: '5%',
                     top,
                     containLabel: true,
@@ -683,7 +706,8 @@
                     y: 'center',
                     textStyle: {
                         fontWeight: 'bold',
-                        fontSize: 25
+                        fontSize: 25,
+                        color: '#bbb'
                     }
                 };
             }
@@ -691,79 +715,95 @@
                 // 退货率
                 option_1.series[index] = {
                     name: this.optionName[index],
-                    barWidth: 30,
-                    barGap: '0%',
+                    barWidth: '20%',
+                    barGap: '30%',
                     legendHoverLink: true,
                     type: 'bar',
-                    data: [data.total_sales_return_rate * 100, data.total_count_return_rate * 100]
+                    data: [(Math.round(data.total_sales_return_rate * 1000)) / 10, (Math.round(data.total_count_return_rate * 1000)) / 10]
                 };
+
                 // 会员订单占比
                 option_2.series[index] = {
                     name: this.optionName[index],
-                    barWidth: 30,
-                    barGap: '10%',
+                    barWidth: '20%',
+                    barGap: '30%',
                     legendHoverLink: true,
                     type: 'bar',
-                    data: [data.vip_order_scale * 100, data.non_vip_order_scale * 100]
+                    label: {
+                        show: true,
+                        position: 'right',
+                        formatter: '{@score}%'
+                    },
+                    data: [Math.round(data.vip_order_scale * 100), Math.round(data.non_vip_order_scale * 100)]
                 };
                 // 会员金额占比
                 option_3.series[index] = {
                     name: this.optionName[index],
-                    barWidth: 30,
-                    barGap: '10%',
+                    barWidth: '20%',
+                    barGap: '30%',
                     legendHoverLink: true,
                     type: 'bar',
-                    data: [data.vip_sales_scale * 100, data.non_vip_sales_scale * 100]
+                    label: {
+                        show: true,
+                        position: 'right',
+                        formatter: '{@score}%'
+                    },
+                    data: [Math.round(data.vip_sales_scale * 100), Math.round(data.non_vip_sales_scale * 100)]
+                    // data: [Math.round(data.vip_sales_amount), Math.round(data.non_vip_sales_amount)]
                 };
                 // 联单件数占比分析
                 option_4.series[index] = {
                     name: this.optionName[index],
-                    barWidth: 30,
-                    barGap: '10%',
+                    barWidth: '20%',
+                    barGap: '30%',
                     legendHoverLink: true,
                     type: 'bar',
-                    data: [data.joint5_purchase_scale * 100, data.joint3_purchase_scale * 100, data.joint2_purchase_scale * 100, data.joint1_purchase_scale * 100]
+                    label: {
+                        show: true,
+                        position: 'top',
+                        formatter: '{@score}%'
+                    },
+                    data: [Math.round(data.joint5_purchase_scale * 100), Math.round(data.joint3_purchase_scale * 100), Math.round(data.joint2_purchase_scale * 100), Math.round(data.joint1_purchase_scale * 100)]
                 };
 
                 // 商品偏好-季节分布
                 option_5.series[index] = {
                     name: this.optionName[index],
                     barWidth: '20%',
-                    barGap: '20%',
+                    barGap: '30%',
                     legendHoverLink: true,
                     type: 'bar',
-                    data: data.season_distribution.map(item => item[Object.keys(item)[0]])
+                    data: data.season_distribution.map(item => (item[Object.keys(item)[0]] > 0 ? Math.round(item[Object.keys(item)[0]]) : 0))
                 };
-
 
                 // 商品偏好-价格带分布
                 option_6.series[index] = {
                     name: this.optionName[index],
                     barWidth: '20%',
-                    barGap: '0%',
+                    barGap: '30%',
                     legendHoverLink: true,
                     type: 'bar',
-                    data: data.price_range_distribution.map(item => item[Object.keys(item)[0]])
+                    data: data.price_range_distribution.map(item => (item[Object.keys(item)[0]] > 0 ? Math.round(item[Object.keys(item)[0]]) : 0))
                 };
 
                 // 商品偏好-色系分布
                 option_7.series[index] = {
                     name: this.optionName[index],
                     barWidth: '20%',
-                    barGap: '0%',
+                    barGap: '30%',
                     legendHoverLink: true,
                     type: 'bar',
-                    data: data.color_distribution.map(item => item[Object.keys(item)[0]])
+                    data: data.color_distribution.map(item => (item[Object.keys(item)[0]] > 0 ? Math.round(item[Object.keys(item)[0]]) : 0))
                 };
 
                 // 商品偏好-面料分布
                 option_8.series[index] = {
                     name: this.optionName[index],
                     barWidth: '20%',
-                    barGap: '0%',
+                    barGap: '30%',
                     legendHoverLink: true,
                     type: 'bar',
-                    data: data.fabric_distribution.map(item => item[Object.keys(item)[0]])
+                    data: data.fabric_distribution.map(item => (item[Object.keys(item)[0]] > 0 ? Math.round(item[Object.keys(item)[0]]) : 0))
                 };
             });
 
@@ -777,16 +817,16 @@
             this.chart_8.setOption(option_8);
             // 监听 窗口大小
             window.addEventListener('resize', this.resize);
-        },
-        beforeDestroy() {
             // 销毁 resize监听事件
-            window.removeEventListener('resize', this.resize);
+            this.$once('hook:beforeDestroy', () => {
+                window.removeEventListener('resize', this.resize);
+            });
         },
         methods: {
+            toFixed_1: val => Math.round(val * 10) / 10,
             resize() {
                 this.gaugeWidth = this.$refs.win.clientWidth - 38;
                 this.nbsp = this.gaugeWidth < 1200 ? '\n' : '';
-
                 for (let i = 1; i <= this.chartsSize; i++) {
                     this.$refs[`chart_${i}`].style.width = `${this.gaugeWidth * 0.45}px`;
                     this[`chart_${i}`].resize();
@@ -818,11 +858,11 @@
 /* 滚动条 */
     /deep/ .ivu-table-overflowY::-webkit-scrollbar-thumb {
         border-radius: 5px;
-        background: rgb(243, 243, 243);
+        background: #D6D6D6;
     }
     /deep/ .ivu-table-overflowX::-webkit-scrollbar-thumb {
         border-radius: 5px;
-        background: rgb(243, 243, 243);
+        background: #D6D6D6;
     }
 }
 </style>

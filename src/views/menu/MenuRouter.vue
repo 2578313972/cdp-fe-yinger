@@ -1,9 +1,13 @@
 <template>
 <div class="warpper-box">
+    <!-- top -->
     <div class="header-menu">
         <div class="header-left">
             <div class="left-logo">
-                <div class="single-graph"></div>
+                <div class="single-graph">
+                    <span>影儿时尚集团</span>
+                </div>
+                <!-- <div class="title-img"></div> -->
                 <!-- <img src="@/assets/images/logo-min.jpg">
                 <span class="text-hide">{{ siteName }}</span> -->
             </div>
@@ -68,6 +72,7 @@
             </div>
         </div>
     </div>
+    <!-- main -->
     <div class="main-box">
         <div class="main-left">
             <Layout
@@ -382,5 +387,18 @@
     .role-name{
         color: rgba(23,35,61,0.55);
         font-style: normal;
+    }
+    .single-graph{
+        display: flex;
+    }
+    .single-graph > span {
+        cursor: pointer;
+        font-size: 17px;
+        font-weight: 500;
+        display: inline-block;
+        width: 100%;
+        line-height: 64px;
+        text-indent: 50px;
+        text-align: center;
     }
 </style>

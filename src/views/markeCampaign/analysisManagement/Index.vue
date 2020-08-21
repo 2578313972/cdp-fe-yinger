@@ -88,18 +88,28 @@
                 {
                     title: '任务名称',
                     key: 'display_name',
+                    tooltip: true,
                     minWidth: 100
                 },
                 {
                     title: '任务ID',
                     key: 'code',
-                    align: 'center'
+                    align: 'center',
+                    tooltip: true,
+                    minWidth: 40
                 },
                 {
                     title: '条件',
                     align: 'center',
                     key: 'ifItem',
                     width: '280px',
+                    tooltip: true
+                },
+                {
+                    title: '任务描述',
+                    align: 'center',
+                    key: 'descriptions',
+                    minWidth: 100,
                     tooltip: true
                 },
                 {
@@ -113,17 +123,18 @@
                 {
                     title: '计算状态',
                     align: 'center',
+                    minWidth: 60,
+                    tooltip: true,
                     render: (h, params) => (
                   <div>{this.calculate_status_item[params.row.calculate_status]}</div>
                 )
                 },
                 {
                     title: '创建时间',
+                    key: 'create_time',
                     align: 'center',
                     minWidth: 100,
-                    render: (h, params) => (
-                  <div>{new Date(params.row.create_time).toLocaleString()}</div>
-                )
+                    tooltip: true
                 },
                 {
                     title: '操作',
@@ -162,12 +173,15 @@
                         this.data = res.data.data;
                         this.allDataSize = res.data.pageInfo.total;
                         this.data.forEach((item) => {
+                            item.create_time = new Date(item.create_time).toLocaleString();
                             item.ifItem += `[${item.channel}] `;
+                            item.ifItem += `[${item.jlb}] `;
                             if (item.brand !== '') item.ifItem += `[${item.brand}] `;
                             if (item.area !== '') item.ifItem += `[${item.area}] `;
                             item.ifItem += `[${item.store}]`;
                             item.ifItem = item.ifItem.slice(9);
                         });
+                        console.log(this.data);
                     }
                     this.loading = false;
                 });

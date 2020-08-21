@@ -1,8 +1,9 @@
 <template>
+<!-- 营销分析看板 -->
   <div class="page-warpper">
     <div class="page-content page-content-tab padding16-18">
       <Card dis-hover>
-        <Row type="flex" justify="space-between" class="code-row-bg">
+        <Row type="flex" justify="space-between" class="code-row-bg" style="padding:10px 0 0 10px;">
           <i-col style="font-size:18px;" span="24">共<a href="javascript:void(0)" style="cursor: default;">{{allDataSize}}</a>个对比任务</i-col>
         </Row>
         <Table
@@ -23,7 +24,6 @@
         ></Page>
       </Card>
     </div>
-
   </div>
 </template>
 <script>
@@ -47,11 +47,10 @@
                 {
                     title: '任务ID',
                     key: 'code',
-                    align: 'center',
                     width: 120
                 },
                 {
-                    title: '人群列表',
+                    title: '任务列表',
                     align: 'center',
                     width: 650,
                     render: (h, params) => (

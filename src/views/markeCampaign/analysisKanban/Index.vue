@@ -6,9 +6,10 @@
         </Menu>
       </div>
       <div>
-        <router-view />
+        <keep-alive include="Group">
+          <router-view />
+        </keep-alive>
       </div>
-
     </div>
 </template>
 
@@ -26,8 +27,10 @@
     };
 </script>
 
-<style lang="less">
-  .analysisKanban{
-    background-color: white;
-  }
+
+<style lang="less" scoped>
+/deep/ .ivu-checkbox-wrapper,/deep/ .ivu-checkbox{margin: 0 ;}
+/deep/ .ivu-card-body {
+  padding: 0 !important;
+}
 </style>

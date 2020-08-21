@@ -104,6 +104,7 @@
                     ref="child"
                     :loading="loading"
                     :allData="allData"
+                    :queryOptions="queryOptions"
                     :vip="this.dimension[this.active_name]"
                 />
 
@@ -116,7 +117,6 @@
 
 <script>
     import ChartPage from './ChartPage';
-    // import BrandArea from '@/components/select/BrandArea ';
 
     export default {
         data() {
@@ -126,7 +126,7 @@
                 active_name: 0, // 已选中的菜单栏
                 loading: false, // 加载
                 dimension: ['total', 'nonVip', 'oldVip', 'newVip'], // 加载数据的类型
-                show: true,
+                show: false,
                 ditchList: [],
                 areaList: [],
                 shopList: [],
@@ -147,7 +147,6 @@
         },
         components: {
             ChartPage
-            // BrandArea
         },
         created() {
             this.$https.analysisManagement.allQueryType().then((res) => {
@@ -247,6 +246,8 @@
                     console.log('inquire');
                     this.$nextTick(() => {
                         this.$refs.child.info();
+                        // 调用子组件的 table数据 接口
+                        this.$refs.child.getTableData();
                     });
                 });
             },

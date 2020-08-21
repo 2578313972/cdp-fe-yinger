@@ -4,7 +4,7 @@ import iView from 'iview';
 
 // 设置公共部分，请求头和超时时间
 axios.defaults.headers = {
-    'X-Requested-With': 'XMLHttpRequest'
+    'X-Requested-With': ''
 };
 // axios.defaults.timeout = 20000
 
@@ -23,10 +23,11 @@ axios.interceptors.request.use(
             color: '#00cc00'
         });
         iView.LoadingBar.start();
+        // console.log('one: ', config);
         config.headers.Pragma = 'No-cache';
         config.headers['Cache-Control'] = 'no-cache';
         config.headers.Expires = 0;
-
+        // console.log('two: ', config);
         // 增加请求组逻辑
         const groupName = (config.data && config.data.axiosGroupName) || (config.params && config.params.axiosGroupName);
         if (groupName) {
@@ -48,7 +49,7 @@ axios.interceptors.request.use(
 // http response 拦截器
 axios.interceptors.response.use(
     (response) => {
-        // console.log(response);
+        // console.log('response: ', response);
 
         if (/\/cdp\-web\/user\/session$/.test(response.config.url)) {
             isLoadSession = true;
@@ -57,7 +58,7 @@ axios.interceptors.response.use(
         return response;
     },
     (error) => {
-        console.log(error);
+        // console.log(error);
 
         let msg = null;
         const message = {

@@ -19,6 +19,7 @@
           :label-width="120"
           :model="formValidate"
           :rules="ruleValidate"
+          @on-validate="formRules"
         >
           <Form-item label="任务名称" prop="code">
             <Input
@@ -38,21 +39,11 @@
               placeholder="选择日期"
             ></Date-picker>
           </Form-item>
-          <Form-item label="线上 线下选择" prop="copyOto">
-            <i-select class="width400" multiple @on-change="otoChange" v-model="formValidate.oto">
-              <i-option
-                v-for="item in otoList"
-                :key="item.value"
-                :value="item.value"
-              >{{ item.label }}</i-option>
-            </i-select>
-          </Form-item>
-          <Form-item label="渠道选择">
-            <Form-item prop="copyditch">
+          <Form-item label="品牌" prop="copyditch">
               <i-select
                 filterable
                 @on-change="ditchChange"
-                placeholder="渠道"
+                placeholder="品牌"
                 v-model="formValidate.ditch"
                 style="width:90px"
               >
@@ -62,13 +53,27 @@
                   :value="item.value"
                 >{{ item.label }}</i-option>
               </i-select>
-              &nbsp;&nbsp;&nbsp;区域&nbsp;
+          </Form-item>
+          <Form-item label="已选品牌">{{ditchVal}}</Form-item>
+          <Form-item label="渠道" prop="copyOto">
+            <i-select class="width400" multiple @on-change="otoChange" v-model="formValidate.oto">
+              <i-option
+                v-for="item in otoList"
+                :key="item.value"
+                :value="item.value"
+              >{{ item.label }}</i-option>
+            </i-select>
+          </Form-item>
+          <Form-item label="已选渠道">{{selectVal}}</Form-item>
+          <Form-item label="组织" required>
+            <Form-item prop="copyditch" >
+              区域&nbsp;
               <i-select
                 filterable
                 @on-change="areaChange"
                 placeholder="区域"
                 v-model="formValidate.area"
-                style="width:90px"
+                style="width:100px"
               >
                 <i-option
                   v-for="item in areaList"
@@ -78,16 +83,15 @@
               </i-select>
             </Form-item>
             &nbsp;&nbsp;&nbsp;选择门店&nbsp;
-            <Form-item prop="copyshop">
-
+            <Form-item prop="copyshop" >
               <i-select
                 filterable
                 @on-change="shopChange"
                 multiple
-                :max-tag-count='2'
+                :max-tag-count='1'
                 placeholder="门店"
                 v-model="formValidate.shop"
-                style="width:180px;"
+                style="width:195px;"
               >
                 <i-option
                   v-for="item in shopList"
@@ -98,7 +102,7 @@
             </Form-item>
 
           </Form-item>
-          <Form-item label="已选择渠道">{{selectDitch}}</Form-item>
+          <Form-item label="已选组织">{{selectDitch}}</Form-item>
           <Form-item label="金蓝标选择" prop="copymodel">
             <i-select class="width400" multiple @on-change="optionChange" v-model="formValidate.model">
               <i-option
@@ -108,9 +112,9 @@
               >{{ item.label }}</i-option>
             </i-select>
           </Form-item>
-          <Form-item label="已选择金蓝标">{{selectVal}}</Form-item>
+          <Form-item label="已选择金蓝标">{{jlbVal}}</Form-item>
 
-          <Form-item label="任务描述" prop="description">
+          <Form-item label="任务描述">
             <Input
               :maxlength="100"
               class="width400"
@@ -134,6 +138,8 @@
             return {
                 title: '订单分析-新增分析任务',
                 selectVal: '',
+                ditchVal: '',
+                jlbVal: '',
                 saveBtnStatus: false,
                 ditchList: [], // 渠道
                 areaList: [], // 区域
@@ -160,9 +166,9 @@
                 ruleValidate: {
                     code: [{ required: true, message: '请输入任务名', trigger: 'blur,change' }],
                     value1: [{ required: true, message: '请选择任务时间,并且时间之差不得超过30天', trigger: 'blur,change' }],
-                    copyOto: [{ required: true, message: '请选择线上或线下（可多选）', trigger: 'blur,change' }],
+                    copyOto: [{ required: true, message: '请选择渠道（可多选）', trigger: 'blur,change' }],
                     copymodel: [{ required: true, message: '请选择金蓝标（可多选）', trigger: 'blur,change' }],
-                    copyditch: [{ required: true, message: '请选择渠道或者区域', trigger: 'blur,change' }],
+                    copyditch: [{ required: true, message: '请选择品牌或者区域', trigger: 'blur,change' }],
                     copyshop: [{ required: true, message: '请选择门店', trigger: 'change' }],
                     description: [{ required: true, message: '请输入任务描述', trigger: 'blur,change' }]
                 },
@@ -180,7 +186,7 @@
             },
             'formValidate.shop': function (e) {
                 if (this.formValidate.area === 'o57') {
-                    this.formValidate.copyshop = 'true';
+                    this.$set(this.formValidate, 'copyshop', 'true');
                     return;
                 }
                 if (e[0]) {
@@ -190,9 +196,12 @@
                 }
             },
             'formValidate.ditch': function (newVal) {
+                console.log(newVal);
                 if (newVal) {
+                    this.ditchVal = `[ ${this.ditchList.find(item => item.value === newVal).label} ]`;
                     this.formValidate.copyditch = 'true';
                 } else if (!this.formValidate.area) {
+                    this.ditchVal = '';
                     this.formValidate.copyditch = '';
                 }
             },
@@ -211,12 +220,12 @@
             selectDitch() {
                 let value = '';
                 this.shopData = [];
-                const ditch = this.ditchList.find(item => item.value === this.formValidate.ditch);
+                // const ditch = this.ditchList.find(item => item.value === this.formValidate.ditch);
                 const area = this.areaList.find(item => item.value === this.formValidate.area);
                 const shop = this.formValidate.shop.length;
-                if (ditch) {
-                    value += `[ ${ditch.label} ]`;
-                }
+                // if (ditch) {
+                //     value += `[ ${ditch.label} ]`;
+                // }
                 if (area) {
                     value += `[ ${area.label} ]`;
                 }
@@ -235,7 +244,7 @@
         created() {
             this.$https.analysisManagement.allQueryType().then((res) => {
                 this.ditchList = res[0].data.data.map(item => ({ label: item.name, value: item.orgId }));
-                this.ditchList.unshift({ label: '选择渠道', value: '0' });
+                this.ditchList.unshift({ label: '选择品牌', value: '0' });
                 this.areaList = res[1].data.data.map(item => ({ label: item.name, value: item.orgId }));
                 this.areaList.unshift({ label: '选择区域', value: '0' });
             });
@@ -246,7 +255,6 @@
             ];
             // 金蓝标选择
             this.colorList = [
-
                 { value: '金标', label: '金标' },
                 { value: '蓝标', label: '蓝标' },
                 { value: '蓝标转金标', label: '蓝标转金标' }
@@ -348,9 +356,9 @@
                     this.formValidate.copymodel = undefined;
                 }
                 if (this.formValidate.model.toString()) {
-                    this.selectVal = `[ ${this.formValidate.model.toString()} ]`;
+                    this.jlbVal = `[ ${this.formValidate.model.toString()} ]`;
                 } else {
-                    this.selectVal = '';
+                    this.jlbVal = '';
                 }
             },
             /** 门店接口 */
@@ -367,9 +375,6 @@
                     brand = this.ditchList.find(item => item.value === this.formValidate.ditch).label;
                 }
 
-                console.log(brandObj, areaObj);
-
-
                 this.$https.analysisManagement.queryChannelOptions({
                     queryType: 'stroe',
                     brand,
@@ -377,6 +382,10 @@
                 }).then((res) => {
                     this.shopList = res.data.data.map(item => ({ label: item.storeName, value: item.storeNo }));
                 });
+            },
+            /** 表单验证触发 */
+            formRules(prop, status, error) {
+                console.log(prop, status, error);
             }
         }
         /** keep-alive 显示的生命周期 */

@@ -162,12 +162,13 @@
                     get_params.catalog_id = this.curTreeID;
                     get_params.group_id = this.groupID;
                 }
-
+                console.log(get_params);
                 this.$api.crowd.getCrowds(get_params)
                     .then((data) => {
                         // 解决Bug【SMCERS-659】 ywchen 2019-04-05; 当API返回无列表且非第一页时重新发起请求；这种解决方案的结果就是当这个Case发生时，列表请求会发起两次；解决方案来自阿里云的未读消息列表
                         if ((!data.items || data.items.length == 0) && data.page > 1) {
                             this.page.current = data.page - 1;
+                            console.log('goin');
                             this.getList();
                             return;
                         }

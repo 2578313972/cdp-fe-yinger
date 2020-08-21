@@ -1,4 +1,5 @@
 <template>
+    <!-- 营销分析看板 （详情页面） -->
     <div>
         <Spin size="large" fix v-if="loading"></Spin>
 
@@ -51,7 +52,6 @@
         },
         created() {
             this.menu = ['整体订单', '非会员消费订单', '老会员消费订单', '新会员消费订单'];
-
             this.getData();
         },
         mounted() {},

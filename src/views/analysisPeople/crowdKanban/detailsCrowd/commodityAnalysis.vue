@@ -1,11 +1,7 @@
 <template>
+    <!-- 商品分析 -->
     <div class="commodityAnalysis">
         <Spin size="large" fix v-if="spinLoading"></Spin>
-        <!-- <div style="margin:0 auto"> -->
-            <!-- <Table border :loading="loading" :width="winWidth*0.98" :columns="columns" :data="tableData_1"></Table>
-            <Table border :loading="loading" :width="winWidth*0.98" :columns="columns" :data="tableData_2"></Table>
-            <Table border :loading="loading" :width="winWidth*0.98" :columns="columns" :data="tableData_3"></Table> -->
-
         <Card dis-hover class="card">
             <p slot="title" class="rbg">TOP10销量款色分析</p>
             <Table border :loading="loading" :width="winWidth*0.98-32" :columns="columns" :data="tableData_1"></Table>
@@ -19,10 +15,10 @@
             <Table border :loading="loading" :width="winWidth*0.98-32" :columns="columns" :data="tableData_3"></Table>
         </Card>
 
-        <div ref="chart_1" class="auto" style="margin-bottom: 23px;height:360px;"></div>
-        <div ref="chart_2" class="auto" style="height:430px;"></div>
-        <div ref="chart_3" class="auto" style="height:430px;"></div>
-        <div ref="chart_4" class="auto" style="height:430px;"></div>
+        <div ref="chart_1" class="auto" style="margin: 30px 0 60px 0;height:400px;"></div>
+        <div ref="chart_2" class="auto" style="height:450px;"></div>
+        <div ref="chart_3" class="auto" style="height:450px;"></div>
+        <div ref="chart_4" class="auto" style="height:450px;"></div>
 
         <!-- </div> -->
     </div>
@@ -33,7 +29,6 @@
     export default {
         data() {
             return {
-                names: ['a', 'b'],
                 columns: [],
                 tableData_1: [],
                 tableData_2: [],
@@ -52,20 +47,23 @@
                 type: Array,
                 required: true
             },
+            names: {
+                type: Array,
+                required: true
+            },
             winWidth: {
                 type: Number,
                 required: true
             }
         },
         created() {
-            console.log(this.allData);
-            // this.names = this.allData.map(item => item.crowd_name);
             this.columns = [
                 {
                     title: '人群名称',
                     align: 'center',
                     ellipsis: true,
                     minWidth: 200,
+                    fixed: 'left',
                     render: (h, params) => (
                         <div style="font-weight:600;">{params.row.crowd_name}</div>
                     )
@@ -77,23 +75,30 @@
                     key: `top${i}`,
                     align: 'center',
                     ellipsis: true,
-                    minWidth: 230
+                    minWidth: 280,
+                    render: (h, params) => {
+                        if (params.row[`top${i}`]) {
+                            return (
+                                <div>{params.row[`top${i}`].split(' ')[0]} <span style="color:#1890ff">{(params.row[`top${i}`].split(' ')[1])}</span></div>
+                            );
+                        }
+                    }
                 });
             }
             this.allData.forEach((data, index) => {
                 this.tableData_1[index] = { crowd_name: data.crowd_name };
                 data.color_distribution.forEach((item, ind) => {
-                    this.tableData_1[index][`top${+ind + 1}`] = Object.keys(item)[0];
+                    this.tableData_1[index][`top${+ind + 1}`] = `${Object.keys(item)[0]} (${this.$kilobit(Object.values(item)[0])}件)`;
                 });
 
                 this.tableData_2[index] = { crowd_name: data.crowd_name };
                 data.top10_by_value.forEach((item, ind) => {
-                    this.tableData_2[index][`top${+ind + 1}`] = Object.keys(item)[0];
+                    this.tableData_2[index][`top${+ind + 1}`] = `${Object.keys(item)[0]} (${this.$kilobit(Object.values(item)[0])}件)`;
                 });
 
                 this.tableData_3[index] = { crowd_name: data.crowd_name };
                 data.top10_by_unit.forEach((item, ind) => {
-                    this.tableData_3[index][`top${+ind + 1}`] = Object.keys(item)[0];
+                    this.tableData_3[index][`top${+ind + 1}`] = `${Object.keys(item)[0]} (${this.$kilobit(Object.values(item)[0])}件)`;
                 });
             });
 
@@ -115,7 +120,7 @@
             const option_1 = {
                 color: ['#3398DB', '#67E0E3', '#FFDB5C'],
                 title: {
-                    text: '\n\n季节分布',
+                    text: '季节分布',
                     textStyle: {
                         fontSize: 15
                     }
@@ -128,11 +133,12 @@
                 },
                 legend: {
                     data: this.names,
-                    left: '95%'
+                    right: '30',
+                    orient: 'vertical'
                 },
                 grid: {
-                    left: '3%',
-                    right: '3%',
+                    left: '2.5%',
+                    right: '30',
                     bottom: '3%',
                     top,
                     containLabel: true,
@@ -169,11 +175,12 @@
                 },
                 legend: {
                     data: this.names,
-                    left: 'right'
+                    right: '30',
+                    orient: 'vertical'
                 },
                 grid: {
                     left: '3%',
-                    right: '3%',
+                    right: '30',
                     bottom: '3%',
                     top,
                     containLabel: true,
@@ -215,11 +222,12 @@
                 },
                 legend: {
                     data: this.names,
-                    left: 'right'
+                    right: '30',
+                    orient: 'vertical'
                 },
                 grid: {
                     left: '3%',
-                    right: '3%',
+                    right: '30',
                     bottom: '3%',
                     top,
                     containLabel: true,
@@ -259,11 +267,12 @@
                 },
                 legend: {
                     data: this.names,
-                    left: 'right'
+                    right: '30',
+                    orient: 'vertical'
                 },
                 grid: {
                     left: '3%',
-                    right: '3%',
+                    right: '30',
                     bottom: '3%',
                     top,
                     containLabel: true,
@@ -292,8 +301,8 @@
                     option_1.yAxis.data = data.season_distribution.map(item => Object.keys(item)[0]);
                     option_1.series[index] = {
                         name: this.names[index],
-                        barWidth: '30%',
-                        barGap: '0%',
+                        barMinWidth: '20%',
+                        barGap: '30%',
                         legendHoverLink: true,
                         type: 'bar',
                         data: data.season_distribution.map(item => Object.values(item)[0])
@@ -352,10 +361,10 @@
         },
         methods: {
             resize() {
-                this.$refs.chart_1.style.width = `${this.winWidth * 0.95}px`;
-                this.$refs.chart_2.style.width = `${this.winWidth * 0.3}px`;
-                this.$refs.chart_3.style.width = `${this.winWidth * 0.3}px`;
-                this.$refs.chart_4.style.width = `${this.winWidth * 0.3}px`;
+                this.$refs.chart_1.style.width = `${this.winWidth * 0.98}px`;
+                this.$refs.chart_2.style.width = `${this.winWidth * 0.31}px`;
+                this.$refs.chart_3.style.width = `${this.winWidth * 0.31}px`;
+                this.$refs.chart_4.style.width = `${this.winWidth * 0.31}px`;
                 for (let i = 1; i <= this.chartSize; i++) {
                     this[`chart_${i}`].resize();
                 }
@@ -377,8 +386,19 @@
                 margin-top: 20px;
             }
         }
-        // .auto{
-        //     margin: auto !important;
-        // }
+    }
+    /** th */
+    /deep/ .ivu-table th {
+        background-color: #3398DB;
+    }
+
+    /* 滚动条 */
+    /deep/ .ivu-table-overflowY::-webkit-scrollbar-thumb {
+        border-radius: 5px;
+        background: #D6D6D6;
+    }
+    /deep/ .ivu-table-overflowX::-webkit-scrollbar-thumb {
+        border-radius: 5px;
+        background: #D6D6D6;
     }
 </style>

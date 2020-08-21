@@ -3,7 +3,16 @@
     <div class="page-content page-content-tab padding16-18">
       <Card dis-hover>
         <Row type="flex" justify="space-between" class="code-row-bg">
-          <i-col style="font-size:18px;" span="24">共<a href="javascript:void(0)" style="cursor: default;">{{allDataSize}}</a>个对比任务</i-col>
+          <i-col style="font-size:18px;" span="24">
+            <i-input
+              class="width300"
+              v-model="name"
+              icon="ios-search"
+              placeholder="回访类型搜索"
+              @input="debounceSearch"
+            ></i-input>
+              共<a href="javascript:void(0)" style="cursor: default;">{{allDataSize}}</a>个对比任务
+              </i-col>
         </Row>
         <Table
           class="smce-table-noscroll td-table-no-border"
@@ -39,6 +48,7 @@
         name: 'Group',
         data() {
             return {
+                name: '',
                 current: 1,
                 pageSize: 10,
                 loading: false, // table的loading
@@ -51,8 +61,6 @@
                 creatTitle: '',
                 creatCode: ''
             };
-        },
-        components: {
         },
         created() {
             this.columns = [
@@ -109,6 +117,7 @@
             ];
             this.getData();
             const timer = this.$config.debounce_wait;
+            this.debounceSearch = this.$lodash.debounce(this.changeInput, timer); // 模糊查询
             this.debouncePage = this.$lodash.debounce(this.pageChange, timer); // 分页
         },
         methods: {
@@ -117,7 +126,8 @@
                 this.loading = true;
                 this.$https.visitKanban.queryTaskList({
                     page: this.current,
-                    rows: this.pageSize
+                    rows: this.pageSize,
+                    displayName: this.name
                 }).then((res) => {
                     if (res.data.data) {
                         this.showData = res.data.data;
@@ -129,6 +139,11 @@
             /** 点击分析 */
             analysis(params) {
                 this.$router.push(`visitKanban/ReturnAnalysisPage?f_id=${params.row.f_id}`);
+            },
+            /** 模糊查询 */
+            changeInput() {
+                this.current = 1;
+                this.getData();
             },
             /** 切换页码 */
             pageChange(ind) {

@@ -71,7 +71,9 @@ const crowdContrastManagement = {
 // 人群分析看板
 const crowdKanban = {
     // 表格数据
-    queryComparedTaskList: params => axios.get('/cdp-web/marketplugin/crowdAnalysis/queryComparedTaskList', { params })
+    queryComparedTaskList: params => axios.get('/cdp-web/marketplugin/crowdAnalysis/queryCrowdComparedTasks', { params }),
+    // 详情数据
+    crowdDetailView: params => axios.get('/cdp-web/marketplugin/crowdAnalysis/crowdDetailView', { params })
 };
 
 /** 回访分析 */
@@ -80,7 +82,9 @@ const visitKanban = {
     // 表格数据
     queryTaskList: params => axios.get('/cdp-web/marketplugin/resourcemarkt/queryTaskList', { params }),
     // 详情数据
-    detail: data => axios.post(`/cdp-web/marketplugin/resourcemarkt/detail/${data.code}`, data.data, { headers: { 'Content-Type': 'application/json' } })
+    detail: data => axios.post(`/cdp-web/marketplugin/resourcemarkt/detail/${data.code}`, data.data, { headers: { 'Content-Type': 'application/json' } }),
+    // 统计查询
+    result: data => axios.post(`/cdp-web/marketplugin/resourcemarkt/result/${data.code}`, data.data)
 };
 // /** 数据下载 */
 // // 数据下载
