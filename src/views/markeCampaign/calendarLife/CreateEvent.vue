@@ -37,7 +37,7 @@
               placeholder="选择日期"
             ></Date-picker>
           </Form-item>
-          <Form-item label="活动描述" prop="description">
+          <Form-item label="活动描述">
             <Input
               :maxlength="100"
               class="width400"

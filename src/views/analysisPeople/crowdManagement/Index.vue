@@ -13,7 +13,6 @@
               <i-button
                 v-for="(item,index) in butData"
                 :key="item"
-                @click="butStatus(index)"
                 :type="butNum===index?'primary':null"
               >{{item}}</i-button>
             </Button-group>
@@ -26,7 +25,7 @@
             ></i-input>
             <span class="total-count">
               共
-              <i>{{allDataSize}}</i>个人群（进行中的活动人群不超过10个）
+              <i>{{allDataSize}}</i>个人群
             </span>
           </i-col>
           <i-col>
@@ -87,72 +86,14 @@
             CreateEvent
         },
         created() {
+            // let nowDateArr = new Date().toLocaleDateString().split('/');
+            // nowDateArr[2] = +nowDateArr[2] < 15 ? 1 : 15;
+            // this.useTime = `${nowDateArr[0] - 1}/${nowDateArr[1]}/${nowDateArr[2]} - ${nowDateArr[0]}/${nowDateArr[1]}/${nowDateArr[2]}`;
+
             this.butData = ['全部'];
             this.calculate_status_item = ['未开始', '计算成功', '计算失败'];
             this.statusName = ['nostarted', 'completed', 'failed'];
-            this.columns = [ // 定义Table模板
-                {
-                    title: '人群名称',
-                    key: 'crowd_name',
-                    minWidth: 140,
-                    tooltip: true
-                },
-                {
-                    title: '人群ID',
-                    key: 'code',
-                    align: 'center',
-                    minWidth: 80
-                },
-                {
-                    title: '人群数量',
-                    key: 'crowd_scale',
-                    align: 'center',
-                    minWidth: 80,
-                    render: (h, params) => (
-                        <div>{this.$kilobit(params.row.crowd_scale)}</div>
-                        )
-                },
-                {
-                    title: '描述',
-                    key: 'descriptions',
-                    align: 'center',
-                    minWidth: 200,
-                    tooltip: true
-                },
-                {
-                    title: '状态',
-                    align: 'center',
-                    minWidth: 100,
-                    render: (h, params) => (
-                        <div>{this.calculate_status_item[params.row.calculate_status]}</div>
-                        )
-                },
-                {
-                    title: '时间',
-                    align: 'center',
-                    minWidth: 200,
-                    render: (h, params) => (
-                        <div>{ this.$time(new Date(params.row.create_time))} 至 {params.row.end_time_day}</div>
-                    )
-                },
-                {
-                    title: '操作',
-                    key: 'action',
-                    width: 150,
-                    align: 'center',
-                    render: (h, params) => h(
-                        'a',
-                        {
-                            on: {
-                                click: () => {
-                                    this.deleteEvent(params);
-                                }
-                            }
-                        },
-                        '删除'
-                    )
-                }
-            ];
+
             /** 请求数据接口 */
             this.getData();
             const timer = this.$config.debounce_wait; // 节流的延迟时间
@@ -169,7 +110,86 @@
                     rows: this.pageSize
                 }).then((res) => {
                     if (res.data.data) {
+                        this.columns = [ // 定义Table模板
+                            {
+                                title: '人群名称',
+                                key: 'crowd_name',
+                                minWidth: 140,
+                                tooltip: true
+                            },
+                            {
+                                title: '人群ID',
+                                key: 'code',
+                                align: 'center',
+                                minWidth: 80
+                            },
+                            {
+                                title: '人群数量',
+                                key: 'crowd_scale',
+                                align: 'center',
+                                minWidth: 80,
+                                render: (h, params) => (
+                                  <div>{this.$kilobit(params.row.crowd_scale)}</div>
+                                )
+                            },
+                            {
+                                title: '描述',
+                                key: 'descriptions',
+                                align: 'center',
+                                minWidth: 200,
+                                tooltip: true
+                            },
+                            {
+                                title: '状态',
+                                align: 'center',
+                                minWidth: 100,
+                                render: (h, params) => (
+                                <div>{this.calculate_status_item[params.row.calculate_status]}</div>
+                                )
+                            },
+                            {
+                                title: '时间',
+                                align: 'center',
+                                minWidth: 200,
+                                render: (h, params) => (
+                                    <div>{ this.$time(new Date(params.row.start_time_day))} 至 {params.row.end_time_day}</div>
+                                )
+                            },
+                            {
+                                title: '操作',
+                                key: 'action',
+                                width: 150,
+                                align: 'center',
+                                render: (h, params) => {
+                                    const color = params.row.code === 'ct00001' && '#888';
+                                    const cursor = params.row.code === 'ct00001' && 'no-drop';
+                                    return h(
+                                        'a',
+                                        {
+                                            style: {
+                                                color,
+                                                cursor
+                                            },
+                                            on: {
+                                                click: () => {
+                                                    if (params.row.code === 'ct00001') return;
+                                                    this.deleteEvent(params);
+                                                }
+                                            }
+                                        },
+                                        '删除'
+                                    );
+                                }
+                            }
+                        ];
                         this.tableData = res.data.data;
+                        const usecode = this.tableData.find(item => item.code === 'ct00001');
+                        if (usecode) {
+                            const nowDateArr = new Date().toLocaleDateString().split('/');
+                            nowDateArr[2] = +nowDateArr[2] < 15 ? 1 : 15;
+                            usecode.start_time_day = new Date(nowDateArr[0] - 1, nowDateArr[1] - 1, nowDateArr[2]).valueOf();
+                            usecode.end_time_day = `${nowDateArr[0]}-${nowDateArr[1]}-${nowDateArr[2]}`;
+                        }
                         this.allDataSize = res.data.pageInfo.total;
                     }
                     this.loading = false;
@@ -180,8 +200,6 @@
                 this.current = 1;
                 this.getData();
             },
-            /** 按钮切换 */
-            butStatus() {},
             /** click添加活动 */
             addData() {
                 this.creatEvent = true;

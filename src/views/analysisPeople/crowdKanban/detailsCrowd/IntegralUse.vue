@@ -43,49 +43,49 @@
                     title: '人群名称',
                     key: 'crowd_name',
                     align: 'center',
-                    ellipsis: true,
+                    tooltip: true,
                     minWidth: 80
                 },
                 {
                     title: '使用积分人数',
                     key: 'use_point_vip_cont',
                     align: 'center',
-                    ellipsis: true,
+                    tooltip: true,
                     minWidth: 80
                 },
                 {
                     title: '积分消耗总量',
                     key: 'total_point',
                     align: 'center',
-                    ellipsis: true,
+                    tooltip: true,
                     minWidth: 80
                 },
                 {
                     title: '人均积分消耗量',
                     key: 'avg_point',
                     align: 'center',
-                    ellipsis: true,
+                    tooltip: true,
                     minWidth: 90
                 },
                 {
                     title: '积分使用率',
                     key: 'point_user_rate',
                     align: 'center',
-                    ellipsis: true,
+                    tooltip: true,
                     minWidth: 80
                 },
                 {
                     title: '活动开始日期',
                     key: 'starttime_day',
                     align: 'center',
-                    ellipsis: true,
+                    tooltip: true,
                     minWidth: 80
                 },
                 {
                     title: '活动结束日期',
                     key: 'endtime_day',
                     align: 'center',
-                    ellipsis: true,
+                    tooltip: true,
                     minWidth: 80
                 }
             ];
@@ -103,10 +103,10 @@
             this.chart_1 = this.echarts.init(this.$refs.chart_1);
             this.resize();
             const top = 60 + (this.allData.length - 1) * 10;
-            const option_1 = {
-                color: ['#3398DB', '#67E0E3', '#FFDB5C'],
+            let option_1 = {
+                color: ['#3398DB', '#FFDB5C', '#67E0E3'],
                 title: {
-                    text: '  会员等级占比分析',
+                    text: '  使用积分会员等级分布',
                     textStyle: {
                         fontSize: 15
                     }
@@ -140,24 +140,46 @@
                 },
                 xAxis: {
                     type: 'category',
-                    data: [],
-                    axisLabel: {
-                        rotate: 40
-                    }
+                    data: []
+                    // axisLabel: {
+                    //     rotate: 40
+                    // }
                 },
                 series: []
             };
 
+            let chart_1;
+            this.allData.forEach((data) => {
+                if (data.use_point_vip_level.length) chart_1 = true;
+            });
+
             this.allData.forEach((data, index) => {
-                if (data.vip_level_count) {
-                    option_1.xAxis.data = data.vip_level_count.map(item => Object.keys(item)[0]);
+                if (chart_1) {
+                    option_1.xAxis.data = data.use_point_vip_level.map(item => Object.keys(item)[0]);
                     option_1.series[index] = {
                         name: this.names[index],
-                        barWidth: '30%',
-                        barGap: '0%',
+                        barWidth: '20%',
+                        barGap: '30%',
                         legendHoverLink: true,
                         type: 'bar',
-                        data: data.vip_level_count.map(item => Object.values(item)[0])
+                        data: data.use_point_vip_level.map(item => Object.values(item)[0])
+                    };
+                } else {
+                    this.$refs.chart_1.classList.add('shadow');
+                    option_1 = {
+                        title: {
+                            text: '使用积分会员等级分布',
+                            textStyle: {
+                                fontSize: 22
+                            },
+                            left: 'center',
+                            top: 'center',
+                            subtext: '暂无数据',
+                            subtextStyle: {
+                                fontSize: 25
+                            }
+                        }
+
                     };
                 }
             });
@@ -188,6 +210,9 @@
         justify-content: space-around;
         flex-wrap: wrap;
         background-color: white;
+    }
+    .auto.shadow{
+        box-shadow: 0px 0px 80px -65px;
     }
     /** th */
     /deep/ .ivu-table th {

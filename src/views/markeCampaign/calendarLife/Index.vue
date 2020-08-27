@@ -30,7 +30,7 @@
             </span>
           </i-col>
           <i-col>
-            <span class="top-font"><a  :href="downloadLink">下载模板</a></span>
+            <span class="top-font"><a  :href="downloadLink">导入模板下载</a></span>
 
             <Tooltip
                 class="tooltip"

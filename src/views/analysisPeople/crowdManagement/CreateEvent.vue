@@ -35,14 +35,14 @@
               placeholder="选择日期"
             ></Date-picker>
           </Form-item>
-          <Form-item label="营销描述" prop="description">
+          <Form-item label="营销描述">
             <Input
               :maxlength="100"
               class="width400"
               type="textarea"
               v-model.trim="formValidate.description"
               :autosize="{minRows: 2,maxRows: 3}"
-              placeholder="请输入描述，长度为100字以内"
+              placeholder="请输入营销描述，长度为100字以内"
             />
           </Form-item>
         </Form>

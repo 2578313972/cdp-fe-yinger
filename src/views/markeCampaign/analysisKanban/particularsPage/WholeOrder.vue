@@ -320,7 +320,7 @@
             const top = 60 + (this.allData.length - 1) * 10;
 
             const option_1 = {
-                color: ['#3398DB', '#67E0E3', '#FFDB5C'],
+                color: ['#3398DB', '#FFDB5C', '#67E0E3'],
                 title: {
                     text: '退货率',
                     textStyle: {
@@ -369,7 +369,7 @@
             };
 
             const option_2 = {
-                color: ['#3398DB', '#67E0E3', '#FFDB5C'],
+                color: ['#3398DB', '#FFDB5C', '#67E0E3'],
                 title: {
                     text: '会员订单占比',
                     textStyle: {
@@ -418,7 +418,7 @@
             };
 
             const option_3 = {
-                color: ['#3398DB', '#67E0E3', '#FFDB5C'],
+                color: ['#3398DB', '#FFDB5C', '#67E0E3'],
                 title: {
                     text: '会员金额占比',
                     textStyle: {
@@ -467,7 +467,7 @@
             };
 
             const option_4 = {
-                color: ['#3398DB', '#67E0E3', '#FFDB5C'],
+                color: ['#3398DB', '#FFDB5C', '#67E0E3'],
                 title: {
                     text: '联单件数占比分析',
                     textStyle: {
@@ -515,7 +515,7 @@
             };
 
             const option_5 = {
-                color: ['#3398DB', '#67E0E3', '#FFDB5C'],
+                color: ['#3398DB', '#FFDB5C', '#67E0E3'],
                 title: {
                     text: '季节分布（单位:件）',
                     textStyle: {
@@ -562,7 +562,7 @@
                 };
             }
             const option_6 = {
-                color: ['#3398DB', '#67E0E3', '#FFDB5C'],
+                color: ['#3398DB', '#FFDB5C', '#67E0E3'],
                 title: {
                     text: '价格带分布（单位:件）',
                     textStyle: {
@@ -609,7 +609,7 @@
                 };
             }
             const option_7 = {
-                color: ['#3398DB', '#67E0E3', '#FFDB5C'],
+                color: ['#3398DB', '#FFDB5C', '#67E0E3'],
                 title: {
                     text: '色系分布（单位:件）',
                     textStyle: {
@@ -661,7 +661,7 @@
                 };
             }
             const option_8 = {
-                color: ['#3398DB', '#67E0E3', '#FFDB5C'],
+                color: ['#3398DB', '#FFDB5C', '#67E0E3'],
                 title: {
                     text: '面料分布（单位:件）',
                     textStyle: {
@@ -826,7 +826,7 @@
             toFixed_1: val => Math.round(val * 10) / 10,
             resize() {
                 this.gaugeWidth = this.$refs.win.clientWidth - 38;
-                this.nbsp = this.gaugeWidth < 1200 ? '\n' : '';
+                this.nbsp = this.gaugeWidth < 1800 ? '\n' : '';
                 for (let i = 1; i <= this.chartsSize; i++) {
                     this.$refs[`chart_${i}`].style.width = `${this.gaugeWidth * 0.45}px`;
                     this[`chart_${i}`].resize();

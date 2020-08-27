@@ -88,12 +88,12 @@
                         </div>
                         <div class="conten-child  two">
                             <div>
-                                <p>新会员转化率</p>
-                                <p>{{allData.new_vip_case_rate*100 | toFixed_1}}%</p>
-                            </div>
-                            <div>
                                 <p>平均折扣率</p>
                                 <p>{{Math.round(allData.avg_discount_rate*100)}}%</p>
+                            </div>
+                            <div>
+                                <p></p>
+                                <p></p>
                             </div>
                         </div>
                     </div>
@@ -164,7 +164,6 @@
             const nowDateArr = new Date().toLocaleDateString().split('/');
             nowDateArr[2] = +nowDateArr[2] < 15 ? 1 : 15;
             this.useTime = `${nowDateArr[0] - 1}/${nowDateArr[1]}/${nowDateArr[2]} - ${nowDateArr[0]}/${nowDateArr[1]}/${nowDateArr[2]}`;
-            console.log(this.useTime);
             // table 格式
             this.columns = [
                 {
@@ -313,7 +312,7 @@
                         axisPointer: {
                             type: 'shadow'
                         },
-                        formatter: item => `${item[0].axisValue} <br /> ${item[0].marker}${item[0].seriesName}：${this.kilobit(this.vipCount[item[0].dataIndex])} 单`
+                        formatter: item => `${item[0].marker}${item[0].axisValue}：${this.kilobit(this.vipCount[item[0].dataIndex])} 单`
                     },
                     grid: {
                         left: 74,
@@ -360,7 +359,7 @@
                         axisPointer: {
                             type: 'shadow'
                         },
-                        formatter: item => `${item[0].axisValue} <br /> ${item[0].marker}${item[0].seriesName}：${this.kilobit(this.vipAmount[item[0].dataIndex])} 元`
+                        formatter: item => `${item[0].marker}${item[0].axisValue}：${this.kilobit(this.vipCount[item[0].dataIndex])} 元`
                     },
                     grid: {
                         left: 74,
@@ -407,7 +406,7 @@
                         axisPointer: {
                             type: 'shadow'
                         },
-                        formatter: item => `${item[0].axisValue} <br /> ${item[0].marker}${item[0].seriesName}：${this.kilobit(this.jointCount[item[0].dataIndex])} 单`
+                        formatter: item => `${item[0].marker}${item[0].axisValue}：${this.$kilobit(this.jointCount[item[0].dataIndex])} 单`
                     },
                     grid: {
                         left: 20,
@@ -459,7 +458,7 @@
                         axisPointer: {
                             type: 'shadow'
                         },
-                        formatter: item => `${item[0].axisValue} <br /> ${item[0].marker}${item[0].seriesName} : ${this.kilobit(item[0].value)} 件`
+                        formatter: item => `${item[0].marker}${item[0].axisValue}：${this.kilobit(item[0].value)} 件`
                     },
                     grid: {
                         left: '3.2%',
@@ -505,7 +504,7 @@
                         axisPointer: {
                             type: 'shadow'
                         },
-                        formatter: item => `${item[0].axisValue} <br /> ${item[0].marker}${item[0].seriesName} : ${this.kilobit(item[0].value)} 件`
+                        formatter: item => `${item[0].marker}${item[0].axisValue}：${this.kilobit(item[0].value)} 件`
                     },
                     grid: {
                         left: '3%',
@@ -554,7 +553,7 @@
                         axisPointer: {
                             type: 'shadow'
                         },
-                        formatter: item => `${item[0].axisValue} <br /> ${item[0].marker}${item[0].seriesName} : ${this.kilobit(item[0].value)} 件`
+                        formatter: item => `${item[0].marker}${item[0].axisValue}：${this.kilobit(item[0].value)} 件`
                     },
                     grid: {
                         left: '3%',
@@ -603,7 +602,7 @@
                         axisPointer: {
                             type: 'shadow'
                         },
-                        formatter: item => `${item[0].axisValue} <br /> ${item[0].marker}${item[0].seriesName} : ${this.kilobit(item[0].value)} 件`
+                        formatter: item => `${item[0].marker}${item[0].axisValue}：${this.kilobit(item[0].value)} 件`
                     },
                     grid: {
                         left: '1%',

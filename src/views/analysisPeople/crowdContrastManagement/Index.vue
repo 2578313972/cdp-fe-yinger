@@ -96,7 +96,6 @@
         methods: {
             /** 获取接口数据 */
             getData() {
-                console.log(this.current);
                 this.loading = true;
                 return this.$https.crowdContrastManagement.queryMarketingCrowdList({
                     displayName: this.name,
@@ -116,6 +115,13 @@
                         }
                         this.tableColumn();
                         this.allDataSize = res.data.pageInfo.total;
+                        const usecode = this.data.find(item => item.code === 'ct00001');
+                        if (usecode) {
+                            const nowDateArr = new Date().toLocaleDateString().split('/');
+                            nowDateArr[2] = +nowDateArr[2] < 15 ? 1 : 15;
+                            usecode.start_time_day = new Date(nowDateArr[0] - 1, nowDateArr[1] - 1, nowDateArr[2]).valueOf();
+                            usecode.end_time_day = `${nowDateArr[0]}-${nowDateArr[1]}-${nowDateArr[2]}`;
+                        }
                     }
                     this.loading = false;
                 });
@@ -164,7 +170,7 @@
                         align: 'center',
                         minWidth: 200,
                         render: (h, params) => (
-                        <div>{ this.$time(new Date(params.row.create_time))} 至 {params.row.end_time_day}</div>
+                        <div>{ this.$time(new Date(params.row.start_time_day))} 至 {params.row.end_time_day}</div>
                         )
                     },
                     {

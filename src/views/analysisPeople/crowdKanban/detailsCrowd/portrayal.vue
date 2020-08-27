@@ -15,16 +15,10 @@
             <div ref="chart_9" class="auto" style="height:450px;"></div>
             <div ref="chart_10" class="auto" style="height:300px;"></div>
         </div>
-
-        <!-- <div ref="chart_3" class="auto" style="height:430px;"></div>
-        <div ref="chart_4" class="auto" style="height:430px;"></div> -->
-
-        <!-- </div> -->
     </div>
 </template>
 
 <script>
-
     export default {
         data() {
             return {
@@ -69,6 +63,7 @@
             this.allVipGradeBill = this.allData.map(item => item.vip_level_count.map(item_2 => Object.values(item_2)[0]));
             // CLV
             this.clv = this.allData.map(item => item.vip_credit_count.map(item_2 => Object.values(item_2)[0]));
+            console.log(this.clv);
             // RFM
             this.rfm = this.allData.map(item => item.vip_clv_count.map(item_2 => Object.values(item_2)[0]));
             // 会员年龄段
@@ -89,14 +84,14 @@
                     title: '人群名称',
                     key: 'crowd_name',
                     align: 'center',
-                    ellipsis: true,
+                    tooltip: true,
                     minWidth: 80
                 },
                 {
                     title: '新会员数',
                     key: 'new_vip_count',
                     align: 'center',
-                    ellipsis: true,
+                    tooltip: true,
                     minWidth: 80,
                     render: (h, params) => (
                         <span>{this.$kilobit(params.row.new_vip_count)}</span>
@@ -106,7 +101,7 @@
                     title: '新会员转化率',
                     key: 'new_vip_case_rate',
                     align: 'center',
-                    ellipsis: true,
+                    tooltip: true,
                     minWidth: 80,
                     render: (h, params) => (
                         <span>{parseInt(params.row.new_vip_case_rate * 1000) / 10}%</span>
@@ -116,17 +111,18 @@
                     title: '活动开始日期',
                     key: 'starttime_day',
                     align: 'center',
-                    ellipsis: true,
+                    tooltip: true,
                     minWidth: 80
                 },
                 {
                     title: '活动结束日期',
                     key: 'endtime_day',
                     align: 'center',
-                    ellipsis: true,
+                    tooltip: true,
                     minWidth: 80
                 }
             ];
+
             this.tableData = this.allData.map(item => ({
                 crowd_name: item.crowd_name,
                 new_vip_count: item.new_vip_count,
@@ -153,7 +149,7 @@
             };
 
             this.option_1 = {
-                color: ['#3398DB', '#67E0E3', '#FFDB5C'],
+                color: ['#3398DB', '#FFDB5C', '#67E0E3'],
                 title: {
                     text: '新老会员占比',
                     textStyle: {
@@ -196,7 +192,7 @@
             };
 
             this.option_2 = {
-                color: ['#3398DB', '#67E0E3', '#FFDB5C'],
+                color: ['#3398DB', '#FFDB5C', '#67E0E3'],
                 title: {
                     text: '会员等级占比',
                     textStyle: {
@@ -239,9 +235,9 @@
             };
 
             this.option_3 = {
-                color: ['#3398DB', '#67E0E3', '#FFDB5C'],
+                color: ['#3398DB', '#FFDB5C', '#67E0E3'],
                 title: {
-                    text: '会员CLV',
+                    text: '会员信用等级分布',
                     textStyle: {
                         fontSize: 15
                     }
@@ -282,9 +278,9 @@
             };
 
             this.option_4 = {
-                color: ['#3398DB', '#67E0E3', '#FFDB5C'],
+                color: ['#3398DB', '#FFDB5C', '#67E0E3'],
                 title: {
-                    text: '会员RFM',
+                    text: '会员CLV',
                     textStyle: {
                         fontSize: 15
                     }
@@ -325,7 +321,7 @@
             };
 
             this.option_5 = {
-                color: ['#3398DB', '#67E0E3', '#FFDB5C'],
+                color: ['#3398DB', '#FFDB5C', '#67E0E3'],
                 title: {
                     text: '会员年龄段分析',
                     textStyle: {
@@ -351,7 +347,7 @@
                     orient: 'vertical'
                 },
                 grid: {
-                    left: '3%',
+                    left: 43,
                     right: '30',
                     bottom: '3%',
                     top,
@@ -368,7 +364,7 @@
             };
 
             this.option_6 = {
-                color: ['#3398DB', '#67E0E3', '#FFDB5C'],
+                color: ['#3398DB', '#FFDB5C', '#67E0E3'],
                 title: {
                     text: '性别分析',
                     textStyle: {
@@ -387,7 +383,7 @@
                     orient: 'vertical'
                 },
                 grid: {
-                    left: '3%',
+                    left: 50,
                     right: '30',
                     bottom: '3%',
                     top,
@@ -404,7 +400,7 @@
             };
 
             this.option_7 = {
-                color: ['#3398DB', '#67E0E3', '#FFDB5C'],
+                color: ['#3398DB', '#FFDB5C', '#67E0E3'],
                 title: {
                     text: '折扣敏感分析',
                     textStyle: {
@@ -430,7 +426,7 @@
                     orient: 'vertical'
                 },
                 grid: {
-                    left: '3%',
+                    left: 48,
                     right: '30',
                     bottom: '3%',
                     top,
@@ -447,7 +443,7 @@
             };
 
             this.option_8 = {
-                color: ['#3398DB', '#67E0E3', '#FFDB5C'],
+                color: ['#3398DB', '#FFDB5C', '#67E0E3'],
                 title: {
                     text: '新款敏感分析',
                     textStyle: {
@@ -490,7 +486,7 @@
             };
 
             this.option_9 = {
-                color: ['#3398DB', '#67E0E3', '#FFDB5C'],
+                color: ['#3398DB', '#FFDB5C', '#67E0E3'],
                 title: {
                     text: '积分敏感分析',
                     textStyle: {
@@ -533,7 +529,7 @@
             };
 
             this.option_10 = {
-                color: ['#3398DB', '#67E0E3', '#FFDB5C'],
+                color: ['#3398DB', '#FFDB5C', '#67E0E3'],
                 title: {
                     text: '消费情况分析',
                     textStyle: {
@@ -575,12 +571,25 @@
                 series: []
             };
 
+            let chart_1; let chart_2; let chart_3; let chart_4; let chart_5; let chart_6; let chart_7; let chart_8; let chart_9; let chart_10;
+            this.allData.forEach((data) => {
+                if (data.new_vip_rate || data.old_vip_rate) chart_1 = true;
+                if (data.vip_level_count.length) chart_2 = true;
+                if (data.vip_credit_count.length) chart_3 = true;
+                if (data.vip_clv_count.length) chart_4 = true;
+                if (data.vip_age_count.length) chart_5 = true;
+                if (data.vip_gender_count.length) chart_6 = true;
+                if (data.vip_discount_sensitve_count.length) chart_7 = true;
+                if (data.vip_new_sensitve_count.length) chart_8 = true;
+                if (data.vip_point_sensitive_count.length) chart_9 = true;
+                if (data.purchase_3m_vip_rate || data.purchase_3_6m_vip_rate || data.purchase_6_12m_vip_rate) chart_10 = true;
+            });
             this.allData.forEach((data, index) => {
-                if (data.season_distribution) {
+                if (chart_1) {
                     this.option_1.series[index] = {
                         name: this.names[index],
-                        barWidth: '30%',
-                        barGap: '0%',
+                        barWidth: '20%',
+                        barGap: '30%',
                         max: 100,
                         legendHoverLink: true,
                         type: 'bar',
@@ -591,14 +600,31 @@
                         },
                         data: [Math.round(data.new_vip_rate * 100), Math.round(data.old_vip_rate * 100)]
                     };
+                } else {
+                    this.$refs.chart_1.classList.add('shadow');
+                    this.option_1 = {
+                        title: {
+                            text: '性别分析',
+                            textStyle: {
+                                fontSize: 22
+                            },
+                            left: 'center',
+                            top: 'center',
+                            subtext: '暂无数据',
+                            subtextStyle: {
+                                fontSize: 25
+                            }
+                        }
+
+                    };
                 }
 
-                if (data.vip_level_count) {
+                if (chart_2) {
                     this.option_2.xAxis.data = data.vip_level_count.map(item => Object.keys(item)[0]);
                     this.option_2.series[index] = {
                         name: this.names[index],
-                        barWidth: '30%',
-                        barGap: '0%',
+                        barWidth: '20%',
+                        barGap: '30%',
                         legendHoverLink: true,
                         type: 'bar',
                         label: {
@@ -608,14 +634,31 @@
                         },
                         data: data.vip_level_count.map(item => Math.round((Object.values(item)[0] / data.total_vip_count) * 100))
                     };
+                } else {
+                    this.$refs.chart_2.classList.add('shadow');
+                    this.option_2 = {
+                        title: {
+                            text: '会员等级占比',
+                            textStyle: {
+                                fontSize: 22
+                            },
+                            left: 'center',
+                            top: 'center',
+                            subtext: '暂无数据',
+                            subtextStyle: {
+                                fontSize: 25
+                            }
+                        }
+
+                    };
                 }
 
-                if (data.vip_credit_count) {
+                if (chart_3) {
                     this.option_3.yAxis.data = data.vip_credit_count.map(item => Object.keys(item)[0]);
                     this.option_3.series[index] = {
                         name: this.names[index],
-                        barWidth: '30%',
-                        barGap: '0%',
+                        barWidth: '20%',
+                        barGap: '30%',
                         legendHoverLink: true,
                         type: 'bar',
                         label: {
@@ -625,14 +668,30 @@
                         },
                         data: data.vip_credit_count.map(item => Math.round((Object.values(item)[0] / data.total_vip_count) * 100))
                     };
+                } else {
+                    this.$refs.chart_3.classList.add('shadow');
+                    this.option_3 = {
+                        title: {
+                            text: '会员CLV',
+                            textStyle: {
+                                fontSize: 22
+                            },
+                            left: 'center',
+                            top: 'center',
+                            subtext: '暂无数据',
+                            subtextStyle: {
+                                fontSize: 25
+                            }
+                        }
+                    };
                 }
 
-                if (data.vip_clv_count) {
-                    this.option_4.yAxis.data = data.vip_clv_count.map(item => Object.keys(item)[0]);
+                if (chart_4) {
+                    this.option_4.yAxis.data = data.vip_clv_count.map(item => Object.keys(item)[0]) || [];
                     this.option_4.series[index] = {
                         name: this.names[index],
-                        barWidth: '30%',
-                        barGap: '0%',
+                        barWidth: '20%',
+                        barGap: '30%',
                         legendHoverLink: true,
                         type: 'bar',
                         label: {
@@ -642,14 +701,31 @@
                         },
                         data: data.vip_clv_count.map(item => Math.round((Object.values(item)[0] / data.total_vip_count) * 100))
                     };
+                } else {
+                    this.$refs.chart_4.classList.add('shadow');
+                    this.option_4 = {
+                        title: {
+                            text: '会员RFM',
+                            textStyle: {
+                                fontSize: 22
+                            },
+                            left: 'center',
+                            top: 'center',
+                            subtext: '暂无数据',
+                            subtextStyle: {
+                                fontSize: 25
+                            }
+                        }
+
+                    };
                 }
 
-                if (data.vip_age_count) {
+                if (chart_5) {
                     this.option_5.xAxis.data = data.vip_age_count.map(item => Object.keys(item)[0]);
                     this.option_5.series[index] = {
                         name: this.names[index],
-                        barWidth: '30%',
-                        barGap: '0%',
+                        barWidth: '20%',
+                        barGap: '30%',
                         legendHoverLink: true,
                         type: 'bar',
                         label: {
@@ -659,14 +735,31 @@
                         },
                         data: data.vip_age_count.map(item => Math.round((Object.values(item)[0] / data.total_vip_count) * 100))
                     };
+                } else {
+                    this.$refs.chart_5.classList.add('shadow');
+                    this.option_5 = {
+                        title: {
+                            text: '会员年龄段分析',
+                            textStyle: {
+                                fontSize: 22
+                            },
+                            left: 'center',
+                            top: 'center',
+                            subtext: '暂无数据',
+                            subtextStyle: {
+                                fontSize: 25
+                            }
+                        }
+
+                    };
                 }
 
-                if (data.vip_gender_count) {
+                if (chart_6) {
                     this.option_6.xAxis.data = data.vip_gender_count.map(item => Object.keys(item)[0]);
                     this.option_6.series[index] = {
                         name: this.names[index],
-                        barWidth: '30%',
-                        barGap: '0%',
+                        barWidth: '20%',
+                        barGap: '30%',
                         legendHoverLink: true,
                         type: 'bar',
                         label: {
@@ -676,14 +769,31 @@
                         },
                         data: data.vip_gender_count.map(item => Math.round((Object.values(item)[0] / data.total_vip_count) * 100))
                     };
+                } else {
+                    this.$refs.chart_6.classList.add('shadow');
+                    this.option_6 = {
+                        title: {
+                            text: '会员CLV',
+                            textStyle: {
+                                fontSize: 22
+                            },
+                            left: 'center',
+                            top: 'center',
+                            subtext: '暂无数据',
+                            subtextStyle: {
+                                fontSize: 25
+                            }
+                        }
+
+                    };
                 }
 
-                if (data.vip_discount_sensitve_count) {
+                if (chart_7) {
                     this.option_7.xAxis.data = data.vip_discount_sensitve_count.map(item => Object.keys(item)[0]);
                     this.option_7.series[index] = {
                         name: this.names[index],
-                        barWidth: '30%',
-                        barGap: '0%',
+                        barWidth: '20%',
+                        barGap: '30%',
                         legendHoverLink: true,
                         type: 'bar',
                         label: {
@@ -693,14 +803,31 @@
                         },
                         data: data.vip_discount_sensitve_count.map(item => Math.round((Object.values(item)[0] / data.total_vip_count) * 100))
                     };
+                } else {
+                    this.$refs.chart_7.classList.add('shadow');
+                    this.option_7 = {
+                        title: {
+                            text: '折扣敏感分析',
+                            textStyle: {
+                                fontSize: 22
+                            },
+                            left: 'center',
+                            top: 'center',
+                            subtext: '暂无数据',
+                            subtextStyle: {
+                                fontSize: 25
+                            }
+                        }
+
+                    };
                 }
 
-                if (data.vip_new_sensitve_count) {
+                if (chart_8) {
                     this.option_8.xAxis.data = data.vip_new_sensitve_count.map(item => Object.keys(item)[0]);
                     this.option_8.series[index] = {
                         name: this.names[index],
-                        barWidth: '30%',
-                        barGap: '0%',
+                        barWidth: '20%',
+                        barGap: '30%',
                         legendHoverLink: true,
                         type: 'bar',
                         label: {
@@ -710,14 +837,31 @@
                         },
                         data: data.vip_new_sensitve_count.map(item => Math.round((Object.values(item)[0] / data.total_vip_count) * 100))
                     };
+                } else {
+                    this.$refs.chart_8.classList.add('shadow');
+                    this.option_8 = {
+                        title: {
+                            text: '折扣敏感分析',
+                            textStyle: {
+                                fontSize: 22
+                            },
+                            left: 'center',
+                            top: 'center',
+                            subtext: '暂无数据',
+                            subtextStyle: {
+                                fontSize: 25
+                            }
+                        }
+
+                    };
                 }
 
-                if (data.vip_point_sensitive_count) {
+                if (chart_9) {
                     this.option_9.xAxis.data = data.vip_point_sensitive_count.map(item => Object.keys(item)[0]);
                     this.option_9.series[index] = {
                         name: this.names[index],
-                        barWidth: '30%',
-                        barGap: '0%',
+                        barWidth: '20%',
+                        barGap: '30%',
                         legendHoverLink: true,
                         type: 'bar',
                         label: {
@@ -727,13 +871,30 @@
                         },
                         data: data.vip_point_sensitive_count.map(item => Math.round((Object.values(item)[0] / data.total_vip_count) * 100))
                     };
+                } else {
+                    this.$refs.chart_9.classList.add('shadow');
+                    this.option_9 = {
+                        title: {
+                            text: '积分敏感分析',
+                            textStyle: {
+                                fontSize: 22
+                            },
+                            left: 'center',
+                            top: 'center',
+                            subtext: '暂无数据',
+                            subtextStyle: {
+                                fontSize: 25
+                            }
+                        }
+
+                    };
                 }
 
-                if (data.vip_level_count) {
+                if (chart_10) {
                     this.option_10.series[index] = {
                         name: this.names[index],
-                        barWidth: '30%',
-                        barGap: '0%',
+                        barWidth: '20%',
+                        barGap: '30%',
                         legendHoverLink: true,
                         type: 'bar',
                         label: {
@@ -743,8 +904,27 @@
                         },
                         data: [Math.round(data.purchase_3m_vip_rate * 100), Math.round(data.purchase_3_6m_vip_rate * 100), Math.round(data.purchase_6_12m_vip_rate * 100)]
                     };
+                } else {
+                    this.$refs.chart_10.classList.add('shadow');
+                    this.option_10 = {
+                        title: {
+                            text: '消费情况分析',
+                            textStyle: {
+                                fontSize: 22
+                            },
+                            left: 'center',
+                            top: 'center',
+                            subtext: '暂无数据',
+                            subtextStyle: {
+                                fontSize: 25
+                            }
+                        }
+
+                    };
                 }
             });
+
+
             for (let i = 1; i <= this.chartSize; i++) {
                 this[`chart_${i}`].setOption(this[`option_${i}`]);
             }
@@ -759,8 +939,8 @@
         },
         methods: {
             resize() {
-                this.$refs.chart_6.style.width = `${this.winWidth * 0.24}px`;
-                this.$refs.chart_1.style.width = `${this.winWidth * 0.24}px`;
+                this.$refs.chart_6.style.width = `${this.winWidth * 0.25}px`;
+                this.$refs.chart_1.style.width = `${this.winWidth * 0.23}px`;
 
                 this.$refs.chart_2.style.width = `${this.winWidth * 0.48}px`;
                 this.$refs.chart_3.style.width = `${this.winWidth * 0.48}px`;
@@ -794,6 +974,9 @@
     }
     .auto{
         margin: 20px 0;
+    }
+    .auto.shadow{
+        box-shadow: 0px 0px 80px -65px;
     }
     /** th */
     /deep/ .ivu-table th {

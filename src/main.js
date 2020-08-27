@@ -93,7 +93,7 @@ Vue.prototype.$time = function (date) {
 };
 
 Vue.prototype.$kilobit = function (num) {
-    return num.toString(10).split('.')[0].split('').reduceRight((data, item) => {
+    return (num || 0) && num.toString(10).split('.')[0].split('').reduceRight((data, item) => {
         data = data[0] && data[0].length % 3 ? data : ['', ...data];
         data[0] = item + data[0];
         return data;

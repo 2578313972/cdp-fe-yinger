@@ -47,7 +47,7 @@
                 {
                     title: '任务ID',
                     key: 'code',
-                    align: 'center',
+                    // align: 'center',
                     width: 120
                 },
                 {
@@ -112,4 +112,8 @@
 </script>
 <style lang="less" scoped>
 .ivu-col{margin-bottom: 15px;}
+/deep/ .ivu-checkbox-wrapper,/deep/ .ivu-checkbox{margin: 0 ;}
+/deep/ .ivu-card-body {
+  padding: 0 !important;
+}
 </style>

@@ -230,8 +230,8 @@
                         this.$Message.error({ background: true, content: res.data.msg });
                         break;
                     }
+                    this.creatEvent = false;
                 });
-                this.creatEvent = false;
             }
         }
     };

@@ -30,7 +30,7 @@ module.exports = {
 					"^/cdp-web": "/cdp-web"
 				},
 				headers:{
-					Cookie:"cdp-session-id=6473738B0F950F6B04581BCBDE5ED70E;",// JSESSIONID=937286E9B4F243A175F01CAF77582418;
+					Cookie:"cdp-session-id=998693E01E14630881D5B0015B48497F;",// JSESSIONID=937286E9B4F243A175F01CAF77582418;
 					Referer:"localhost/cdp/",
 					Host:"192.168.19.183"
 				}

@@ -18,8 +18,8 @@
             </div>
             <Row style="background:white;padding:5px 18px;">
                 <i-col span="5" offset="19" style="text-align:right;padding-right:20px;color:#3398DB">
-                    <i style="font-weight:700;font-size:25px;margin-right:20px;cursor: pointer;" class="el-icon-download"></i>
-                    <i style="font-weight:700;font-size:25px;cursor: pointer;" class="el-icon-question"></i>
+                    <!-- <i style="font-weight:700;font-size:25px;margin-right:20px;cursor: pointer;" class="el-icon-download"></i>
+                    <i style="font-weight:700;font-size:25px;cursor: pointer;" class="el-icon-question"></i> -->
                 </i-col>
             </Row>
 

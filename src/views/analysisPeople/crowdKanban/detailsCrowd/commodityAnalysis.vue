@@ -61,7 +61,7 @@
                 {
                     title: '人群名称',
                     align: 'center',
-                    ellipsis: true,
+                    tooltip: true,
                     minWidth: 200,
                     fixed: 'left',
                     render: (h, params) => (
@@ -74,7 +74,7 @@
                     title: `top${i}`,
                     key: `top${i}`,
                     align: 'center',
-                    ellipsis: true,
+                    tooltip: true,
                     minWidth: 280,
                     render: (h, params) => {
                         if (params.row[`top${i}`]) {
@@ -93,7 +93,7 @@
 
                 this.tableData_2[index] = { crowd_name: data.crowd_name };
                 data.top10_by_value.forEach((item, ind) => {
-                    this.tableData_2[index][`top${+ind + 1}`] = `${Object.keys(item)[0]} (${this.$kilobit(Object.values(item)[0])}件)`;
+                    this.tableData_2[index][`top${+ind + 1}`] = `${Object.keys(item)[0]} (${this.$kilobit(Object.values(item)[0])}元)`;
                 });
 
                 this.tableData_3[index] = { crowd_name: data.crowd_name };
@@ -117,10 +117,10 @@
             }
             this.resize();
             const top = 60 + (this.allData.length - 1) * 10;
-            const option_1 = {
-                color: ['#3398DB', '#67E0E3', '#FFDB5C'],
+            let option_1 = {
+                color: ['#3398DB', '#FFDB5C', '#67E0E3'],
                 title: {
-                    text: '季节分布',
+                    text: '季节分布（单位:件）',
                     textStyle: {
                         fontSize: 15
                     }
@@ -159,10 +159,10 @@
                 series: []
             };
 
-            const option_2 = {
-                color: ['#3398DB', '#67E0E3', '#FFDB5C'],
+            let option_2 = {
+                color: ['#3398DB', '#FFDB5C', '#67E0E3'],
                 title: {
-                    text: '价格分布',
+                    text: '价格分布（单位:件）',
                     textStyle: {
                         fontSize: 15
                     }
@@ -206,10 +206,10 @@
                 series: []
             };
 
-            const option_3 = {
-                color: ['#3398DB', '#67E0E3', '#FFDB5C'],
+            let option_3 = {
+                color: ['#3398DB', '#FFDB5C', '#67E0E3'],
                 title: {
-                    text: '色系分布',
+                    text: '色系分布（单位:件）',
                     textStyle: {
                         fontSize: 15
                     }
@@ -251,10 +251,10 @@
                 series: []
             };
 
-            const option_4 = {
-                color: ['#3398DB', '#67E0E3', '#FFDB5C'],
+            let option_4 = {
+                color: ['#3398DB', '#FFDB5C', '#67E0E3'],
                 title: {
-                    text: '面料分布',
+                    text: '面料分布（单位:件）',
                     textStyle: {
                         fontSize: 15
                     }
@@ -295,9 +295,18 @@
                 },
                 series: []
             };
+
+
+            let chart_1; let chart_2; let chart_3; let chart_4;
+            this.allData.forEach((data) => {
+                if (data.season_distribution.length) chart_1 = true;
+                if (data.price_range_distribution.length) chart_2 = true;
+                if (data.color_distribution.length) chart_3 = true;
+                if (data.fabric_distribution.length) chart_4 = true;
+            });
 
             this.allData.forEach((data, index) => {
-                if (data.season_distribution) {
+                if (chart_1) {
                     option_1.yAxis.data = data.season_distribution.map(item => Object.keys(item)[0]);
                     option_1.series[index] = {
                         name: this.names[index],
@@ -305,43 +314,111 @@
                         barGap: '30%',
                         legendHoverLink: true,
                         type: 'bar',
-                        data: data.season_distribution.map(item => Object.values(item)[0])
+                        data: data.season_distribution.map(item => (Object.values(item)[0] > 0 ? Object.values(item)[0] : 0))
+                    };
+                } else {
+                    this.$refs.chart_1.classList.add('shadow');
+                    option_1 = {
+                        title: {
+                            text: '季节分布',
+                            textStyle: {
+                                fontSize: 22
+                            },
+                            left: 'center',
+                            top: 'center',
+                            subtext: '暂无数据',
+                            subtextStyle: {
+                                fontSize: 25
+                            }
+                        }
+
                     };
                 }
 
-                if (data.price_range_distribution) {
+                if (chart_2) {
                     option_2.xAxis.data = data.price_range_distribution.map(item => Object.keys(item)[0]);
                     option_2.series[index] = {
                         name: this.names[index],
-                        barWidth: '30%',
-                        barGap: '0%',
+                        barWidth: '20%',
+                        barGap: '30%',
                         legendHoverLink: true,
                         type: 'bar',
-                        data: data.price_range_distribution.map(item => Object.values(item)[0])
+                        data: data.price_range_distribution.map(item => (Object.values(item)[0] > 0 ? Object.values(item)[0] : 0))
+                    };
+                } else {
+                    this.$refs.chart_2.classList.add('shadow');
+                    option_2 = {
+                        title: {
+                            text: '价格分布',
+                            textStyle: {
+                                fontSize: 22
+                            },
+                            left: 'center',
+                            top: 'center',
+                            subtext: '暂无数据',
+                            subtextStyle: {
+                                fontSize: 25
+                            }
+                        }
+
                     };
                 }
 
-                if (data.color_distribution) {
+                if (chart_3) {
                     option_3.xAxis.data = data.color_distribution.map(item => Object.keys(item)[0]);
                     option_3.series[index] = {
                         name: this.names[index],
-                        barWidth: '30%',
-                        barGap: '0%',
+                        barWidth: '20%',
+                        barGap: '30%',
                         legendHoverLink: true,
                         type: 'bar',
-                        data: data.color_distribution.map(item => Object.values(item)[0])
+                        data: data.color_distribution.map(item => (Object.values(item)[0] > 0 ? Object.values(item)[0] : 0))
+                    };
+                } else {
+                    this.$refs.chart_3.classList.add('shadow');
+                    option_3 = {
+                        title: {
+                            text: '色系分布',
+                            textStyle: {
+                                fontSize: 22
+                            },
+                            left: 'center',
+                            top: 'center',
+                            subtext: '暂无数据',
+                            subtextStyle: {
+                                fontSize: 25
+                            }
+                        }
+
                     };
                 }
 
-                if (data.fabric_distribution) {
+                if (chart_4) {
                     option_4.xAxis.data = data.fabric_distribution.map(item => Object.keys(item)[0]);
                     option_4.series[index] = {
                         name: this.names[index],
-                        barWidth: '30%',
-                        barGap: '0%',
+                        barWidth: '20%',
+                        barGap: '30%',
                         legendHoverLink: true,
                         type: 'bar',
-                        data: data.fabric_distribution.map(item => Object.values(item)[0])
+                        data: data.fabric_distribution.map(item => (Object.values(item)[0] > 0 ? Object.values(item)[0] : 0))
+                    };
+                } else {
+                    this.$refs.chart_4.classList.add('shadow');
+                    option_4 = {
+                        title: {
+                            text: '面料分布',
+                            textStyle: {
+                                fontSize: 22
+                            },
+                            left: 'center',
+                            top: 'center',
+                            subtext: '暂无数据',
+                            subtextStyle: {
+                                fontSize: 25
+                            }
+                        }
+
                     };
                 }
             });
@@ -386,6 +463,9 @@
                 margin-top: 20px;
             }
         }
+    }
+    .auto.shadow{
+        box-shadow: 0px 0px 80px -65px;
     }
     /** th */
     /deep/ .ivu-table th {
