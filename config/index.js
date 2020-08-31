@@ -30,7 +30,7 @@ module.exports = {
 					"^/cdp-web": "/cdp-web"
 				},
 				headers:{
-					Cookie:"cdp-session-id=998693E01E14630881D5B0015B48497F;",// JSESSIONID=937286E9B4F243A175F01CAF77582418;
+					Cookie:"cdp-session-id=E380AE174C786A52A6C78373FC745B3B;",// JSESSIONID=937286E9B4F243A175F01CAF77582418;
 					Referer:"localhost/cdp/",
 					Host:"192.168.19.183"
 				}
@@ -56,7 +56,7 @@ module.exports = {
 		// set this to false - it *may* help
 		// https://vue-loader.vuejs.org/en/options.html#cachebusting
 		cacheBusting: true,
-
+		useEslint:false,
 		cssSourceMap: false
 	},
 

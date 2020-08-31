@@ -139,8 +139,8 @@
                 purchase_vip_count: this.$kilobit(item.purchase_vip_count),
                 purchase_vip_rate: `${Math.round(item.purchase_vip_rate * 1000) / 10}%`,
                 order_amount: `${this.$kilobit(item.order_amount)}`,
-                avg_transaction_value: Math.round(item.avg_transaction_value),
                 avg_transaction_unit: Math.round(item.avg_transaction_unit * 100) / 100,
+                avg_transaction_value: this.$kilobit(item.avg_transaction_value),
                 avg_unit_value: this.$kilobit(item.avg_unit_value),
                 joint_purchase_rate: `${Math.round(item.joint_purchase_rate * 1000) / 10}%`,
                 avg_discount_rate: `${Math.round(item.avg_discount_rate * 100)}%`,
@@ -262,12 +262,12 @@
                 if (data.joint2_purchase_scale || data.joint3_purchase_scale || data.joint4_5purchase_scale || data.joint6_purchase_scale) chart_3 = true;
             });
 
-
+            const barWidth = `${60 / this.allData.length}%`;
             this.allData.forEach((data, index) => {
                 if (chart_1) {
                     option_1.series[index] = {
                         name: this.names[index],
-                        barWidth: '20%',
+                        barWidth,
                         barGap: '30%',
                         legendHoverLink: true,
                         type: 'bar',
@@ -295,7 +295,7 @@
                 if (chart_3) {
                     option_3.series[index] = {
                         name: this.names[index],
-                        barWidth: '20%',
+                        barWidth,
                         barGap: '30%',
                         legendHoverLink: true,
                         type: 'bar',

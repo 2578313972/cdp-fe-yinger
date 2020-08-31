@@ -93,6 +93,7 @@
                 this.$emit('cancelCreatEvent', false);
             },
             ok() {
+                this.saveBtnStatus = true;
                 this.$emit('submitCreatEvent');
             }
         }

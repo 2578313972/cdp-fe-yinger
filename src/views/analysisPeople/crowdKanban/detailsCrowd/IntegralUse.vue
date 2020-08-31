@@ -152,13 +152,13 @@
             this.allData.forEach((data) => {
                 if (data.use_point_vip_level.length) chart_1 = true;
             });
-
+            const barWidth = `${60 / this.allData.length}%`;
             this.allData.forEach((data, index) => {
                 if (chart_1) {
                     option_1.xAxis.data = data.use_point_vip_level.map(item => Object.keys(item)[0]);
                     option_1.series[index] = {
                         name: this.names[index],
-                        barWidth: '20%',
+                        barWidth,
                         barGap: '30%',
                         legendHoverLink: true,
                         type: 'bar',

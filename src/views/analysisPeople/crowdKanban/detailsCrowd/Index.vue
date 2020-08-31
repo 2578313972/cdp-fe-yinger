@@ -8,6 +8,26 @@
                 <span style="font-size:20px;">
                    【 {{names.toString()}} 】
                 </span>
+
+    <!-- <div>
+        <strong>Default Size:</strong>
+        <br><br>
+        <List header="Header" footer="Footer" border>
+            <ListItem>This is a piece of text.</ListItem>
+            <ListItem>This is a piece of text.</ListItem>
+            <ListItem>This is a piece of text.</ListItem>
+        </List>
+        <br>
+        <strong>Small Size:</strong>
+        <br><br>
+        <List header="Header" footer="Footer" border size="small">
+            <ListItem>This is a piece of text.</ListItem>
+            <ListItem>This is a piece of text.</ListItem>
+            <ListItem>This is a piece of text.</ListItem>
+        </List>
+    </div> -->
+
+
             </i-col>
         </Row>
         <div ref="winBox" class="slide-scroll-box">
@@ -67,6 +87,14 @@
             }).then((res) => {
                 console.log(res.data.data);
                 this.allData = res.data.data;
+
+                // 查找code为ct00001的数据并更改时间  ~~ 近一年
+                const ct00001 = this.allData.find(item => item.crowd_code === 'ct00001');
+                const nowDateArr = new Date().toLocaleDateString().split('/');
+                nowDateArr[2] = +nowDateArr[2] < 15 ? 1 : 15;
+                ct00001 && (ct00001.starttime_day = this.$time(new Date(nowDateArr[0] - 1, nowDateArr[1] - 1, nowDateArr[2])));
+                ct00001 && (ct00001.endtime_day = this.$time(new Date(nowDateArr[0], nowDateArr[1] - 1, nowDateArr[2])));
+                console.log(ct00001);
                 this.names = this.allData.map(item => item.crowd_name);
                 this.spinLoading = false;
             });
@@ -83,6 +111,9 @@
             /** 菜单切换 */
             menuSelect(name) {
                 if (this.active_name === name) return;
+                // this.allData.reverse();
+                // console.log(this.allData.map(item => item.crowd_name));
+                this.names = this.allData.map(item => item.crowd_name);
                 this.componentName = this.dimension[name];
                 this.active_name = name;
             },

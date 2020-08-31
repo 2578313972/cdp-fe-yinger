@@ -101,14 +101,6 @@
                     this.tableData_3[index][`top${+ind + 1}`] = `${Object.keys(item)[0]} (${this.$kilobit(Object.values(item)[0])}件)`;
                 });
             });
-
-            // this.tableData = this.allData.map(item => ({
-            //     crowd_name: item.crowd_name,
-            //     new_vip_count: item.new_vip_count,
-            //     new_vip_case_rate: item.new_vip_case_rate,
-            //     starttime_day: item.starttime_day,
-            //     endtime_day: item.endtime_day
-            // }));
         },
         mounted() {
             this.chartSize = Object.keys(this.$refs).filter(item => item.indexOf('chart_') !== -1).length;
@@ -304,13 +296,13 @@
                 if (data.color_distribution.length) chart_3 = true;
                 if (data.fabric_distribution.length) chart_4 = true;
             });
-
+            const barWidth = `${60 / this.allData.length}%`;
             this.allData.forEach((data, index) => {
                 if (chart_1) {
                     option_1.yAxis.data = data.season_distribution.map(item => Object.keys(item)[0]);
                     option_1.series[index] = {
                         name: this.names[index],
-                        barMinWidth: '20%',
+                        barWidth,
                         barGap: '30%',
                         legendHoverLink: true,
                         type: 'bar',
@@ -339,7 +331,7 @@
                     option_2.xAxis.data = data.price_range_distribution.map(item => Object.keys(item)[0]);
                     option_2.series[index] = {
                         name: this.names[index],
-                        barWidth: '20%',
+                        barWidth,
                         barGap: '30%',
                         legendHoverLink: true,
                         type: 'bar',
@@ -368,7 +360,7 @@
                     option_3.xAxis.data = data.color_distribution.map(item => Object.keys(item)[0]);
                     option_3.series[index] = {
                         name: this.names[index],
-                        barWidth: '20%',
+                        barWidth,
                         barGap: '30%',
                         legendHoverLink: true,
                         type: 'bar',
@@ -397,7 +389,7 @@
                     option_4.xAxis.data = data.fabric_distribution.map(item => Object.keys(item)[0]);
                     option_4.series[index] = {
                         name: this.names[index],
-                        barWidth: '20%',
+                        barWidth,
                         barGap: '30%',
                         legendHoverLink: true,
                         type: 'bar',

@@ -28,18 +28,19 @@
                 <div class="content-text-left" >
                     <h3 class="borbox title">总销售额</h3>
                     <div class="user-info">
+                        <p style="font-weight:600;">{{useTime}}<br/>线上线下</p>
                         <div class="header-img" style="padding:8px 0;" >
-                        <img style="width:90px;height:90px;" src="@/assets/images/yinger.png" title="影儿时尚集团">
+                            <img style="width:90px;height:90px;" src="@/assets/images/yinger.png" title="影儿时尚集团">
                         </div>
-                        <h2 style="font-size:24px; margin-top:6px;color:#1890ff;padding:6px;">
+                        <h2 style="font-size:24px;color:#1890ff;padding:6px;">
                         {{(allData.sales_amount) | toFixed_0 | allMoney}}
-                        <Tooltip>
+                        <!-- <Tooltip>
                             <i style="vertical-align: middle;font-size: 18px;color: #666;cursor:pointer;position: relative;top: -10px;left:-3px;" class="el-icon-info"></i>
                             <div slot="content" style="padding:3px;">
                                 <p>{{useTime}}</p>
                                 <p>线上线下</p>
                             </div>
-                        </Tooltip>
+                        </Tooltip> -->
                         </h2>
                     </div>
                 </div>
@@ -172,11 +173,10 @@
                     minWidth: 200,
                     fixed: 'left',
                     render: (h, params) => (
-                    <div style="font-weight:600;">
-                        <span> {params.row.keyName} </span>
-                    </div>
-                )
-
+                        <div style="font-weight:600;">
+                            <span> {params.row.keyName} </span>
+                        </div>
+                    )
                 }
             ];
             // tableData 格式

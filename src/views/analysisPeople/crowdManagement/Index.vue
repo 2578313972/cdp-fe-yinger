@@ -51,7 +51,7 @@
       </Card>
     </div>
 
-    <Drawer v-model="creatEvent" width="800" :mask-closable="false">
+    <Drawer v-model="creatEvent" width="1000" :mask-closable="false">
       <create-event
         v-if="creatEvent"
         @cancelCreatEvent="cancelCreat"
@@ -86,10 +86,6 @@
             CreateEvent
         },
         created() {
-            // let nowDateArr = new Date().toLocaleDateString().split('/');
-            // nowDateArr[2] = +nowDateArr[2] < 15 ? 1 : 15;
-            // this.useTime = `${nowDateArr[0] - 1}/${nowDateArr[1]}/${nowDateArr[2]} - ${nowDateArr[0]}/${nowDateArr[1]}/${nowDateArr[2]}`;
-
             this.butData = ['全部'];
             this.calculate_status_item = ['未开始', '计算成功', '计算失败'];
             this.statusName = ['nostarted', 'completed', 'failed'];

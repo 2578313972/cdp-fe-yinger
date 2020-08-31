@@ -23,6 +23,7 @@
             <Select filterable v-model="formValidate.person" placeholder="请选择人群" class="width400">
                 <Option v-for="item in personList" :value="item.value" :key="item.value">{{ item.label }}</Option>
             </Select>
+            <p style="font-size:13px;">注： 请先在 <a @click="$router.push('/crowd')">“用户---人群管理”</a> 中创建人群</p>
           </Form-item>
 
           <Form-item label="分析时间" prop="value1">

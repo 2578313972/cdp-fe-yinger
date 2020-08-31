@@ -172,14 +172,6 @@
                         minWidth: 110
                     },
                     {
-                        title: '新会员转化率',
-                        align: 'center',
-                        minWidth: 120,
-                        render: (h, params) => (
-                            <span> {Math.round(params.row.new_vip_case_rate * 1000) / 10}% </span>
-                        )
-                    },
-                    {
                         title: '新会员占比',
                         align: 'center',
                         minWidth: 110,

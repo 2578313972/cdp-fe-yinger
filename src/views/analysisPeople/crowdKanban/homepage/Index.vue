@@ -105,7 +105,8 @@
             },
             /** 切换页码 */
             pageChange(ind) {
-                this.showData = this.allData.slice((ind - 1) * this.pageSize + 1, (ind - 1) * this.pageSize + 1 + this.pageSize);
+                this.current = ind;
+                this.getData();
             }
         }
     };

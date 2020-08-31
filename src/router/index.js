@@ -150,7 +150,7 @@ function getSession(to, from, next) {
                 };
                 const analysisPeople = {
                     children: [
-                        { name: '营销人群管理', path: '/crowdManagement' },
+                        { name: '人群管理', path: '/crowdManagement' },
                         { name: '人群分析对比管理', path: '/crowdContrastManagement' },
                         { name: '人群分析看板', path: '/crowdKanban' }
                     ],
@@ -167,16 +167,16 @@ function getSession(to, from, next) {
                     path: ''
                 };
 
-                const dataDownload = {
-                    children: [
-                        { name: '数据下载', path: '/dataDown' }
-                    ],
-                    icon: 'md-download',
-                    name: '数据下载',
-                    path: ''
-                };
-            //    res.data.role_view.menus.push(markeCampaign, returnAnalysis);
-               res.data.role_view.menus.push(markeCampaign, analysisPeople, returnAnalysis, dataDownload);
+                // const dataDownload = {
+                //     children: [
+                //         { name: '数据下载', path: '/dataDown' }
+                //     ],
+                //     icon: 'md-download',
+                //     name: '数据下载',
+                //     path: ''
+                // };
+               res.data.role_view.menus.push(markeCampaign, analysisPeople, returnAnalysis);
+            //    res.data.role_view.menus.push(markeCampaign, analysisPeople, returnAnalysis, dataDownload);
             }
 
 

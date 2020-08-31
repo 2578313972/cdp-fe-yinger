@@ -63,7 +63,6 @@
             this.allVipGradeBill = this.allData.map(item => item.vip_level_count.map(item_2 => Object.values(item_2)[0]));
             // CLV
             this.clv = this.allData.map(item => item.vip_credit_count.map(item_2 => Object.values(item_2)[0]));
-            console.log(this.clv);
             // RFM
             this.rfm = this.allData.map(item => item.vip_clv_count.map(item_2 => Object.values(item_2)[0]));
             // 会员年龄段
@@ -261,7 +260,7 @@
                     orient: 'vertical'
                 },
                 grid: {
-                    left: '3%',
+                    left: 69,
                     right: '30',
                     bottom: '3%',
                     top,
@@ -375,6 +374,13 @@
                     trigger: 'axis',
                     axisPointer: {
                         type: 'shadow'
+                    },
+                    formatter: (item) => {
+                        let context = `${item[0].axisValue.replace(/\n/g, '')}`;
+                        for (let i = 0; i < item.length; i++) {
+                            context += `<br /> ${item[i].marker}${item[i].seriesName}：${this.$kilobit(this.sex[i][item[i].dataIndex])} 人`;
+                        }
+                        return context;
                     }
                 },
                 legend: {
@@ -584,11 +590,12 @@
                 if (data.vip_point_sensitive_count.length) chart_9 = true;
                 if (data.purchase_3m_vip_rate || data.purchase_3_6m_vip_rate || data.purchase_6_12m_vip_rate) chart_10 = true;
             });
+            const barWidth = `${60 / this.allData.length}%`;
             this.allData.forEach((data, index) => {
                 if (chart_1) {
                     this.option_1.series[index] = {
                         name: this.names[index],
-                        barWidth: '20%',
+                        barWidth,
                         barGap: '30%',
                         max: 100,
                         legendHoverLink: true,
@@ -623,7 +630,7 @@
                     this.option_2.xAxis.data = data.vip_level_count.map(item => Object.keys(item)[0]);
                     this.option_2.series[index] = {
                         name: this.names[index],
-                        barWidth: '20%',
+                        barWidth,
                         barGap: '30%',
                         legendHoverLink: true,
                         type: 'bar',
@@ -657,7 +664,7 @@
                     this.option_3.yAxis.data = data.vip_credit_count.map(item => Object.keys(item)[0]);
                     this.option_3.series[index] = {
                         name: this.names[index],
-                        barWidth: '20%',
+                        barWidth,
                         barGap: '30%',
                         legendHoverLink: true,
                         type: 'bar',
@@ -690,7 +697,7 @@
                     this.option_4.yAxis.data = data.vip_clv_count.map(item => Object.keys(item)[0]) || [];
                     this.option_4.series[index] = {
                         name: this.names[index],
-                        barWidth: '20%',
+                        barWidth,
                         barGap: '30%',
                         legendHoverLink: true,
                         type: 'bar',
@@ -724,7 +731,7 @@
                     this.option_5.xAxis.data = data.vip_age_count.map(item => Object.keys(item)[0]);
                     this.option_5.series[index] = {
                         name: this.names[index],
-                        barWidth: '20%',
+                        barWidth,
                         barGap: '30%',
                         legendHoverLink: true,
                         type: 'bar',
@@ -758,7 +765,7 @@
                     this.option_6.xAxis.data = data.vip_gender_count.map(item => Object.keys(item)[0]);
                     this.option_6.series[index] = {
                         name: this.names[index],
-                        barWidth: '20%',
+                        barWidth,
                         barGap: '30%',
                         legendHoverLink: true,
                         type: 'bar',
@@ -792,7 +799,7 @@
                     this.option_7.xAxis.data = data.vip_discount_sensitve_count.map(item => Object.keys(item)[0]);
                     this.option_7.series[index] = {
                         name: this.names[index],
-                        barWidth: '20%',
+                        barWidth,
                         barGap: '30%',
                         legendHoverLink: true,
                         type: 'bar',
@@ -826,7 +833,7 @@
                     this.option_8.xAxis.data = data.vip_new_sensitve_count.map(item => Object.keys(item)[0]);
                     this.option_8.series[index] = {
                         name: this.names[index],
-                        barWidth: '20%',
+                        barWidth,
                         barGap: '30%',
                         legendHoverLink: true,
                         type: 'bar',
@@ -860,7 +867,7 @@
                     this.option_9.xAxis.data = data.vip_point_sensitive_count.map(item => Object.keys(item)[0]);
                     this.option_9.series[index] = {
                         name: this.names[index],
-                        barWidth: '20%',
+                        barWidth,
                         barGap: '30%',
                         legendHoverLink: true,
                         type: 'bar',
@@ -893,7 +900,7 @@
                 if (chart_10) {
                     this.option_10.series[index] = {
                         name: this.names[index],
-                        barWidth: '20%',
+                        barWidth,
                         barGap: '30%',
                         legendHoverLink: true,
                         type: 'bar',

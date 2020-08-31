@@ -395,6 +395,7 @@
             // 更新详情数据
             updateCrowd(data) {
                 this.crowdListContent = data;
+                console.log(this.crowdListContent);
                 this.crowdCode = data.code;
                 this.formItem.name = data.name;
                 this.formItem.description = data.description;
