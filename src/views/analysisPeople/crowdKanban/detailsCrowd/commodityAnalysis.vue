@@ -87,7 +87,7 @@
             }
             this.allData.forEach((data, index) => {
                 this.tableData_1[index] = { crowd_name: data.crowd_name };
-                data.color_distribution.forEach((item, ind) => {
+                data.top10_by_unit.forEach((item, ind) => {
                     this.tableData_1[index][`top${+ind + 1}`] = `${Object.keys(item)[0]} (${this.$kilobit(Object.values(item)[0])}件)`;
                 });
 
@@ -97,7 +97,7 @@
                 });
 
                 this.tableData_3[index] = { crowd_name: data.crowd_name };
-                data.top10_by_unit.forEach((item, ind) => {
+                data.category_distribution.forEach((item, ind) => {
                     this.tableData_3[index][`top${+ind + 1}`] = `${Object.keys(item)[0]} (${this.$kilobit(Object.values(item)[0])}件)`;
                 });
             });
