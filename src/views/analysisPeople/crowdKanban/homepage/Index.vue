@@ -23,10 +23,11 @@
         ></Page>
       </Card>
     </div>
-
   </div>
 </template>
 <script>
+    import CreateOut from '@/components/CreateOut';
+
     export default {
         name: 'Group',
         data() {
@@ -40,14 +41,11 @@
                 allDataSize: 0
             };
         },
-        components: {
-        },
         created() {
             this.columns = [
                 {
                     title: '任务ID',
                     key: 'code',
-                    // align: 'center',
                     width: 120
                 },
                 {
@@ -69,15 +67,33 @@
                 {
                     title: '操作',
                     key: 'action',
-                    width: 150,
+                    width: 100,
                     align: 'center',
-                    render: (h, params) => h('a', {
-                        on: {
-                            click: () => {
-                                this.analysis(params);
-                            }
+                    render: (h, params) => (h('div', {
+                        style: {
+                            display: 'flex',
+                            justifyContent: 'space-around'
                         }
-                    }, '分析')
+                    }, [
+                        h(
+                            'a', {
+                                on: {
+                                    click: () => {
+                                        this.analysis(params);
+                                    }
+                                }
+                            },
+                            '分析'
+                        ),
+                        h(
+                            CreateOut,
+                            {
+                                props: {
+                                    task_ids: params.row.task_ids
+                                }
+                            }
+                        )
+                    ]))
                 }
             ];
             this.getData();

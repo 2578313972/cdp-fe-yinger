@@ -73,9 +73,9 @@ function isObjEqual(o1, o2) {
 
 // 文本框获取焦点时光标在尾部
 function moveToEnd(el) {
-    if (typeof el.selectionStart == 'number') {
+    if (typeof el.selectionStart === 'number') {
         el.selectionStart = el.selectionEnd = el.value.length;
-    } else if (typeof el.createTextRange != 'undefined') {
+    } else if (typeof el.createTextRange !== 'undefined') {
         el.focus();
         const range = el.createTextRange();
         range.collapse(false);

@@ -41,11 +41,14 @@
           </Form-item>
           <Form-item label="品牌" prop="copyditch">
               <i-select
+                class="width400"
+                clearable
                 filterable
+                multiple
+                :max-tag-count='3'
                 @on-change="ditchChange"
                 placeholder="品牌"
                 v-model="formValidate.ditch"
-                style="width:90px"
               >
                 <i-option
                   v-for="item in ditchList"
@@ -196,9 +199,14 @@
                 }
             },
             'formValidate.ditch': function (newVal) {
-                console.log(newVal);
-                if (newVal) {
-                    this.ditchVal = `[ ${this.ditchList.find(item => item.value === newVal).label} ]`;
+                console.log('品牌：', newVal);
+                if (newVal.length) {
+                    this.ditchVal = [];
+                    newVal.forEach((data) => {
+                        console.log(data);
+                        this.ditchVal.push(this.ditchList.find(item => item.value === data).label);
+                    });
+                    this.ditchVal = `[ ${this.ditchVal.toString()} ]`;
                     this.formValidate.copyditch = 'true';
                 } else if (!this.formValidate.area) {
                     this.ditchVal = '';
@@ -206,9 +214,10 @@
                 }
             },
             'formValidate.area': function (newVal) {
+                console.log('区域：', newVal);
                 if (newVal) {
                     this.formValidate.copyditch = 'true';
-                } else if (!this.formValidate.ditch) {
+                } else if (!this.formValidate.ditch.length) {
                     this.formValidate.copyditch = '';
                 }
             }
@@ -244,7 +253,6 @@
         created() {
             this.$https.analysisManagement.allQueryType().then((res) => {
                 this.ditchList = res[0].data.data.map(item => ({ label: item.name, value: item.orgId }));
-                this.ditchList.unshift({ label: '选择品牌', value: '0' });
                 this.areaList = res[1].data.data.map(item => ({ label: item.name, value: item.orgId }));
                 this.areaList.unshift({ label: '选择区域', value: '0' });
             });
@@ -256,8 +264,7 @@
             // 金蓝标选择
             this.colorList = [
                 { value: '金标', label: '金标' },
-                { value: '蓝标', label: '蓝标' },
-                { value: '蓝标转金标', label: '蓝标转金标' }
+                { value: '蓝标', label: '蓝标' }
             ];
 
             const timer = this.$config.debounce_wait; // 节流的延迟时间
@@ -286,9 +293,9 @@
                             endTimeDay: this.$time(this.formValidate.timeValue[1]),
                             descriptions: this.formValidate.description
                         };
-                        if (this.formValidate.ditch) { // 渠道
+                        if (this.formValidate.ditch.length) { // 品牌
                             // this.formValidate.ditch
-                            data.brand = this.ditchList.find(item => item.value === this.formValidate.ditch).label;
+                            data.brand = this.formValidate.ditch.map(data => this.ditchList.find(item => item.value === data).label).toString();
                         }
                         if (this.formValidate.area) { // 区域
                             data.area = this.areaList.find(item => item.value === this.formValidate.area).label;
@@ -315,7 +322,7 @@
                     }
                 });
             },
-            /** 渠道 */
+            /** 品牌 */
             ditchChange() {
                 if (this.formValidate.ditch === '0') this.formValidate.ditch = '';
                 this.formValidate.shop = [];
@@ -363,16 +370,18 @@
             },
             /** 门店接口 */
             changeStroe() {
+                // /**
                 // 区域
                 const areaObj = this.areaList.find(item => item.value === this.formValidate.area);
-                // 渠道
-                const brandObj = this.ditchList.find(item => item.value === this.formValidate.ditch);
+                // 品牌
+                const brandObj = this.formValidate.ditch.map(data => this.ditchList.find(item => item.value === data).label);
+
                 let area; let brand;
                 if (areaObj) {
                     area = areaObj.label;
                 }
                 if (brandObj) {
-                    brand = this.ditchList.find(item => item.value === this.formValidate.ditch).label;
+                    brand = brandObj.toString();
                 }
 
                 this.$https.analysisManagement.queryChannelOptions({
@@ -382,31 +391,13 @@
                 }).then((res) => {
                     this.shopList = res.data.data.map(item => ({ label: item.storeName, value: item.storeNo }));
                 });
+                // */
             },
             /** 表单验证触发 */
             formRules(prop, status, error) {
                 console.log(prop, status, error);
             }
         }
-        /** keep-alive 显示的生命周期 */
-        /**
-        activated() {
-            this.formValidate = { // 表单数据
-                code: '',
-                timeValue: [],
-                description: '',
-                model: '',
-                ditch: '',
-                area: '',
-                shop: [],
-                value1: '',
-                copyditch: '',
-                copyshop: ''
-            };
-            this.selectVal = '';
-            this.$refs.formValidate.resetFields();
-        }
-         */
     };
 </script>
 

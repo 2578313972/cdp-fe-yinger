@@ -37,7 +37,7 @@
             <Table
             class="smce-table-noscroll td-table-no-border"
             border
-            style="margin:auto;"
+            style="margin:auto;margin-bottom:30px"
             :width="gaugeWidth*0.98"
             :loading="loading"
             no-data-text="暂无数据"
@@ -129,7 +129,7 @@
                     tooltip: true,
                     minWidth: 100,
                     render: (h, params) => (
-                      <div>{Math.round(params.row.visited_rate * 1000) / 10}%</div>
+                      <div>{Math.round(params.row.visited_rate * 10000) / 100}%</div>
                     )
                 },
                 {

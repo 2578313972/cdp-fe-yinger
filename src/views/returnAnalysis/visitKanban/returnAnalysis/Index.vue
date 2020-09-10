@@ -2,7 +2,7 @@
   <div class="page-warpper">
     <div class="page-content page-content-tab padding16-18">
       <Card dis-hover>
-        <Row type="flex" justify="space-between" class="code-row-bg">
+        <Row type="flex" justify="space-between" class="code-row-bg padding16-18">
           <i-col style="font-size:18px;" span="24">
             <i-input
               class="width300"
@@ -154,5 +154,7 @@
     };
 </script>
 <style lang="less" scoped>
-.ivu-col{margin-bottom: 15px;}
+  /deep/ .ivu-card-body {
+    padding: 0 !important;
+  }
 </style>

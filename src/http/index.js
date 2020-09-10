@@ -72,6 +72,8 @@ const crowdContrastManagement = {
 const crowdKanban = {
     // 表格数据
     queryComparedTaskList: params => axios.get('/cdp-web/marketplugin/crowdAnalysis/queryCrowdComparedTasks', { params }),
+    // 下载
+    exportCrowdTemplate: params => axios.get('/cdp-web/marketplugin/crowdAnalysis/exportCrowdTemplate', { params }),
     // 详情数据
     crowdDetailView: params => axios.get('/cdp-web/marketplugin/crowdAnalysis/crowdDetailView', { params })
 };
@@ -86,11 +88,15 @@ const visitKanban = {
     // 统计查询
     result: data => axios.post(`/cdp-web/marketplugin/resourcemarkt/result/${data.code}`, data.data)
 };
-// /** 数据下载 */
-// // 数据下载
-// const dataDown = {
 
-// }
+/** 数据下载 */
+// 数据下载
+const dataDown = {
+    // 下载
+    downloadTaskFile: params => axios.get('/cdp-web/marketplugin/downLoad/downloadTaskFile', { params }),
+    // 表格数据
+    queryDownLoadList: params => axios.get('/cdp-web/marketplugin/downLoad/queryDownLoadList', { params })
+};
 
 export {
     calendarLife,
@@ -99,13 +105,11 @@ export {
     analysisContrastManagement,
     analysisKanban,
 
-
     crowdManagement,
     crowdContrastManagement,
     crowdKanban,
 
-    visitKanban
+    visitKanban,
 
-
-    // dataDown
+    dataDown
 };

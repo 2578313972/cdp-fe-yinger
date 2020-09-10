@@ -600,7 +600,7 @@
                         }
                         // 获取子目录
                         const result = await api.getCommonData(req.url, req.params);
-                        const data = typeof (req.getData) == 'function' ? req.getData(result) || [] : result;
+                        const data = typeof (req.getData) === 'function' ? req.getData(result) || [] : result;
                         that.branchType(data);
                         that.loading = false;
                     } catch (e) {

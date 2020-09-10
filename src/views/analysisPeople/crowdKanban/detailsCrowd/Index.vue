@@ -9,29 +9,12 @@
                    【 {{names.toString()}} 】
                 </span>
 
-    <ul>
+    <!-- <ul>
         <li draggable="true">aaa</li>
         <li draggable="true">bbb</li>
         <li draggable="true">ccc</li>
-    </ul>
+    </ul> -->
 
-<!--
-
-    var arr = new Array(rooms.length).fill()
-    arr[0] = true
-    function goin(key){
-        for(var i = 0; i<rooms[key].length; i++){
-            if(!arr[rooms[key][i]]){
-                arr[rooms[key][i]] = true
-                return goin([rooms[key][i]])
-            }
-        }
-    }
-    goin([0])
-    return !arr.includes(undefined)
-
-
- -->
             </i-col>
         </Row>
         <div ref="winBox" class="slide-scroll-box">
