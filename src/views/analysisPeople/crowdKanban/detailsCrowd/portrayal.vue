@@ -61,10 +61,11 @@
             this.allVipBill = this.allData.map(item => [item.new_vip_count, item.old_vip_count]);
             // 会员等级
             this.allVipGradeBill = this.allData.map(item => item.vip_level_count.map(item_2 => Object.values(item_2)[0]));
-            // CLV
-            this.clv = this.allData.map(item => item.vip_credit_count.map(item_2 => Object.values(item_2)[0]));
             // RFM
-            this.rfm = this.allData.map(item => item.vip_clv_count.map(item_2 => Object.values(item_2)[0]));
+            this.clv = this.allData.map(item => item.vip_credit_count.map(item_2 => Object.values(item_2)[0]));
+            // CLV
+            const arr = ['召回期', '流失期', '休眠期', '稳定期', '成长期', '新客期', '注册期'];
+            this.rfm = this.allData.map(item => item.vip_clv_count.map((item_2, index) => Object.values(item.vip_clv_count.find(item_3 => Object.keys(item_3)[0] === arr[index]))[0]));
             // 会员年龄段
             this.vipAge = this.allData.map(item => item.vip_age_count.map(item_2 => Object.values(item_2)[0]));
             // 性别
@@ -312,7 +313,7 @@
                 },
                 yAxis: {
                     type: 'category',
-                    data: [],
+                    data: ['召回期', '流失期', '休眠期', '稳定期', '成长期', '新客期', '注册期'],
                     boundaryGap: true
                 },
                 xAxis: valueType,
@@ -694,7 +695,6 @@
                 }
 
                 if (chart_4) {
-                    this.option_4.yAxis.data = data.vip_clv_count.map(item => Object.keys(item)[0]) || [];
                     this.option_4.series[index] = {
                         name: this.names[index],
                         barWidth,
@@ -706,7 +706,7 @@
                             position: 'right',
                             formatter: '{@score}%'
                         },
-                        data: data.vip_clv_count.map(item => Math.round((Object.values(item)[0] / data.total_vip_count) * 100))
+                        data: data.vip_clv_count.map((item, index) => Math.round((Object.values(data.vip_clv_count.find(item_2 => Object.keys(item_2)[0] === this.option_4.yAxis.data[index]))[0] / data.total_vip_count) * 100))
                     };
                 } else {
                     this.$refs.chart_4.classList.add('shadow');

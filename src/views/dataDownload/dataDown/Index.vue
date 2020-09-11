@@ -64,63 +64,6 @@
             };
         },
         created() {
-            this.columns = [
-                {
-                    title: '任务名',
-                    key: 'excel_name',
-                    tooltip: true,
-                    minWidth: 360
-                },
-                {
-                    title: '计算状态',
-                    minWidth: 100,
-                    align: 'center',
-                    render: (h, params) => (
-          <div>{this.calculate_status_item[params.row.calculate_status]}</div>
-        )
-                },
-                {
-                    title: '创建人',
-                    minWidth: 100,
-                    key: 'creator_username',
-                    align: 'center'
-                },
-                {
-                    title: '创建时间',
-                    align: 'center',
-                    minWidth: 100,
-                    render: (h, params) => (
-          <div>{new Date(params.row.create_time).toLocaleString()}</div>
-        )
-                },
-                {
-                    title: '操作',
-                    width: 70,
-                    align: 'center',
-                    render: (h, params) => {
-                        const color = params.row.calculate_status === 1 || '#888';
-                        const cursor = params.row.calculate_status === 1 || 'no-drop';
-                        return h(
-                            'a',
-                            {
-                                style: {
-                                    color,
-                                    cursor
-                                },
-                                attrs: {
-                                    href: `/cdp-web/marketplugin/downLoad/downloadTaskFile?code=${params.row.code}`
-                                },
-                                on: {
-                                    click() {
-                                        this.downData();
-                                    }
-                                }
-                            },
-                            '下载'
-                        );
-                    }
-                }
-            ];
             this.getData();
             const timer = this.$config.debounce_wait;
             this.debounceSearch = this.$lodash.debounce(this.changeInput, timer); // 模糊查询
@@ -141,6 +84,60 @@
                             this.showData = res.data.data;
                             this.allDataSize = res.data.pageInfo.total;
                         }
+                        this.columns = [
+                            {
+                                title: '任务名',
+                                key: 'excel_name',
+                                tooltip: true,
+                                minWidth: 360
+                            },
+                            {
+                                title: '计算状态',
+                                minWidth: 100,
+                                align: 'center',
+                                render: (h, params) => (
+          <div>{this.calculate_status_item[params.row.calculate_status]}</div>
+        )
+                            },
+                            {
+                                title: '创建人',
+                                minWidth: 100,
+                                key: 'creator_username',
+                                align: 'center'
+                            },
+                            {
+                                title: '创建时间',
+                                align: 'center',
+                                minWidth: 100,
+                                render: (h, params) => (
+          <div>{new Date(params.row.create_time).toLocaleString()}</div>
+        )
+                            },
+                            {
+                                title: '操作',
+                                width: 70,
+                                align: 'center',
+                                render: (h, params) => {
+                                    const color = params.row.calculate_status === 1 || '#888';
+                                    const cursor = params.row.calculate_status === 1 || 'no-drop';
+                                    // eslint-disable-next-line no-script-url
+                                    const href = params.row.calculate_status === 1 ? `/cdp-web/marketplugin/downLoad/downloadTaskFile?code=${params.row.code}` : 'javascript:;';
+                                    return h(
+                                        'a',
+                                        {
+                                            style: {
+                                                color,
+                                                cursor
+                                            },
+                                            attrs: {
+                                                href
+                                            }
+                                        },
+                                        '下载'
+                                    );
+                                }
+                            }
+                        ];
                         this.loading = false;
                     });
             },
@@ -149,8 +146,6 @@
                 this.current = 1;
                 this.getData();
             },
-            /** 下载 */
-            downData() {},
             /** 切换页码 */
             pageChange(ind) {
                 this.current = ind;
