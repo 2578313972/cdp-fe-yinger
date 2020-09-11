@@ -44,6 +44,8 @@
   </div>
 </template>
 <script>
+    import CreateOut from '@/components/CreateOut';
+
     export default {
         name: 'Group',
         data() {
@@ -67,7 +69,6 @@
                 {
                     title: '回访类型',
                     key: 'source_type',
-                    align: 'center',
                     minWidth: 120
                 },
                 {
@@ -104,15 +105,33 @@
                 {
                     title: '操作',
                     key: 'action',
-                    minWidth: 150,
+                    width: 100,
                     align: 'center',
-                    render: (h, params) => h('a', {
-                        on: {
-                            click: () => {
-                                this.analysis(params);
-                            }
+                    render: (h, params) => (h('div', {
+                        style: {
+                            display: 'flex',
+                            justifyContent: 'space-around'
                         }
-                    }, '分析')
+                    }, [
+                        h(
+                            'a', {
+                                on: {
+                                    click: () => {
+                                        this.analysis(params);
+                                    }
+                                }
+                            },
+                            '分析'
+                        ),
+                        h(
+                            CreateOut,
+                            {
+                                props: {
+                                    data: params
+                                }
+                            }
+                        )
+                    ]))
                 }
             ];
             this.getData();

@@ -83,6 +83,8 @@ const crowdKanban = {
 const visitKanban = {
     // 表格数据
     queryTaskList: params => axios.get('/cdp-web/marketplugin/resourcemarkt/queryTaskList', { params }),
+    // 下载
+    exportResourceDetail: params => axios.get('/cdp-web/marketplugin/resourcemarkt/exportResourceDetail', { params }),
     // 详情数据
     detail: data => axios.post(`/cdp-web/marketplugin/resourcemarkt/detail/${data.code}`, data.data, { headers: { 'Content-Type': 'application/json' } }),
     // 统计查询
@@ -92,8 +94,6 @@ const visitKanban = {
 /** 数据下载 */
 // 数据下载
 const dataDown = {
-    // 下载
-    downloadTaskFile: params => axios.get('/cdp-web/marketplugin/downLoad/downloadTaskFile', { params }),
     // 表格数据
     queryDownLoadList: params => axios.get('/cdp-web/marketplugin/downLoad/queryDownLoadList', { params })
 };
