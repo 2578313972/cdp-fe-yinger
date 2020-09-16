@@ -90,6 +90,10 @@ const ReturnAnalysisPage = () => import('@/views/returnAnalysis/visitKanban/retu
 // 数据下载
 const DataDown = () => import('@/views/dataDownload/dataDown'); // 数据下载
 
+// 监控视图
+const DataEngineering = () => import('@/views/monitorUser/dataEngineering'); // 数据工程
+const CdpReport = () => import('@/views/monitorUser/cdpReport'); // cdp报表
+
 // 错误页面
 const ErrorPage = () => import('@/views/errorPage');
 
@@ -347,7 +351,18 @@ const Routers = {
             path: '/dataDown', // 数据下载
             name: 'dataDown',
             component: DataDown
+        },
+        {
+            path: '/dataEngineering', // 数据工程
+            name: 'dataEngineering',
+            component: DataEngineering
+        },
+        {
+            path: '/cdpReport', // cdp报表
+            name: 'cdpReport',
+            component: CdpReport
         }
+
     ]
 };
 

@@ -72,8 +72,3 @@
     // }
     };
 </script>
-
-<style lang="less">
-.flex{display: flex;}
-.borbox{box-sizing: border-box;}
-</style>

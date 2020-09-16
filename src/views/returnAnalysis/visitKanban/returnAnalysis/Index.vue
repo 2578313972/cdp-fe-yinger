@@ -173,6 +173,9 @@
     };
 </script>
 <style lang="less" scoped>
+.page-content.page-content-tab.padding16-18{
+    min-height: 800px;
+}
   /deep/ .ivu-card-body {
     padding: 0 !important;
   }

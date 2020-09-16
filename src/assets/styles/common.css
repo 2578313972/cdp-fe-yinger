@@ -15,6 +15,9 @@ li {
     width: 100%;
 }
 
+.flex{display: flex;}
+.borbox{box-sizing: border-box;}
+
 
 /* margin top bottom left right 10 */
 
@@ -1111,6 +1114,9 @@ textarea.ivu-input {
     padding-top: 7px;
 }
 
+.ivu-table-wrapper{
+    overflow: visible;
+}
 
 /* 解决tip单词过长，不能换行的问题 */
 

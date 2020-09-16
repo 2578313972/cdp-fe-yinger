@@ -5,11 +5,10 @@
         <MenuItem :key="0" :name="1">数据下载</MenuItem>
       </Menu>
     </div>
-    <!-- <iframe src="http://192.168.19.187:3000/d/sO-XfReWk/etl?orgId=1" width="750" height="500" frameborder="0"></iframe> -->
     <div class="page-content page-content-tab padding16-18">
       <Card dis-hover>
         <Row type="flex" justify="space-between" class="code-row-bg padding16-18">
-          <i-col style="font-size:18px;" span="24">
+          <i-col style="font-size:18px;" span="12">
             <i-input
               class="width300"
               v-model="name"
@@ -17,6 +16,9 @@
               placeholder="任务名搜索"
               @input="debounceSearch"
             ></i-input>
+          </i-col>
+          <i-col span="12" style="text-align:right;">
+            <Button @click="getData">刷新</Button>
           </i-col>
         </Row>
         <Table
