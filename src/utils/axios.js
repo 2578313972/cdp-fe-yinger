@@ -6,6 +6,10 @@ import iView from 'iview';
 axios.defaults.headers = {
     'X-Requested-With': ''
 };
+
+// 让ajax携带cookie
+axios.defaults.withCredentials = true;
+
 // axios.defaults.timeout = 20000
 
 
@@ -110,8 +114,6 @@ axios.interceptors.response.use(
     },
 );
 
-// 让ajax携带cookie
-axios.defaults.withCredentials = true;
 
 // 处理请求错误信息
 function axiosError(errMsg) {

@@ -683,10 +683,10 @@
                 const domChart9 = this.$refs.chart_9;
 
 
-                domChart1.style.width = `${setWidth * 0.7}px`;
+                domChart1.style.width = `${setWidth * 0.9}px`;
                 domChart1.style.height = '400px';
 
-                domChart2.style.width = `${setWidth * 0.7}px`;
+                domChart2.style.width = `${setWidth * 0.9}px`;
                 domChart2.style.height = '400px';
 
                 domChart3.style.width = `${(this.conWidth) * 0.75}px`;

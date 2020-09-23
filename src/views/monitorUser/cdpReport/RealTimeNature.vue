@@ -25,6 +25,15 @@
             <i-col class="containers" span="24">
                 <Table stripe border :columns="columns" :data="tableData" :width="screenWidth"></Table>
             </i-col>
+            <i-col span="24" style="text-align:right;">
+                <Page
+                :current="current"
+                :page-size="pageSize"
+                :total="allDataSize"
+                @on-change="debouncePage"
+                show-elevator
+                ></Page>
+            </i-col>
         </Row>
     </div>
 </template>
@@ -35,7 +44,10 @@
             return {
                 aaa: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'],
                 columns: [],
-                tableData: []
+                tableData: [],
+                current: 1,
+                pageSize: 0,
+                allDataSize: 0
             };
         },
         props: {
@@ -50,11 +62,96 @@
                     title: '渠道',
                     key: '',
                     minWidth: '',
-                    align: '',
-                    tooltip: ''
-
+                    align: 'left',
+                    tooltip: true
+                },
+                {
+                    title: '特性ID',
+                    key: '',
+                    minWidth: '',
+                    align: 'center',
+                    tooltip: true
+                },
+                {
+                    title: '特性名称',
+                    key: '',
+                    minWidth: '',
+                    align: 'center',
+                    tooltip: true
+                },
+                {
+                    title: '特性类型',
+                    key: '',
+                    minWidth: '',
+                    align: 'center',
+                    tooltip: true
+                },
+                {
+                    title: '覆盖用户数',
+                    key: '',
+                    minWidth: '',
+                    align: 'center',
+                    tooltip: true
+                },
+                {
+                    title: '状态',
+                    key: '',
+                    minWidth: '',
+                    align: 'center',
+                    tooltip: true
+                },
+                {
+                    title: '创建者',
+                    key: '',
+                    minWidth: '',
+                    align: 'center',
+                    tooltip: true
+                },
+                {
+                    title: '所属目录',
+                    key: '',
+                    minWidth: '',
+                    align: 'center',
+                    tooltip: true
+                },
+                {
+                    title: '引用特性数量',
+                    key: '',
+                    minWidth: '',
+                    align: 'center',
+                    tooltip: true
+                },
+                {
+                    title: '被引用特性数量',
+                    key: '',
+                    minWidth: '',
+                    align: 'center',
+                    tooltip: true
+                },
+                {
+                    title: '被引用人群数量',
+                    key: '',
+                    minWidth: '',
+                    align: 'center',
+                    tooltip: true
+                },
+                {
+                    title: '激活时间',
+                    key: '',
+                    minWidth: '',
+                    align: 'center',
+                    tooltip: true
+                },
+                {
+                    title: '数据采集时间',
+                    key: '',
+                    minWidth: '',
+                    align: 'center',
+                    tooltip: true
                 }
             ];
+            const timer = this.$config.debounce_wait;
+            this.debouncePage = this.$lodash.debounce(this.pageChange, timer); // 分页
         },
         mounted() {
             this.resize();
@@ -65,6 +162,13 @@
             });
         },
         methods: {
+            getData() {
+
+            },
+            pageChange(ind) {
+                this.current = ind;
+                this.getData();
+            },
             resize() {
             }
         }

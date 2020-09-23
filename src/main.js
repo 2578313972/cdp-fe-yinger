@@ -81,6 +81,18 @@ Vue.prototype.$lodash = lodash;
 Vue.prototype.$api = api;
 Vue.prototype.$https = https;
 
+// 自定义组件
+const requireComponents = require.context('./utils', true, /[^index]\.js/);
+
+console.log([...requireComponents('./global.js')]);
+// // 打印结果
+// // 遍历出每个组件的路径
+// requireComponents.keys().forEach((fileName) => {
+//   // 组件实例
+//   const reqCom = requireComponents(fileName);
+//   console.log(fileName, reqCom);
+// });
+
 
 Vue.prototype.$time = function (date) {
     const timeArr = date.toLocaleDateString().replace(/\//g, '-').split('-');
@@ -93,7 +105,7 @@ Vue.prototype.$time = function (date) {
 };
 
 Vue.prototype.$kilobit = function (num) {
-    return (num || 0) && num.toString(10).split('.')[0].split('').reduceRight((data, item) => {
+    return (num || 0) && Math.round(num).toString(10).split('.')[0].split('').reduceRight((data, item) => {
         data = data[0] && data[0].length % 3 ? data : ['', ...data];
         data[0] = item + data[0];
         return data;

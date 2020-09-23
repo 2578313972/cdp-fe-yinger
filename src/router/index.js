@@ -176,19 +176,19 @@ function getSession(to, from, next) {
                     path: ''
                 };
 
-                const monitorUser = {
-                    children: [
-                        { name: '数据工程', path: '/dataEngineering' },
-                        { name: 'cdp报表', path: '/cdpReport' }
-                    ],
-                    icon: 'md-stats',
-                    name: '监控视图',
-                    path: ''
-                };
+                // const monitorUser = {
+                //     children: [
+                //         { name: '数据工程', path: '/dataEngineering' },
+                //         { name: 'cdp报表', path: '/cdpReport' }
+                //     ],
+                //     icon: 'md-stats',
+                //     name: '监控视图',
+                //     path: ''
+                // };
 
 
-            //    res.data.role_view.menus.push(markeCampaign, analysisPeople, returnAnalysis, dataDownload);
-               res.data.role_view.menus.push(markeCampaign, analysisPeople, returnAnalysis, dataDownload, monitorUser);
+               res.data.role_view.menus.push(markeCampaign, analysisPeople, returnAnalysis, dataDownload);
+            //    res.data.role_view.menus.push(markeCampaign, analysisPeople, returnAnalysis, dataDownload, monitorUser);
             }
 
 
