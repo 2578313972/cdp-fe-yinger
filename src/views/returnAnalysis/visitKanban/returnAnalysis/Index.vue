@@ -2,17 +2,41 @@
   <div class="page-warpper">
     <div class="page-content page-content-tab padding16-18">
       <Card dis-hover>
-        <Row type="flex" justify="space-between" class="code-row-bg padding16-18">
-          <i-col style="font-size:18px;" span="24">
+        <Row
+          type="flex"
+          justify="space-between"
+          class="code-row-bg padding16-18"
+        >
+          <i-col style="font-size: 18px" span="24">
             <i-input
-              class="width300"
-              v-model="name"
+              class="width200"
+              v-model="source_type"
               icon="ios-search"
               placeholder="回访类型搜索"
               @input="debounceSearch"
             ></i-input>
-              共<a href="javascript:void(0)" style="cursor: default;">{{allDataSize}}</a>个对比任务
-              </i-col>
+            <i-input
+              class="width200"
+              v-model="batch_num"
+              icon="ios-search"
+              placeholder="回访批次号搜索"
+              @input="debounceSearch"
+            ></i-input>
+            <i-input
+              class="width200"
+              v-model="department"
+              icon="ios-search"
+              placeholder="回访组织搜索"
+              @input="debounceSearch"
+            ></i-input>
+            <DatePicker type="daterange" @on-change="timeChange" :value="timeQuantum" placement="bottom-end" placeholder="回访时间区间" style="width: 220px"></DatePicker>
+
+
+            共<a href="javascript:void(0)" style="cursor: default">{{
+              allDataSize
+            }}</a
+            >个对比任务
+          </i-col>
         </Row>
         <Table
           class="smce-table-noscroll td-table-no-border"
@@ -50,7 +74,10 @@
         name: 'Group',
         data() {
             return {
-                name: '',
+                source_type: '',
+                batch_num: '',
+                department: '',
+                timeQuantum: [],
                 current: 1,
                 pageSize: 10,
                 loading: false, // table的loading
@@ -69,11 +96,17 @@
                 {
                     title: '回访类型',
                     key: 'source_type',
-                    minWidth: 120
+                    minWidth: 100
                 },
                 {
                     title: '回访批次号',
                     key: 'batch_num',
+                    align: 'center',
+                    minWidth: 120
+                },
+                {
+                    title: '回访组织',
+                    key: 'department',
                     align: 'center',
                     minWidth: 120
                 },
@@ -89,49 +122,49 @@
                     align: 'center',
                     minWidth: 150,
                     render: (h, params) => (
-                        <span>
-                            {params.row.creator ? params.row.creator : '系统创建'}
-                        </span>
-                    )
+          <span>{params.row.creator ? params.row.creator : '系统创建'}</span>
+        )
                 },
                 {
                     title: '创建时间',
                     minWidth: 150,
                     align: 'center',
                     render: (h, params) => (
-                      <div>{new Date(params.row.create_time).toLocaleString()}</div>
-                    )
+          <div>{new Date(params.row.create_time).toLocaleString()}</div>
+        )
                 },
                 {
                     title: '操作',
                     key: 'action',
                     width: 100,
                     align: 'center',
-                    render: (h, params) => (h('div', {
-                        style: {
-                            display: 'flex',
-                            justifyContent: 'space-around'
-                        }
-                    }, [
-                        h(
-                            'a', {
-                                on: {
-                                    click: () => {
-                                        this.analysis(params);
+                    render: (h, params) => h(
+                        'div',
+                        {
+                            style: {
+                                display: 'flex',
+                                justifyContent: 'space-around'
+                            }
+                        },
+                        [
+                            h(
+                                'a',
+                                {
+                                    on: {
+                                        click: () => {
+                                            this.analysis(params);
+                                        }
                                     }
-                                }
-                            },
-                            '分析'
-                        ),
-                        h(
-                            CreateOut,
-                            {
+                                },
+                                '分析'
+                            ),
+                            h(CreateOut, {
                                 props: {
                                     data: params
                                 }
-                            }
-                        )
-                    ]))
+                            })
+                        ]
+                    )
                 }
             ];
             this.getData();
@@ -140,24 +173,36 @@
             this.debouncePage = this.$lodash.debounce(this.pageChange, timer); // 分页
         },
         methods: {
+            timeChange(e) {
+                this.timeQuantum = e;
+                this.changeInput();
+            },
             /** 获取接口数据 */
             getData() {
                 this.loading = true;
-                this.$https.visitKanban.queryTaskList({
-                    page: this.current,
-                    rows: this.pageSize,
-                    displayName: this.name
-                }).then((res) => {
-                    if (res.data.data) {
-                        this.showData = res.data.data;
-                        this.allDataSize = res.data.pageInfo.total;
-                    }
-                    this.loading = false;
-                });
+                this.$https.visitKanban
+                    .queryTaskList({
+                        page: this.current,
+                        rows: this.pageSize,
+                        sourceType: this.source_type,
+                        batchNum: this.batch_num,
+                        department: this.department,
+                        startTime: this.timeQuantum[0],
+                        endTime: this.timeQuantum[1]
+                    })
+                    .then((res) => {
+                        if (res.data.data) {
+                            this.showData = res.data.data;
+                            this.allDataSize = res.data.pageInfo.total;
+                        }
+                        this.loading = false;
+                    });
             },
             /** 点击分析 */
             analysis(params) {
-                this.$router.push(`visitKanban/ReturnAnalysisPage?f_id=${params.row.f_id}`);
+                this.$router.push(
+                    `visitKanban/ReturnAnalysisPage?f_id=${params.row.f_id}`
+                );
             },
             /** 模糊查询 */
             changeInput() {
@@ -173,10 +218,10 @@
     };
 </script>
 <style lang="less" scoped>
-.page-content.page-content-tab.padding16-18{
-    min-height: 800px;
+.page-content.page-content-tab.padding16-18 {
+  min-height: 800px;
 }
-  /deep/ .ivu-card-body {
-    padding: 0 !important;
-  }
+/deep/ .ivu-card-body {
+  padding: 0 !important;
+}
 </style>

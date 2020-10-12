@@ -76,7 +76,7 @@
                 data: [],
                 allData: [],
                 allDataSize: 0,
-                calculate_status_item: ['未开始', '计算成功', '计算失败'],
+                calculate_status_item: ['未开始', '计算成功', '计算失败', '计算中'],
                 maxPage: 0
             };
         },
@@ -178,7 +178,7 @@
                             item.ifItem += `[${item.jlb}] `;
                             if (item.brand !== '') item.ifItem += `[${item.brand}] `;
                             if (item.area !== '') item.ifItem += `[${item.area}] `;
-                            item.ifItem += `[${item.store}]`;
+                            if (item.store !== '') item.ifItem += `[${item.store}] `;
                             item.ifItem = item.ifItem.slice(9);
                         });
                         console.log(this.data);

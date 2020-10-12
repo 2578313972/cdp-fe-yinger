@@ -1,4 +1,3 @@
-
 // Template version: 1.3.1
 // see http://vuejs-templates.github.io/webpack for documentation.
 
@@ -10,18 +9,18 @@ module.exports = {
         assetsSubDirectory: 'static',
         assetsPublicPath: '/',
         proxyTable: {
-        /**
-            "/cdp-web": {
-                target: "http://localhost:3000",
-                secure: false,
-                // cookie JSESSIONID设置了httpOnly不能重写cookie到target，故无效
-                cookieDomainRewrite: "localhost",
-                changeOrigin: true,
-                pathRewrite: {
-                    "^/cdp-web": "/cdp-web"
+            /**
+                "/cdp-web": {
+                    target: "http://localhost:3000",
+                    secure: false,
+                    // cookie JSESSIONID设置了httpOnly不能重写cookie到target，故无效
+                    cookieDomainRewrite: "localhost",
+                    changeOrigin: true,
+                    pathRewrite: {
+                        "^/cdp-web": "/cdp-web"
+                    }
                 }
-            }
-        */
+            */
             '/cdp-web': {
                 target: 'http://192.168.19.183',
                 secure: false,
@@ -30,7 +29,7 @@ module.exports = {
                     '^/cdp-web': '/cdp-web'
                 },
                 headers: {
-                    Cookie: 'cdp-session-id=6CC68ED516FC08EF307D9A94E0CD8D0F;', // JSESSIONID=937286E9B4F243A175F01CAF77582418;
+                    Cookie: 'cdp-session-id=60240F84BF4C94C4EE7EF415A3C8B2AD;', // JSESSIONID=937286E9B4F243A175F01CAF77582418;
                     Referer: 'localhost/cdp/',
                     Host: '192.168.19.183'
                 }

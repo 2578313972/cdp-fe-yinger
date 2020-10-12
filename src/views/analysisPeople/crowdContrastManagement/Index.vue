@@ -75,7 +75,7 @@
                 butData: ['全部'],
                 loading: false, // table的loading
                 creatEvent: false,
-                calculate_status_item: ['未开始', '计算成功', '计算失败'],
+                calculate_status_item: ['未开始', '计算成功', '计算失败', '计算中'],
                 columns: [],
                 data: [],
                 allData: [],

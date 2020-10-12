@@ -7,15 +7,17 @@
     </div>
     <div class="page-content page-content-tab padding16-18">
       <Card dis-hover>
-        <Row type="flex" justify="space-between" class="code-row-bg padding16-18">
+        <Row
+          type="flex"
+          justify="space-between"
+          class="code-row-bg padding16-18"
+        >
           <i-col>
             <Button-group>
-              <i-button
-                v-for="(item) in butData"
-                :key="item"
-                type="primary"
-              >{{item}}</i-button>
-              </Button-group>
+              <i-button v-for="item in butData" :key="item" type="primary">{{
+                item
+              }}</i-button>
+            </Button-group>
             <i-input
               class="width300"
               @input="debounceSearch"
@@ -23,16 +25,28 @@
               icon="ios-search"
               placeholder="输入任务名称"
             ></i-input>
-            <span style="padding-left:10px;" v-if="dataChild.length">
-                当前已选中的任务：
-                <span style="font-weight:600;" v-for="(item,index) in dataChild" :key="index">
+            <span style="padding-left: 10px" v-if="dataChild.length">
+              当前已选中的任务：
+              <span
+                style="font-weight: 600"
+                v-for="(item, index) in dataChild"
+                :key="index"
+              >
                 {{ item.code }}、
-                </span>
-                <span :style="{color:dataChild.length>3?'red':'black'}">（可选对比人群不超过3个）</span>
+              </span>
+              <span :style="{ color: dataChild.length > 3 ? 'red' : 'black' }"
+                >（可选对比人群不超过3个）</span
+              >
             </span>
           </i-col>
           <i-col>
-            <i-button :disabled="!dataChild.length" @click="addData" icon="md-add" type="primary">对比</i-button>
+            <i-button
+              :disabled="!dataChild.length"
+              @click="addData"
+              icon="md-add"
+              type="primary"
+              >对比</i-button
+            >
           </i-col>
         </Row>
         <Table
@@ -45,7 +59,7 @@
         ></Table>
         <Page
           class="mt16 padding16-18 ivu-row-flex ivu-row-flex-end"
-          :current = "current"
+          :current="current"
           :page-size="pageSize"
           :total="allDataSize"
           @on-change="debouncePage"
@@ -77,7 +91,7 @@
                 butData: ['全部'],
                 loading: false, // table的loading
                 creatEvent: false,
-                calculate_status_item: ['未开始', '计算成功', '计算失败'],
+                calculate_status_item: ['未开始', '计算成功', '计算失败', '计算中'],
                 columns: [],
                 data: [],
                 allData: [],
@@ -99,27 +113,31 @@
             /** 获取接口数据 */
             getData() {
                 this.loading = true;
-                this.$https.analysisContrastManagement.queryOrderList({
-                    displayName: this.name,
-                    page: this.current,
-                    rows: this.pageSize
-                }).then((res) => {
-                    if (res.data.data) {
-                        this.data = res.data.data;
-                        this.data.forEach((item) => {
-                            item.action = false;
-                        });
-                        if (this.dataChild.length > 0) {
-                            this.dataChild.forEach((item) => {
-                                const act = this.data.find(item_2 => item_2.code === item.code);
-                                act && (act.action = true);
+                this.$https.analysisContrastManagement
+                    .queryOrderList({
+                        displayName: this.name,
+                        page: this.current,
+                        rows: this.pageSize
+                    })
+                    .then((res) => {
+                        if (res.data.data) {
+                            this.data = res.data.data;
+                            this.data.forEach((item) => {
+                                item.action = false;
                             });
+                            if (this.dataChild.length > 0) {
+                                this.dataChild.forEach((item) => {
+                                    const act = this.data.find(
+                                        item_2 => item_2.code === item.code
+                                    );
+                                    act && (act.action = true);
+                                });
+                            }
+                            this.allDataSize = res.data.pageInfo.total;
+                            this.tableColumn();
                         }
-                        this.allDataSize = res.data.pageInfo.total;
-                        this.tableColumn();
-                    }
-                    this.loading = false;
-                });
+                        this.loading = false;
+                    });
             },
             /** 重新渲染Table结构 */
             tableColumn() {
@@ -140,15 +158,17 @@
                         align: 'center',
                         width: 220,
                         render: (h, params) => (
-                <div>{params.row.start_time_day} 至 {params.row.end_time_day}</div>
-                )
+            <div>
+              {params.row.start_time_day} 至 {params.row.end_time_day}
+            </div>
+          )
                     },
                     {
                         title: '计算状态',
                         align: 'center',
                         render: (h, params) => (
-                        <div>{this.calculate_status_item[params.row.calculate_status]}</div>
-                    )
+            <div>{this.calculate_status_item[params.row.calculate_status]}</div>
+          )
                     },
                     {
                         title: '创建时间',
@@ -156,8 +176,8 @@
                         minWidth: 100,
                         tooltip: true,
                         render: (h, params) => (
-                    <div>{new Date(params.row.create_time).toLocaleString()}</div>
-                    )
+            <div>{new Date(params.row.create_time).toLocaleString()}</div>
+          )
                     },
                     {
                         title: '选择',
@@ -189,7 +209,10 @@
                     this.dataChild.push(this.data[params.index]);
                 } else {
                     const id = this.data[params.index].code;
-                    this.dataChild.splice(this.dataChild.findIndex(item => item.code === id), 1);
+                    this.dataChild.splice(
+                        this.dataChild.findIndex(item => item.code === id),
+                        1
+                    );
                 }
             },
             /** click添加活动 */
@@ -214,30 +237,42 @@
             },
             /** 提交新建事件 */
             submitCreat() {
-                this.$https.analysisContrastManagement.addOrderComparedTask({ taskIds: this.dataChild.map(item => item.code).toString() }).then((res) => {
-                    switch (res.data.success) {
-                    case 'true':
-                        console.log(this.dataChild);
-                        this.dataChild.forEach((item) => {
-                            const act = this.data.find(item_2 => item_2.code === item.code);
-                            act && (act.action = false);
-                        });
-                        this.dataChild = [];
-                        this.tableColumn();
-                        this.$Message.success({ background: true, content: res.data.msg });
-                        break;
-                    default:
-                        this.$Message.error({ background: true, content: res.data.msg });
-                        break;
-                    }
-                    this.creatEvent = false;
-                });
+                this.$https.analysisContrastManagement
+                    .addOrderComparedTask({
+                        taskIds: this.dataChild.map(item => item.code).toString()
+                    })
+                    .then((res) => {
+                        switch (res.data.success) {
+                        case 'true':
+                            console.log(this.dataChild);
+                            this.dataChild.forEach((item) => {
+                                const act = this.data.find(
+                                    item_2 => item_2.code === item.code
+                                );
+                                act && (act.action = false);
+                            });
+                            this.dataChild = [];
+                            this.tableColumn();
+                            this.$Message.success({
+                                background: true,
+                                content: res.data.msg
+                            });
+                            break;
+                        default:
+                            this.$Message.error({ background: true, content: res.data.msg });
+                            break;
+                        }
+                        this.creatEvent = false;
+                    });
             }
         }
     };
 </script>
 <style lang="less" scoped>
-/deep/ .ivu-checkbox-wrapper,/deep/ .ivu-checkbox{margin: 0 ;}
+/deep/ .ivu-checkbox-wrapper,
+/deep/ .ivu-checkbox {
+  margin: 0;
+}
 /deep/ .ivu-card-body {
   padding: 0 !important;
 }

@@ -85,8 +85,8 @@
                 >{{ item.label }}</i-option>
               </i-select>
             </Form-item>
-            &nbsp;&nbsp;&nbsp;选择门店&nbsp;
-            <Form-item prop="copyshop" >
+            <span v-if="onLine">&nbsp;&nbsp;&nbsp;选择门店&nbsp;</span>
+            <Form-item v-if="onLine">
               <i-select
                 filterable
                 @on-change="shopChange"
@@ -150,11 +150,13 @@
                 colorList: [], // 金蓝标选择
                 otoList: [], // 线上 线下选择
 
+                onLine: true,
+
                 formValidate: { // 表单数据
                     code: '',
                     timeValue: [],
                     oto: [],
-                    ditch: '',
+                    ditch: [],
                     area: '',
                     shop: [],
                     model: [],
@@ -354,6 +356,13 @@
                 } else {
                     this.selectVal = '';
                 }
+                if (e.length === 1 && e[0] === '线上') {
+                    console.log('login');
+                    this.onLine = false;
+                    this.formValidate.shop = [];
+                } else {
+                    this.onLine = true;
+                }
             },
             /** 金蓝标 */
             optionChange(e) {
@@ -374,6 +383,7 @@
                 // 区域
                 const areaObj = this.areaList.find(item => item.value === this.formValidate.area);
                 // 品牌
+                console.log(this.formValidate.ditch);
                 const brandObj = this.formValidate.ditch.map(data => this.ditchList.find(item => item.value === data).label);
 
                 let area; let brand;

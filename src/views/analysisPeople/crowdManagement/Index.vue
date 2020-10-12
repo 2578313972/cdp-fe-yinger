@@ -87,7 +87,7 @@
         },
         created() {
             this.butData = ['全部'];
-            this.calculate_status_item = ['未开始', '计算成功', '计算失败'];
+            this.calculate_status_item = ['未开始', '计算成功', '计算失败', '计算中'];
             this.statusName = ['nostarted', 'completed', 'failed'];
 
             /** 请求数据接口 */
