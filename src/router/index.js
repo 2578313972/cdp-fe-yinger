@@ -160,13 +160,13 @@ function getSession(to, from, next) {
                 };
                 const returnAnalysis = {
                     children: [
-                        { name: '回访看板', path: '/visitKanban' }
+                        { name: '回访看板', path: '/visitKanban' },
+                        { name: '回访统计看板', path: '/statisticsKanban' }
                     ],
                     icon: 'ios-sync',
                     name: '回访分析',
                     path: ''
                 };
-
                 const dataDownload = {
                     children: [
                         { name: '数据下载', path: '/dataDown' }
@@ -175,20 +175,7 @@ function getSession(to, from, next) {
                     name: '数据下载',
                     path: ''
                 };
-
-                // const monitorUser = {
-                //     children: [
-                //         { name: '数据工程', path: '/dataEngineering' },
-                //         { name: 'cdp报表', path: '/cdpReport' }
-                //     ],
-                //     icon: 'md-stats',
-                //     name: '监控视图',
-                //     path: ''
-                // };
-
-
                res.data.role_view.menus.push(markeCampaign, analysisPeople, returnAnalysis, dataDownload);
-            //    res.data.role_view.menus.push(markeCampaign, analysisPeople, returnAnalysis, dataDownload, monitorUser);
             }
 
 

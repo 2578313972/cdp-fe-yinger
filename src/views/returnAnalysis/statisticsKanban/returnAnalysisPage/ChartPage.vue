@@ -28,25 +28,6 @@
     </Row>
 
     <Row style="width: 100%; margin-top: 15px">
-      <i-col
-        span="24"
-        class="borbox"
-        style="text-align: right; margin-bottom: 10px; padding-right: 35px"
-      >
-        任务起始时间：<span style="color: #0e7ce2; padding-right: 20px">{{
-          this.$time(new Date(this.allData.create_time))
-        }}</span>
-        任务结束时间：<DatePicker
-          type="date"
-          :value="timeVal"
-          :clearable="false"
-          :options="options"
-          @on-change="timeChange"
-          :start-date="new Date()"
-          placeholder="请选择结束时间"
-          style="width: 250px"
-        ></DatePicker>
-      </i-col>
       <i-col span="24" style="display: flex; flex-wrap: wrap">
         <Table
           class="smce-table-noscroll td-table-no-border"
@@ -83,9 +64,6 @@
                 chart_2: null,
                 chart_3: null,
                 chart_4: null,
-                // time
-                timeVal: '',
-                options: {}, // 时间选择配置
                 // table data
                 columns: [],
                 tableData: [],
@@ -203,11 +181,7 @@
         )
                 }
             ];
-            this.options = {
-                disabledDate: date => date && date.valueOf() < this.allData.create_time - 1000 * 60 * 60 * 24
-            };
-            // 结束时间定义为当前时间
-            this.timeChange(this.$time(new Date()));
+            this.getTableData();
         },
         mounted() {
             // 初始化echart
@@ -219,32 +193,18 @@
             });
         },
         methods: {
-            /** 时间下拉框 */
-            timeChange(e) {
-                if (e < this.$time(new Date(this.allData.create_time))) {
-                    this.$Message.warning({
-                        background: true,
-                        content: '结束时间不可早于创建时间!'
-                    });
-                    return;
-                }
-                this.timeVal = e;
-                this.getTableData();
-            },
             /** table 数据 */
             getTableData() {
-                this.$https.visitKanban
-                    .result({
-                        code: this.$route.query.f_id,
-                        data: {
-                            area: this.queryOptions.area && this.queryOptions.area.split(),
-                            brand: this.queryOptions.brand && this.queryOptions.brand.split(),
-                            shop: this.queryOptions.shop,
-                            startTimeDay: this.$time(new Date(this.allData.create_time)),
-                            endTimeDay: this.timeVal
-                        }
+                this.$https.statisticsKanban
+                    .queryTotalResultByFIds({
+                        fids: this.$route.params.id,
+                        startTimeDay: sessionStorage.getItem('startTimeDay'),
+                        endTimeDay: sessionStorage.getItem('endTimeDay')
                     })
                     .then((res) => {
+                        // sessionStorage.removeItem('sourceType');
+                        // sessionStorage.removeItem('startTimeDay');
+                        // sessionStorage.removeItem('endTimeDay');
                         this.tableDataClone = res.data.data;
                         this.total = this.tableDataClone.length;
                         this.pageChange(this.current);

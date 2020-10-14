@@ -86,6 +86,10 @@ const DetailsCrowd = () => import('@/views/analysisPeople/crowdKanban/detailsCro
 const VisitKanban = () => import('@/views/returnAnalysis/visitKanban'); // 回访看板 主页
 const ReturnAnalysis = () => import('@/views/returnAnalysis/visitKanban/returnAnalysis'); // 回访看板
 const ReturnAnalysisPage = () => import('@/views/returnAnalysis/visitKanban/returnAnalysisPage'); // 回访看板 详情页面
+const StatisticsKanban = () => import('@/views/returnAnalysis/StatisticsKanban'); // 回访统计看板 主页
+const StatisticsAnalysis = () => import('@/views/returnAnalysis/StatisticsKanban/returnAnalysis'); // 回访统计看板
+const StatisticsAnalysisPage = () => import('@/views/returnAnalysis/StatisticsKanban/returnAnalysisPage'); // 回访统计看板 详情页面
+
 
 // 数据下载
 const DataDown = () => import('@/views/dataDownload/dataDown'); // 数据下载
@@ -345,6 +349,14 @@ const Routers = {
             children: [
                 { path: '', name: 'returnAnalysis', component: ReturnAnalysis },
                 { path: 'ReturnAnalysisPage', name: 'returnAnalysisPage', component: ReturnAnalysisPage }
+            ]
+        },
+        {
+            path: '/statisticsKanban', // 回访统计看板
+            component: StatisticsKanban,
+            children: [
+                { path: '', name: 'statisticsAnalysis', component: StatisticsAnalysis },
+                { path: 'statisticsAnalysisPage:id', name: 'statisticsAnalysisPage', component: StatisticsAnalysisPage }
             ]
         },
         {

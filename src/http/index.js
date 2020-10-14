@@ -91,6 +91,18 @@ const visitKanban = {
     result: data => axios.post(`/cdp-web/marketplugin/resourcemarkt/result/${data.code}`, data.data)
 };
 
+// 回访统计看板
+const statisticsKanban = {
+    // 回访统计资源列表
+    queryTotalTaskList: params => axios.get('/cdp-web/marketplugin/resourcemarkt/queryTotalTaskList', { params }),
+    // 回访统计资源类型查询
+    querySourceType: () => axios.get('/cdp-web/marketplugin/resourcemarkt/querySourceType'),
+    // 回访统计报表分析接口
+    queryTotalDetailByFIds: data => axios.post('/cdp-web/marketplugin/resourcemarkt/detail/queryTotalDetailByFIds', data),
+    // 回访统计效果统计分析接口
+    queryTotalResultByFIds: data => axios.post('/cdp-web/marketplugin/resourcemarkt/result/queryTotalResultByFIds', data)
+};
+
 /** 数据下载 */
 // 数据下载
 const dataDown = {
@@ -110,6 +122,7 @@ export {
     crowdKanban,
 
     visitKanban,
+    statisticsKanban,
 
     dataDown
 };

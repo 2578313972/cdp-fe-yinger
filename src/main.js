@@ -82,9 +82,9 @@ Vue.prototype.$api = api;
 Vue.prototype.$https = https;
 
 // 自定义组件
-const requireComponents = require.context('./utils', true, /[^index]\.js/);
+// const requireComponents = require.context('./utils', true, /[^index]\.js/);
 
-console.log([...requireComponents('./global.js')]);
+// console.log([...requireComponents('./global.js')]);
 // // 打印结果
 // // 遍历出每个组件的路径
 // requireComponents.keys().forEach((fileName) => {
