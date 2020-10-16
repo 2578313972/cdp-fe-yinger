@@ -101,12 +101,12 @@
                     align: 'center',
                     minWidth: 120
                 },
-                {
-                    title: '分配人数',
-                    key: 'total_vip_count',
-                    align: 'center',
-                    minWidth: 150
-                },
+                // {
+                //     title: '分配人数',
+                //     key: 'total_vip_count',
+                //     align: 'center',
+                //     minWidth: 150
+                // },
                 {
                     title: '创建人',
                     key: 'creator',

@@ -37,6 +37,7 @@
         "iview": "^3.5.4",
         "js-sha1": "^0.6.0",
         "lodash": "^4.17.11",
+        "pikaz-excel-js": "^0.2.14",
         "smooth-scrollbar": "^8.3.0",
         "td-component": "^1.0.7",
         "vue": "^2.5.17",

@@ -27,8 +27,21 @@
       </Card>
     </Row>
 
-    <Row style="width: 100%; margin-top: 15px">
+    <Row style="width: 100%; margin-top: 15px;display: flex;flex-wrap: wrap;">
+      <i-col
+        span="24"
+        class="borbox"
+        :style="{width:gaugeWidth * 0.98+'px',textAlign:'right',margin:'0 auto',marginBottom:'10px',}"
+      >
+        <excel-export style="display:inline;" :before-start="beforeStart" :filename="filename" :sheet="sheet">
+            <Button :disabled="excelDisabled" type="primary">
+                <span v-if="!excelDisabled">导出</span>
+                <span v-else> 已导出 </span>
+            </Button>
+        </excel-export>
+      </i-col>
       <i-col span="24" style="display: flex; flex-wrap: wrap">
+
         <Table
           class="smce-table-noscroll td-table-no-border"
           border
@@ -55,6 +68,8 @@
   </div>
 </template>
 <script>
+    import { ExcelExport } from 'pikaz-excel-js';
+
     export default {
         name: 'whole-order',
         data() {
@@ -68,6 +83,20 @@
                 columns: [],
                 tableData: [],
                 tableDataClone: [],
+                filename: `${sessionStorage.getItem('sourceType')}。 时间：${sessionStorage.getItem('startTimeDay')}至${sessionStorage.getItem('endTimeDay')} `,
+                excelDisabled: false,
+
+                sheet: [
+                    // [sessionStorage.getItem('sourceType'), sessionStorage.getItem('startTimeDay'), sessionStorage.getItem('endTimeDay')].toString();
+                    {
+                        // title: `资源类型： ${sessionStorage.getItem('sourceType')}。 时间：${sessionStorage.getItem('startTimeDay')}至${sessionStorage.getItem('endTimeDay')} `,
+                        tHeader: ['区域', '店铺数', '推送会员数', '未分配会员数', '回访会员数', '回访率', '回访后销售会员数', '回访后销售额度', '收货人销售金额', '店均销售'],
+                        keys: ['area', 'shop_num', 'dispatched_vip_count', 'non_dispatched_vip_count', 'visited_vip_count', 'visited_rate', 'visited_vip_buyed_total', 'visited_vip_sales_total', 'visited_vip_consignee_sales_total', 'shop_avg_sales'],
+                        table: [],
+                        sheetName: '回访统计列表',
+                        cellStyle: []
+                    }
+                ],
                 current: 1,
                 pageSize: 10,
                 total: 0
@@ -91,6 +120,9 @@
                 default: 'total'
             }
         },
+        components: {
+            ExcelExport
+        },
         created() {
             this.columns = [
                 {
@@ -105,7 +137,7 @@
                     key: 'shop_num',
                     align: 'center',
                     tooltip: true,
-                    minWidth: 100
+                    minWidth: 80
                 },
                 {
                     title: '推送会员数',
@@ -124,7 +156,7 @@
                     key: 'non_dispatched_vip_count',
                     align: 'center',
                     tooltip: true,
-                    minWidth: 100
+                    minWidth: 110
                 },
                 {
                     title: '回访会员数',
@@ -151,7 +183,7 @@
                     key: 'visited_vip_buyed_total',
                     align: 'center',
                     tooltip: true,
-                    minWidth: 120,
+                    minWidth: 140,
                     render: (h, params) => (
           <div>
             {this.$kilobit(Math.round(params.row.visited_vip_buyed_total))}
@@ -163,10 +195,22 @@
                     key: 'visited_vip_sales_total',
                     align: 'center',
                     tooltip: true,
-                    minWidth: 120,
+                    minWidth: 130,
                     render: (h, params) => (
           <div>
             {this.$kilobit(Math.round(params.row.visited_vip_sales_total))}
+          </div>
+        )
+                },
+                {
+                    title: '收货人销售金额',
+                    key: 'visited_vip_consignee_sales_total',
+                    align: 'center',
+                    tooltip: true,
+                    minWidth: 130,
+                    render: (h, params) => (
+          <div>
+            {this.$kilobit(Math.round(params.row.visited_vip_consignee_sales_total))}
           </div>
         )
                 },
@@ -207,6 +251,38 @@
                         // sessionStorage.removeItem('endTimeDay');
                         this.tableDataClone = res.data.data;
                         this.total = this.tableDataClone.length;
+                        this.sheet[0].table = this.tableDataClone.reduce((sumArr, item) => {
+                            const itemData = {
+                                area: item.area,
+                                shop_num: item.shop_num,
+                                dispatched_vip_count: this.$kilobit(Math.round(item.dispatched_vip_count)),
+                                non_dispatched_vip_count: this.$kilobit(Math.round(item.non_dispatched_vip_count)),
+                                visited_vip_count: this.$kilobit(Math.round(item.visited_vip_count)),
+                                visited_rate: `${Math.round(item.visited_rate * 10000) / 100}%`,
+                                visited_vip_buyed_total: this.$kilobit(Math.round(item.visited_vip_buyed_total)),
+                                visited_vip_sales_total: this.$kilobit(Math.round(item.visited_vip_sales_total)),
+                                visited_vip_consignee_sales_total: this.$kilobit(Math.round(item.visited_vip_consignee_sales_total)),
+                                shop_avg_sales: this.$kilobit(Math.round(item.shop_avg_sales))
+                            };
+                            return [...sumArr, itemData];
+                        }, []);
+                        const len = this.tableDataClone.length + 1;
+                        const letter = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J'];
+                        for (let i = 0; i < 10; i++) {
+                            this.sheet[0].cellStyle.push({
+                                cell: letter[i] + len,
+                                font: {
+                                    name: '宋体',
+                                    sz: 14,
+                                    color: { rgb: 'ffffff' },
+                                    bold: true
+                                },
+                                fill: {
+                                    fgColor: { rgb: 'ff7e00' }
+                                }
+                            });
+                        }
+
                         this.pageChange(this.current);
                     });
             },
@@ -215,6 +291,9 @@
                 this.current = e;
                 const startPage = (this.current - 1) * this.pageSize;
                 this.tableData = this.tableDataClone.slice(startPage, startPage + this.pageSize);
+            },
+            beforeStart() {
+                this.excelDisabled = true;
             },
             /** page-size-change */
             pageSizeChange(e) {
