@@ -135,7 +135,6 @@
         methods: {
             timeChange(e) {
                 this.current = 1;
-                ((!!e[0] || !!e[1]) && !!this.sourceType) ? (this.disabled = false) : (this.disabled = true);
                 this.timeQuantum = e;
                 this.getData();
             },
@@ -144,7 +143,6 @@
                 this.getData();
             },
             sourceTypeChange() {
-                ((!!this.timeQuantum[0] || !!this.timeQuantum[1]) && !!this.sourceType) ? (this.disabled = false) : (this.disabled = true);
                 this.current = 1;
                 this.getData();
             },
@@ -161,11 +159,11 @@
                         endTime: this.timeQuantum[1]
                     })
                     .then((res) => {
-                        console.log(res);
                         if (res.data.data) {
                             this.showData = res.data.data;
                             this.allFidsData = res.data.allFidsData;
                             this.allDataSize = res.data.pageInfo.total;
+                            ((!!this.timeQuantum[0] || !!this.timeQuantum[1]) && !!this.sourceType && this.allFidsData.length) ? (this.disabled = false) : (this.disabled = true);
                         }
                         this.loading = false;
                     });
@@ -175,6 +173,11 @@
                 sessionStorage.setItem('sourceType', this.sourceType);
                 sessionStorage.setItem('startTimeDay', this.timeQuantum[0]);
                 sessionStorage.setItem('endTimeDay', this.timeQuantum[1]);
+                console.log({
+                    startTimeDay: this.timeQuantum[0],
+                    endTimeDay: this.timeQuantum[1],
+                    id: this.allFidsData.toString()
+                });
                 this.$router.push({
                     name: 'statisticsAnalysisPage',
                     params: {

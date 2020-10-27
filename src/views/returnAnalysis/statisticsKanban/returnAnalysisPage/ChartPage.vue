@@ -33,6 +33,17 @@
         class="borbox"
         :style="{width:gaugeWidth * 0.98+'px',textAlign:'right',margin:'0 auto',marginBottom:'10px',}"
       >
+        任务起始时间：<span style="color: #0e7ce2; padding-right: 20px">{{ startDay }}</span>
+        任务结束时间：<DatePicker
+          type="date"
+          :value="timeVal"
+          :clearable="false"
+          :options="options"
+          @on-change="timeChange"
+          :start-date="new Date()"
+          placeholder="请选择结束时间"
+          style="width: 250px"
+        ></DatePicker>
         <excel-export style="display:inline;" :before-start="beforeStart" :filename="filename" :sheet="sheet">
             <Button :disabled="excelDisabled" type="primary">
                 <span v-if="!excelDisabled">导出</span>
@@ -79,11 +90,14 @@
                 chart_2: null,
                 chart_3: null,
                 chart_4: null,
-                // table data
+                // table data,
+                startDay: sessionStorage.getItem('startTimeDay'),
+                timeVal: '',
+                options: {},
                 columns: [],
                 tableData: [],
                 tableDataClone: [],
-                filename: `${sessionStorage.getItem('sourceType')}。 时间：${sessionStorage.getItem('startTimeDay')}至${sessionStorage.getItem('endTimeDay')} `,
+                filename: `${sessionStorage.getItem('sourceType')}。 时间：${this.startDay}至${this.timeVal} `,
                 excelDisabled: false,
 
                 sheet: [
@@ -128,6 +142,13 @@
                 {
                     title: '区域',
                     key: 'area',
+                    align: 'center',
+                    tooltip: true,
+                    minWidth: 100
+                },
+                {
+                    title: '部门',
+                    key: 'department',
                     align: 'center',
                     tooltip: true,
                     minWidth: 100
@@ -225,7 +246,11 @@
         )
                 }
             ];
-            this.getTableData();
+            this.options = {
+                disabledDate: date => date && date.valueOf() < new Date(this.startDay).valueOf() - 1000 * 60 * 60 * 24
+            };
+            // 结束时间定义为当前时间
+            this.timeChange(this.$time(new Date()));
         },
         mounted() {
             // 初始化echart
@@ -237,18 +262,20 @@
             });
         },
         methods: {
+            /** 时间下拉框 */
+            timeChange(e) {
+                this.timeVal = e;
+                this.getTableData();
+            },
             /** table 数据 */
             getTableData() {
                 this.$https.statisticsKanban
                     .queryTotalResultByFIds({
                         fids: this.$route.params.id,
-                        startTimeDay: sessionStorage.getItem('startTimeDay'),
-                        endTimeDay: sessionStorage.getItem('endTimeDay')
+                        startTimeDay: this.startDay,
+                        endTimeDay: this.timeVal
                     })
                     .then((res) => {
-                        // sessionStorage.removeItem('sourceType');
-                        // sessionStorage.removeItem('startTimeDay');
-                        // sessionStorage.removeItem('endTimeDay');
                         this.tableDataClone = res.data.data;
                         this.total = this.tableDataClone.length;
                         this.sheet[0].table = this.tableDataClone.reduce((sumArr, item) => {

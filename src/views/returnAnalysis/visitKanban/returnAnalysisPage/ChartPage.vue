@@ -148,6 +148,13 @@
                     minWidth: 100
                 },
                 {
+                    title: '部门',
+                    key: 'department',
+                    align: 'center',
+                    tooltip: true,
+                    minWidth: 100
+                },
+                {
                     title: '店铺数',
                     key: 'shop_num',
                     align: 'center',
