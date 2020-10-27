@@ -46,11 +46,16 @@
           placeholder="请选择结束时间"
           style="width: 250px"
         ></DatePicker>
-        <excel-export style="display:inline" :before-start="beforeStart" :filename="filename" :sheet="sheet">
-            <Button :disabled="excelDisabled" type="primary">
-                <span v-if="!excelDisabled">导出</span>
-                <span v-else> 已导出 </span>
-            </Button>
+        <excel-export
+          style="display: inline"
+          :before-start="beforeStart"
+          :filename="filename"
+          :sheet="sheet"
+        >
+          <Button :disabled="excelDisabled" type="primary">
+            <span v-if="!excelDisabled">导出</span>
+            <span v-else> 已导出 </span>
+          </Button>
         </excel-export>
       </i-col>
       <i-col span="24" style="display: flex; flex-wrap: wrap">
@@ -105,8 +110,32 @@
                     // [sessionStorage.getItem('sourceType'), sessionStorage.getItem('startTimeDay'), sessionStorage.getItem('endTimeDay')].toString();
                     {
                         // title: `资源类型： ${sessionStorage.getItem('sourceType')}。 时间：${sessionStorage.getItem('startTimeDay')}至${sessionStorage.getItem('endTimeDay')} `,
-                        tHeader: ['区域', '店铺数', '推送会员数', '未分配会员数', '回访会员数', '回访率', '回访后销售会员数', '回访后销售额度', '收货人销售金额', '店均销售'],
-                        keys: ['area', 'shop_num', 'dispatched_vip_count', 'non_dispatched_vip_count', 'visited_vip_count', 'visited_rate', 'visited_vip_buyed_total', 'visited_vip_sales_total', 'visited_vip_consignee_sales_total', 'shop_avg_sales'],
+                        tHeader: [
+                            '区域',
+                            '部门',
+                            '店铺数',
+                            '推送会员数',
+                            '未分配会员数',
+                            '回访会员数',
+                            '回访率',
+                            '回访后销售会员数',
+                            '回访后销售额度',
+                            '收货人销售金额',
+                            '店均销售'
+                        ],
+                        keys: [
+                            'area',
+                            'department',
+                            'shop_num',
+                            'dispatched_vip_count',
+                            'non_dispatched_vip_count',
+                            'visited_vip_count',
+                            'visited_rate',
+                            'visited_vip_buyed_total',
+                            'visited_vip_sales_total',
+                            'visited_vip_consignee_sales_total',
+                            'shop_avg_sales'
+                        ],
                         table: [],
                         sheetName: '回访列表',
                         cellStyle: []
@@ -232,7 +261,9 @@
                     minWidth: 130,
                     render: (h, params) => (
           <div>
-            {this.$kilobit(Math.round(params.row.visited_vip_consignee_sales_total))}
+            {this.$kilobit(
+              Math.round(params.row.visited_vip_consignee_sales_total)
+            )}
           </div>
         )
                 },
@@ -294,21 +325,34 @@
                         this.sheet[0].table = this.tableDataClone.reduce((sumArr, item) => {
                             const itemData = {
                                 area: item.area,
+                                department: item.department || '',
                                 shop_num: item.shop_num,
-                                dispatched_vip_count: this.$kilobit(Math.round(item.dispatched_vip_count)),
-                                non_dispatched_vip_count: this.$kilobit(Math.round(item.non_dispatched_vip_count)),
-                                visited_vip_count: this.$kilobit(Math.round(item.visited_vip_count)),
+                                dispatched_vip_count: this.$kilobit(
+                                    Math.round(item.dispatched_vip_count)
+                                ),
+                                non_dispatched_vip_count: this.$kilobit(
+                                    Math.round(item.non_dispatched_vip_count)
+                                ),
+                                visited_vip_count: this.$kilobit(
+                                    Math.round(item.visited_vip_count)
+                                ),
                                 visited_rate: `${Math.round(item.visited_rate * 10000) / 100}%`,
-                                visited_vip_buyed_total: this.$kilobit(Math.round(item.visited_vip_buyed_total)),
-                                visited_vip_sales_total: this.$kilobit(Math.round(item.visited_vip_sales_total)),
-                                visited_vip_consignee_sales_total: this.$kilobit(Math.round(item.visited_vip_consignee_sales_total)),
+                                visited_vip_buyed_total: this.$kilobit(
+                                    Math.round(item.visited_vip_buyed_total)
+                                ),
+                                visited_vip_sales_total: this.$kilobit(
+                                    Math.round(item.visited_vip_sales_total)
+                                ),
+                                visited_vip_consignee_sales_total: this.$kilobit(
+                                    Math.round(item.visited_vip_consignee_sales_total)
+                                ),
                                 shop_avg_sales: this.$kilobit(Math.round(item.shop_avg_sales))
                             };
                             return [...sumArr, itemData];
                         }, []);
                         const len = this.tableDataClone.length + 1;
-                        const letter = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J'];
-                        for (let i = 0; i < 10; i++) {
+                        const letter = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K'];
+                        for (let i = 0; i < letter.length; i++) {
                             this.sheet[0].cellStyle.push({
                                 cell: letter[i] + len,
                                 font: {
@@ -329,7 +373,10 @@
             pageChange(e) {
                 this.current = e;
                 const startPage = (this.current - 1) * this.pageSize;
-                this.tableData = this.tableDataClone.slice(startPage, startPage + this.pageSize);
+                this.tableData = this.tableDataClone.slice(
+                    startPage,
+                    startPage + this.pageSize
+                );
             },
             beforeStart() {
                 this.excelDisabled = true;
